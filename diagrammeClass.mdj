@@ -1307,7 +1307,7 @@
 											"top": 316,
 											"width": 237.37060546875,
 											"height": 13,
-											"text": "+genererGrille()",
+											"text": "+genererGrille(): List<Case>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1324,7 +1324,7 @@
 											"top": 331,
 											"width": 237.37060546875,
 											"height": 13,
-											"text": "+resolutionLabyrinthe()",
+											"text": "+resolutionLabyrinthe(): List<Case>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4422,7 +4422,18 @@
 							"_parent": {
 								"$ref": "AAAAAAGH25GEU3QPluc="
 							},
-							"name": "genererGrille"
+							"name": "genererGrille",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGH5cJOxqU6fEg=",
+									"_parent": {
+										"$ref": "AAAAAAGH25V3bnn0m4M="
+									},
+									"type": "List<Case>",
+									"direction": "return"
+								}
+							]
 						},
 						{
 							"_type": "UMLOperation",
@@ -4430,7 +4441,18 @@
 							"_parent": {
 								"$ref": "AAAAAAGH25GEU3QPluc="
 							},
-							"name": "resolutionLabyrinthe"
+							"name": "resolutionLabyrinthe",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGH5cKO2KXxpCA=",
+									"_parent": {
+										"$ref": "AAAAAAGH25e/u3rTd0Y="
+									},
+									"type": "List<Case>",
+									"direction": "return"
+								}
+							]
 						},
 						{
 							"_type": "UMLOperation",
