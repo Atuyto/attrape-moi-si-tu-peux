@@ -895,7 +895,7 @@
 											"top": 638,
 											"width": 174,
 											"height": 13,
-											"text": "+boolean enFuite",
+											"text": "-boolean enFuite",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4396,7 +4396,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGH24bInWegEog="
 							},
-							"name": "boolean enFuite"
+							"name": "boolean enFuite",
+							"visibility": "private"
 						}
 					],
 					"operations": [
