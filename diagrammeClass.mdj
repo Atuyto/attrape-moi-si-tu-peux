@@ -518,7 +518,7 @@
 											"top": 579,
 											"width": 249.65966796875,
 											"height": 13,
-											"text": "+getPosition(): int",
+											"text": "+getVision(): int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -554,13 +554,30 @@
 											"height": 13,
 											"text": "+reperer(String orientation): boolean",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGH5lgMhujPBg8=",
+											"_parent": {
+												"$ref": "AAAAAAGH24UzlFvxg6w="
+											},
+											"model": {
+												"$ref": "AAAAAAGH5lgMIejMQ74="
+											},
+											"font": "Arial;13;0",
+											"left": 341,
+											"top": 624,
+											"width": 249.65966796875,
+											"height": 13,
+											"text": "+getMovement(): int",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 336,
 									"top": 559,
 									"width": 259.65966796875,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -4603,7 +4620,8 @@
 								"$ref": "AAAAAAGH23WNI1EG7oU="
 							},
 							"name": "boolean vide",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4612,7 +4630,8 @@
 								"$ref": "AAAAAAGH23WNI1EG7oU="
 							},
 							"name": "int tourPassé",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -4856,7 +4875,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGH25AzD3L41js="
 									},
-									"name": "int nbCase"
+									"name": "int nbCase",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -4875,7 +4895,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGH24Uzk1vo3nI="
 							},
-							"name": "getPosition",
+							"name": "getVision",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -4936,6 +4956,25 @@
 								}
 							],
 							"isAbstract": true
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGH5lgMIejMQ74=",
+							"_parent": {
+								"$ref": "AAAAAAGH24Uzk1vo3nI="
+							},
+							"name": "getMovement",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGH5lgpo+pf02Y=",
+									"_parent": {
+										"$ref": "AAAAAAGH5lgMIejMQ74="
+									},
+									"type": "int",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -4969,7 +5008,8 @@
 								"$ref": "AAAAAAGH24anpWUF814="
 							},
 							"name": "boolean enChasse",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -5077,7 +5117,8 @@
 								"$ref": "AAAAAAGH24bInWegEog="
 							},
 							"name": "boolean enFuite",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5086,7 +5127,8 @@
 								"$ref": "AAAAAAGH24bInWegEog="
 							},
 							"name": "int nbHerbe",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5095,7 +5137,8 @@
 								"$ref": "AAAAAAGH24bInWegEog="
 							},
 							"name": "in nbMarguerite",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5104,7 +5147,8 @@
 								"$ref": "AAAAAAGH24bInWegEog="
 							},
 							"name": "int nbCactus",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -5309,7 +5353,8 @@
 								"$ref": "AAAAAAGH25GEU3QPluc="
 							},
 							"name": "int nbTour",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
