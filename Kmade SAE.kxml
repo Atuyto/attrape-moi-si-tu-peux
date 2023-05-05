@@ -107,7 +107,7 @@
                     <point-y>340</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K59" idkmad="K60">
+            <task classkmad="tache.Task" id-task-point="K59" id-task-subtasks-list="K99 K102 " idkmad="K60">
                 <task-name>Start Simulation</task-name>
                 <task-numero>1.5</task-numero>
                 <task-observation/>
@@ -115,7 +115,7 @@
                 <task-modality>COGN</task-modality>
                 <task-optional>false</task-optional>
                 <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
+                <task-decomposition>ENT</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
@@ -123,6 +123,40 @@
                     <point-x>628</point-x>
                     <point-y>340</point-y>
                 </point>
+                <task classkmad="tache.Task" id-task-point="K98" idkmad="K99">
+                    <task-name>Pause</task-name>
+                    <task-numero>1.5.1</task-numero>
+                    <task-observation/>
+                    <task-executant>INT</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K98">
+                        <point-x>517</point-x>
+                        <point-y>496</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K101" idkmad="K102">
+                    <task-name>Relancer</task-name>
+                    <task-numero>1.5.2</task-numero>
+                    <task-observation/>
+                    <task-executant>INT</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K101">
+                        <point-x>737</point-x>
+                        <point-y>496</point-y>
+                    </point>
+                </task>
             </task>
             <task classkmad="tache.Task" id-task-point="K65" idkmad="K66">
                 <task-name>Sauvegarder Labyrinthe</task-name>
@@ -142,7 +176,7 @@
                 </point>
             </task>
         </task>
-        <task classkmad="tache.Task" id-task-point="K44" id-task-subtasks-list="K69 K71 K74 K77 K80 " idkmad="K45">
+        <task classkmad="tache.Task" id-task-point="K44" id-task-subtasks-list="K69 K96 K71 K77 K80 " idkmad="K45">
             <task-name>Options</task-name>
             <task-numero>2</task-numero>
             <task-observation/>
@@ -155,7 +189,7 @@
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
             <point classkmad="tache.Point" idkmad="K44">
-                <point-x>1119</point-x>
+                <point-x>1339</point-x>
                 <point-y>174</point-y>
             </point>
             <task classkmad="tache.Task" id-task-point="K68" idkmad="K69">
@@ -175,8 +209,8 @@
                     <point-y>340</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K70" idkmad="K71">
-                <task-name>Charger Labyrinthe</task-name>
+            <task classkmad="tache.Task" id-task-point="K95" idkmad="K96">
+                <task-name>Dimensions Labyrinthe</task-name>
                 <task-numero>2.2</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -187,13 +221,13 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K70">
-                    <point-x>1162</point-x>
+                <point classkmad="tache.Point" idkmad="K95">
+                    <point-x>1145</point-x>
                     <point-y>340</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K73" idkmad="K74">
-                <task-name>Attribuer touches</task-name>
+            <task classkmad="tache.Task" id-task-point="K70" idkmad="K71">
+                <task-name>Charger Labyrinthe</task-name>
                 <task-numero>2.3</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -204,9 +238,9 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K73">
-                    <point-x>1324</point-x>
-                    <point-y>336</point-y>
+                <point classkmad="tache.Point" idkmad="K70">
+                    <point-x>1328</point-x>
+                    <point-y>340</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K76" idkmad="K77">
