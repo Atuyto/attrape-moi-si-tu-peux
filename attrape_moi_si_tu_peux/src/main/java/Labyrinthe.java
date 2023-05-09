@@ -40,6 +40,19 @@ public class Labyrinthe {
 
     }
 
+    public arrayList<Case> resolutionLabyrinthe () {
+        return new arrayList<Case>();
+    }
 
+    public void getSortie() {
 
+    }
+
+    public int getNbTour() {
+        return this.nb_tour;
+    }
+
+    public arrayList<Case> getlesCases() {
+        return this.lesCases;
+    }
 }
