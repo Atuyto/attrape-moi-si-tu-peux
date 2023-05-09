@@ -1,8 +1,8 @@
 public class Vegetal extends Element{
     private int bonusMalus;
 
-    public Vegetal(String imgPath, Case laCase, int bonusMalus) {
-        super(imgPath, laCase);
+    public Vegetal(int bonusMalus) {
+        super();
         this.bonusMalus = bonusMalus;
     }
 }
