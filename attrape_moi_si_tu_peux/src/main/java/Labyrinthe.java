@@ -5,6 +5,7 @@ public class Labyrinthe {
     private Case[][] lesCases;
     private Animal[] lesAnimaux;
 
+
     public Labyrinthe(){
         this.x = 10;
         this.y = 10;
