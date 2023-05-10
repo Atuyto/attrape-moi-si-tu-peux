@@ -11,7 +11,13 @@ public class Loup extends Animal{
     }
 
     public boolean manger() {
-
+        if this.lacase.animal != null {
+            return true;
+        }
+        else {
+            this.lacase.animal = this;
+            return false;
+        }
     }
 
     public boolean reperer(String orientation) {
