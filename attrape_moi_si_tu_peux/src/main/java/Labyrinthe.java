@@ -1,6 +1,6 @@
 public class Labyrinthe {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private int nb_tour;
     private Case[][] lesCases;
     private Animal[] lesAnimaux;
@@ -40,6 +40,16 @@ public class Labyrinthe {
 
     }
 
+    public void afficher()
+    {
+        for(int i = 0 ; i< this.x ; i++)
+        {
+            for(int j = 0 ; j<this.y ; j++)
+            {
+                System.out.print(lesCases[i][j].toString());
+                }
 
-
-}
+            System.out.println("");
+            }
+        }
+    }
