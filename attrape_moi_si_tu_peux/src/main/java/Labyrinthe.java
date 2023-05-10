@@ -40,16 +40,6 @@ public class Labyrinthe {
 
     }
 
-    public void afficher()
-    {
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
-                System.out.print(lesCases[i][j].toString() + "\t");
-                }
-            System.out.print("\n");
-            }
-        }
-    }
 
+
+}
