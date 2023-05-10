@@ -16,6 +16,7 @@ public class Labyrinthe {
         this.nb_tour = 0;
         this.lesCases =  new  Case[this.x][this.y];
         this.lesAnimaux =  new Animal[2];
+        this.genererGrille();
 
     }
     public Labyrinthe(int x, int y){
@@ -24,12 +25,13 @@ public class Labyrinthe {
         this.nb_tour = 0;
         this.lesCases =  new  Case[this.x][this.y];
         this.lesAnimaux =  new Animal[2];
-
+        this.genererGrille();
     }
+
 
     public void genererGrille()
     {
-        List<Integer> givenList = Arrays.asList(1, 2, 3, 4);
+        List<Integer> givenList = Arrays.asList(1, 2, 3, 4, 5,6);
         Random rand = new Random();
 
 
@@ -49,7 +51,7 @@ public class Labyrinthe {
                     }
                     else
                     {
-                        this.lesCases[i][j] = new Case(this,  lesCases[i][j].regeneration(), null);
+                        this.lesCases[i][j] = new Case(this);
                     }
 
                 }
@@ -67,7 +69,12 @@ public class Labyrinthe {
                 System.out.print(lesCases[i][j].toString() + "\t");
                 }
 
-            System.out.println("");
+            System.out.print("\n");
             }
         }
+
+    public int getNb_tour() {
+        return nb_tour;
     }
+
+}

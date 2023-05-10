@@ -3,8 +3,8 @@ public class Mouton extends Animal {
     private int nbHerbe;
     private int nbMargurite;
     private int nbCactus;
-    public Mouton(int mouvementPossible, Labyrinthe leLabyrinthe, Case Lacase) {
-        super(mouvementPossible, leLabyrinthe, Lacase);
+    public Mouton(Labyrinthe leLabyrinthe, Case laCase) {
+        super(2, leLabyrinthe, laCase);
         this.enFuite = false;
         this.nbHerbe = 0;
         this.nbCactus = 0;

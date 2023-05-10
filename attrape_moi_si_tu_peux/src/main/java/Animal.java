@@ -5,10 +5,20 @@ public class Animal {
     private Labyrinthe leLabyrinthe;
     private Case laCase;
 
-    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe, Case Lacase){
+
+    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe, Case laCase){
         this.mouvementPossible = mouvementPossible;
         this.vision = 5;
         this.leLabyrinthe = leLabyrinthe;
-        this.laCase = Lacase;
+        this.laCase = laCase;
     }
+
+    public int getMouvementPossible() {
+        return mouvementPossible;
+    }
+
+    public int getVision() {
+        return vision;
+    }
+
 }

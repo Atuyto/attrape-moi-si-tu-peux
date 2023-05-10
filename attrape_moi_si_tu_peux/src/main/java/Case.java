@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Case {
@@ -19,36 +18,47 @@ public class Case {
         this.contenu = contenu;
         this.animal = animal ;
     }
+    public Case(Labyrinthe leLabyrinthe){
+        this.estVide = false;
+        this.accessible = false;
+        this.tourPasse = 0;
+        this.leLabyrinthe = leLabyrinthe;
+        this.contenu = this.regeneration();
+
+    }
 
 
     public Element regeneration()
     {
-        List<Integer> givenList = Arrays.asList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
-        for(int i = 1 ; i< 101 ; i++)
-        {
-            if (i != 50) givenList.add(1);
-            else if (i!= 75) givenList.add((2));
-            else if (i!= 100) givenList.add(3);
-        }
-        Random rand = new Random();
-        int randomElement = givenList.get(rand.nextInt(givenList.size()));
+        if(leLabyrinthe.getNb_tour() == 0) {
+            ArrayList<Integer> givenList = new ArrayList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
+            for(int i = 1 ; i< 101 ; i++)
+            {
+                if (i < 50) givenList.add(1);
+                if (i < 75 && i > 50) givenList.add((2));
+                if (i< 100 && i > 75) givenList.add(3);
+            }
+            Random rand = new Random();
+            int randomElement = givenList.get(rand.nextInt(givenList.size()));
 
-        if(randomElement == 1)
-        {
-            this.setContenu(new Herbe());
-        }
-        else if (randomElement == 2)
-        {
-            this.setContenu(new Marguerite());
-        }
-        else this.setContenu(new Cactus());
+            if(randomElement == 1)
+            {
+                this.setContenu(new Herbe());
+            }
+            else if (randomElement == 2)
+            {
+                this.setContenu(new Marguerite());
+            }
+            else this.setContenu(new Cactus());
 
+
+        }
         return this.getContenu();
     }
 
     public String toString()
     {
-        return this.contenu == null ?   this.getClass().getName() + "@" + Integer.toHexString(hashCode()) : this.contenu.toString();
+        return this.contenu == null ?   this.getClass().getName()  : this.contenu.getClass().getName();
     }
 
     public void setAccessible(boolean accessible) {
