@@ -44,8 +44,8 @@ public class Labyrinthe {
         return new arrayList<Case>();
     }
 
-    public void getSortie() {
-
+    public void setSortie(Case c) {
+        c.setContenu(new Herbe());
     }
 
     public int getNbTour() {
