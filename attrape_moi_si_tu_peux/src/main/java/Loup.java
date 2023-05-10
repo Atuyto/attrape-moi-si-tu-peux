@@ -5,4 +5,20 @@ public class Loup extends Animal{
         super(mouvementPossible, leLabyrinthe, Lacase);
         this.enChasse = false;
     }
+
+    public void chasser() {
+        this.enChasse = true;
+    }
+
+    public boolean manger() {
+
+    }
+
+    public boolean reperer(String orientation) {
+
+    }
+
+    public void seDeplacer(int nbCase, String orientation) {
+
+    }
 }

@@ -29,7 +29,7 @@ public class Labyrinthe {
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                if(i == 0 || j == 0 || i == this.x || j == this.y) {
+                if(i == 0 || j == 0 || i == this.x-1 || j == this.y-1) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
