@@ -1,30 +1,9 @@
 public class Loup extends Animal{
     private boolean enChasse;
 
-    public Loup(int mouvementPossible, Labyrinthe leLabyrinthe, Case Lacase) {
-        super(mouvementPossible, leLabyrinthe, Lacase);
+    public Loup(Labyrinthe leLabyrinthe, Case Lacase) {
+        super(3, leLabyrinthe, Lacase);
         this.enChasse = false;
     }
 
-    public void chasser() {
-        this.enChasse = true;
-    }
-
-    public boolean manger() {
-        if (this == ) {
-            return true;
-        }
-        else {
-            this.lacase.animal = this;
-            return false;
-        }
-    }
-
-    public boolean reperer(String orientation) {
-
-    }
-
-    public void seDeplacer(int nbCase, String orientation) {
-
-    }
 }

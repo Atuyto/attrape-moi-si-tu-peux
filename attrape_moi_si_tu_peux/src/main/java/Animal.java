@@ -1,25 +1,24 @@
-import javafx.scene.shape.VertexFormat;
 
 public class Animal {
     private int mouvementPossible;
     private int vision;
     private Labyrinthe leLabyrinthe;
-    private Case Lacase;
+    private Case laCase;
 
-    private boolean affame;
 
-    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe, Case Lacase){
-        this.vision = 5;
+    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe, Case laCase){
         this.mouvementPossible = mouvementPossible;
+        this.vision = 5;
         this.leLabyrinthe = leLabyrinthe;
-        this.Lacase = Lacase;
-        this.affame = true;
+        this.laCase = laCase;
+    }
 
+    public int getMouvementPossible() {
+        return mouvementPossible;
     }
-    public boolean manger(){
-        if(this.affame){
-            return false;
-            this.affame = true;
-        }
+
+    public int getVision() {
+        return vision;
     }
+
 }

@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class Labyrinthe {
     private final int x;
     private final int y;
@@ -12,6 +16,7 @@ public class Labyrinthe {
         this.nb_tour = 0;
         this.lesCases =  new  Case[this.x][this.y];
         this.lesAnimaux =  new Animal[2];
+        this.genererGrille();
 
     }
     public Labyrinthe(int x, int y){
@@ -20,20 +25,35 @@ public class Labyrinthe {
         this.nb_tour = 0;
         this.lesCases =  new  Case[this.x][this.y];
         this.lesAnimaux =  new Animal[2];
-
+        this.genererGrille();
     }
+
 
     public void genererGrille()
     {
+        List<Integer> givenList = Arrays.asList(1, 2, 3, 4, 5,6);
+        Random rand = new Random();
+
+
+
         for(int i = 0 ; i< this.x ; i++)
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                if(i == 0 || j == 0 || i == this.x || j == this.y) {
+                int randomElement = givenList.get(rand.nextInt(givenList.size()));
+                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
-                    this.lesCases[i][j] = new Case(this, null, null);
+                    if( randomElement == 1)
+                    {
+                        this.lesCases[i][j] = new Case(this,  new Rocher() , null);
+                    }
+                    else
+                    {
+                        this.lesCases[i][j] = new Case(this);
+                    }
+
                 }
             }
         }
@@ -46,10 +66,15 @@ public class Labyrinthe {
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                System.out.print(lesCases[i][j].toString());
+                System.out.print(lesCases[i][j].toString() + "\t");
                 }
 
-            System.out.println("");
+            System.out.print("\n");
             }
         }
+
+    public int getNb_tour() {
+        return nb_tour;
     }
+
+}
