@@ -4,5 +4,6 @@ public class Application {
     {
         Labyrinthe l1 = new Labyrinthe(10,10);
         l1.genererGrille();
+        l1.afficher();
     }
 }

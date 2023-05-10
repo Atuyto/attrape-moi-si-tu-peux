@@ -16,6 +16,13 @@ public class Case {
         this.animal = animal ;
     }
 
+
+
+    public String toString()
+    {
+        return this.contenu == null ?   this.getClass().getName() + "@" + Integer.toHexString(hashCode()) : this.contenu.toString();
+    }
+
     public void setAccessible(boolean accessible) {
         this.accessible = accessible;
     }

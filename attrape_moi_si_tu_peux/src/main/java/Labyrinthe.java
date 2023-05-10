@@ -29,7 +29,7 @@ public class Labyrinthe {
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                if(i == 0 || j == 0 || i == this.x-1 || j == this.y-1) {
+                if(i == 0 || j == 0 || i == this.x || j == this.y) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
@@ -40,19 +40,16 @@ public class Labyrinthe {
 
     }
 
-    public arrayList<Case> resolutionLabyrinthe () {
-        return new arrayList<Case>();
+    public void afficher()
+    {
+        for(int i = 0 ; i< this.x ; i++)
+        {
+            for(int j = 0 ; j<this.y ; j++)
+            {
+                System.out.print(lesCases[i][j].toString() + "\t");
+                }
+            System.out.print("\n");
+            }
+        }
     }
 
-    public void setSortie(Case c) {
-        c.setContenu(new Herbe());
-    }
-
-    public int getNbTour() {
-        return this.nb_tour;
-    }
-
-    public arrayList<Case> getlesCases() {
-        return this.lesCases;
-    }
-}
