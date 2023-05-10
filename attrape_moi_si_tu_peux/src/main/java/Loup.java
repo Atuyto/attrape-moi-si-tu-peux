@@ -11,7 +11,7 @@ public class Loup extends Animal{
     }
 
     public boolean manger() {
-        if this.lacase.animal != null {
+        if (this == ) {
             return true;
         }
         else {
