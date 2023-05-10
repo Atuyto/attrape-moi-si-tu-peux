@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class Labyrinthe {
     private final int x;
     private final int y;
@@ -25,15 +29,29 @@ public class Labyrinthe {
 
     public void genererGrille()
     {
+        List<Integer> givenList = Arrays.asList(1, 2, 3, 4);
+        Random rand = new Random();
+
+
+
         for(int i = 0 ; i< this.x ; i++)
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                if(i == 0 || j == 0 || i == this.x || j == this.y) {
+                int randomElement = givenList.get(rand.nextInt(givenList.size()));
+                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
-                    this.lesCases[i][j] = new Case(this, null, null);
+                    if( randomElement == 1)
+                    {
+                        this.lesCases[i][j] = new Case(this,  new Rocher() , null);
+                    }
+                    else
+                    {
+                        this.lesCases[i][j] = new Case(this,  lesCases[i][j].regeneration(), null);
+                    }
+
                 }
             }
         }
@@ -46,7 +64,7 @@ public class Labyrinthe {
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                System.out.print(lesCases[i][j].toString());
+                System.out.print(lesCases[i][j].toString() + "\t");
                 }
 
             System.out.println("");
