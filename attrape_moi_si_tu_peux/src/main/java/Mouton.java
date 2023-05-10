@@ -10,4 +10,9 @@ public class Mouton extends Animal {
         this.nbCactus = 0;
         this.nbMargurite = 0;
     }
+    public void manger(){
+        if(this.clone()){
+
+        }
+    }
 }
