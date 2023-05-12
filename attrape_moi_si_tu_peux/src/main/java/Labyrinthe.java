@@ -57,8 +57,10 @@ public class Labyrinthe {
                 }
             }
         }
-        this.lesCases[7][7].setAnimal(new Loup(this, this.lesCases[7][7]));
+    }
 
+    public void ajouterAnimal(Animal animal, int x, int y){
+        this.getLesCases()[x][y].setAnimal(new Loup(this));
     }
 
     public void afficher()
@@ -78,6 +80,8 @@ public class Labyrinthe {
         return nb_tour;
     }
 
+    public Case[][] getLesCases() {return this.lesCases;}
+
     public int[] getPosition(Animal animal)
     {
         int[] p = new int[2];
@@ -89,6 +93,7 @@ public class Labyrinthe {
                 if (this.lesCases[i][j].getAnimal() == animal )
                 {
                     p[0] = i ; p[1] = j;
+                    break;
                 }
 
             }

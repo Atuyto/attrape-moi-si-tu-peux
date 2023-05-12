@@ -6,11 +6,11 @@ public class Animal {
     private Case laCase;
 
 
-    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe, Case laCase){
+    public Animal(int mouvementPossible, Labyrinthe leLabyrinthe){
         this.mouvementPossible = mouvementPossible;
         this.vision = 5;
         this.leLabyrinthe = leLabyrinthe;
-        this.laCase = laCase;
+
     }
 
 
