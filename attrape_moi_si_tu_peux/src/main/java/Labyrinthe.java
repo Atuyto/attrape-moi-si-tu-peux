@@ -60,7 +60,7 @@ public class Labyrinthe {
     }
 
     public void ajouterAnimal(Animal animal, int x, int y){
-        this.getLesCases()[x][y].setAnimal(new Loup(this));
+        this.getLesCases()[x][y].setAnimal(animal);
     }
 
     public void afficher()
@@ -90,7 +90,7 @@ public class Labyrinthe {
         {
             for(int j = 0 ; j<this.y ; j++)
             {
-                if (this.lesCases[i][j].getAnimal() == animal )
+                if (this.lesCases[i][j].getAnimal() == animal)
                 {
                     p[0] = i ; p[1] = j;
                     break;
