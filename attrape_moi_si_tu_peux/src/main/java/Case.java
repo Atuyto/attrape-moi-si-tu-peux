@@ -57,8 +57,8 @@ public class Case {
     public void setAccessible(boolean accessible) {
         this.accessible = accessible;
     }
-    public void setEstVide(boolean estVide) {
-        this.estVide = estVide;
+    public void setEstVide() {
+        this.estVide = this.estVide == false ? true : false;
     }
 
     public void setContenu(Element contenu) {
