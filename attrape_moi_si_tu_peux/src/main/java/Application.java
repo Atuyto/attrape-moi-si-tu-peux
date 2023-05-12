@@ -16,5 +16,6 @@ public class Application {
         l.seDeplacer(2,"N");
         System.out.println(l1.getPosition(l)[1]);
         l1.afficher();
+
     }
 }
