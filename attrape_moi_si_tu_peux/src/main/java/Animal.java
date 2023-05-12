@@ -13,6 +13,9 @@ public class Animal {
         this.laCase = laCase;
     }
 
+
+
+
     public int getMouvementPossible() {
         return mouvementPossible;
     }
@@ -21,4 +24,5 @@ public class Animal {
         return vision;
     }
 
+    public Case getLaCase(){ return this.laCase;}
 }

@@ -6,4 +6,6 @@ public class Loup extends Animal{
         this.enChasse = false;
     }
 
+
+
 }
