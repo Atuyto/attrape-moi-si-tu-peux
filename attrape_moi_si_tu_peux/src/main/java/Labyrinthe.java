@@ -11,10 +11,10 @@ public class Labyrinthe {
 
 
     public Labyrinthe(){
-        this.x = 10;
-        this.y = 10;
-        this.nb_tour = 0;
-        this.lesCases =  new  Case[this.x][this.y];
+        this.x          = 10;
+        this.y          = 10;
+        this.nb_tour    = 0;
+        this.lesCases   =  new  Case[this.x][this.y];
         this.lesAnimaux =  new Animal[2];
         this.genererGrille();
 
@@ -34,26 +34,19 @@ public class Labyrinthe {
         List<Integer> givenList = Arrays.asList(1, 2, 3, 4, 5,6);
         Random rand = new Random();
 
-
-
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
                 int randomElement = givenList.get(rand.nextInt(givenList.size()));
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
-                    if( randomElement == 1)
-                    {
+                    if( randomElement == 1) {
                         this.lesCases[i][j] = new Case(this,  new Rocher() , null);
                     }
-                    else
-                    {
+                    else {
                         this.lesCases[i][j] = new Case(this);
                     }
-
                 }
             }
         }
@@ -61,17 +54,13 @@ public class Labyrinthe {
 
     public void ajouterAnimal(Animal animal, int x, int y){
         this.getLesCases()[x][y].setAnimal(animal);
+        animal.setLaCase(this.getLesCases()[x][y]);
     }
 
-    public void afficher()
-    {
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
-                System.out.print(lesCases[i][j].toString() + "\t");
-                }
-
+    public void afficher() {
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
+                System.out.print(lesCases[i][j].toString() + "\t");}
             System.out.print("\n");
             }
         }
@@ -86,18 +75,12 @@ public class Labyrinthe {
     {
         int[] p = new int[2];
 
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
-                if (this.lesCases[i][j].getAnimal() == animal)
-                {
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
+                if (this.lesCases[i][j].getAnimal() == animal) {
                     p[0] = i ; p[1] = j;
-                    break;
-                }
-
+                    break;}
             }
-
         }
         return p;
     }

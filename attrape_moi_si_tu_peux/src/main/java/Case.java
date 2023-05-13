@@ -11,19 +11,19 @@ public class Case {
 
 
     public Case(Labyrinthe leLabyrinthe, Element contenu , Animal animal){
-        this.estVide = false;
-        this.accessible = false;
-        this.tourPasse = 0;
-        this.leLabyrinthe = leLabyrinthe;
-        this.contenu = contenu;
-        this.animal = animal ;
+        this.estVide        = false;
+        this.accessible     = false;
+        this.tourPasse      = 0;
+        this.leLabyrinthe   = leLabyrinthe;
+        this.contenu        = contenu;
+        this.animal         = animal ;
     }
     public Case(Labyrinthe leLabyrinthe){
-        this.estVide = false;
-        this.accessible = false;
-        this.tourPasse = 0;
-        this.leLabyrinthe = leLabyrinthe;
-        this.contenu = this.regeneration();
+        this.estVide        = false;
+        this.accessible     = false;
+        this.tourPasse      = 0;
+        this.leLabyrinthe   = leLabyrinthe;
+        this.contenu        = this.regeneration();
 
     }
 
@@ -38,9 +38,9 @@ public class Case {
             if (i< 100 && i > 75) givenList.add(3);
         }
         if(leLabyrinthe.getNb_tour() == 0) {
-            Random rand = new Random();
-            int randomElement = givenList.get(rand.nextInt(givenList.size()));
-            this.contenu = randomElement == 1 ? new Herbe() : randomElement ==2 ? new Marguerite() : new Cactus();
+            Random rand         = new Random();
+            int randomElement   = givenList.get(rand.nextInt(givenList.size()));
+            this.contenu        = randomElement == 1 ? new Herbe() : randomElement ==2 ? new Marguerite() : new Cactus();
 
 
 
@@ -58,7 +58,7 @@ public class Case {
         this.accessible = accessible;
     }
     public void setEstVide() {
-        this.estVide = this.estVide == false ? true : false;
+        this.estVide = !this.estVide;
     }
 
     public void setContenu(Element contenu) {
@@ -69,7 +69,7 @@ public class Case {
     }
 
     public boolean isAccessible() {
-        return this.contenu instanceof Rocher ? this.accessible = false : true;
+        return !(this.contenu instanceof Rocher) || (this.accessible = false);
     }
 
     public boolean isEstVide() {

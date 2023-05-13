@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public class Animal {
     private int mouvementPossible;
@@ -7,11 +8,13 @@ public class Animal {
 
 
     public Animal(int mouvementPossible, Labyrinthe leLabyrinthe){
-        this.mouvementPossible = mouvementPossible;
-        this.vision = 5;
-        this.leLabyrinthe = leLabyrinthe;
+        this.mouvementPossible  = mouvementPossible;
+        this.vision             = 5;
+        this.leLabyrinthe       = leLabyrinthe;
+
 
     }
+
 
     public void setMouvementPossible(int mouvementPossible) {
         this.mouvementPossible = mouvementPossible;
@@ -23,25 +26,25 @@ public class Animal {
 
     public void seDeplacer(int nbCase, String orientation)
     {
-        int[] position = this.leLabyrinthe.getPosition(this);
-        switch (orientation){
-            case "N" :
-                this.leLabyrinthe.getLesCases()[position[0]+nbCase][position[1]].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[position[0]+nbCase][position[1]]);
-            case "S" :
-                this.leLabyrinthe.getLesCases()[position[0]-nbCase][position[1]].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[position[0]-nbCase][position[1]]);
-            case "E" :
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]+nbCase].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[position[0]][position[1]+nbCase]);
+        int x  = this.leLabyrinthe.getPosition(this)[0];
+        int y  = this.leLabyrinthe.getPosition(this)[1];
+        nbCase = Objects.equals(orientation, "N") || Objects.equals(orientation, "O") ? nbCase*(-1) : nbCase;
 
-            case  "O" :
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]-nbCase].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[position[0]][position[1]].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[position[0]][position[1]-nbCase]);
+
+        if(orientation.equals("N") || orientation.equals("S")){
+            System.out.println(x + nbCase + ", " + y);
+            if (this.leLabyrinthe.getLesCases()[x + nbCase][y].isAccessible()){
+                this.leLabyrinthe.getLesCases()[x + nbCase][y].setAnimal(this);
+                this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
+                this.setLaCase(this.leLabyrinthe.getLesCases()[x+nbCase][y]);
+            }
+        }
+        if(orientation.equals("E") || orientation.equals("O")) {
+            if (this.leLabyrinthe.getLesCases()[x][y + nbCase].isAccessible()) {
+                this.leLabyrinthe.getLesCases()[x][y + nbCase].setAnimal(this);
+                this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
+                this.setLaCase(this.leLabyrinthe.getLesCases()[x][y + nbCase]);
+            }
         }
     }
 

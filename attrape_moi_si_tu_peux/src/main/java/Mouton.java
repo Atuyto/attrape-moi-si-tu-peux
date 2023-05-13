@@ -6,10 +6,10 @@ public class Mouton extends Animal {
 
     public Mouton(Labyrinthe leLabyrinthe) {
         super(2, leLabyrinthe);
-        this.enFuite = false;
-        this.nbHerbe = 0;
-        this.nbCactus = 0;
-        this.nbMargurite = 0;
+        this.enFuite        = false;
+        this.nbHerbe        = 0;
+        this.nbCactus       = 0;
+        this.nbMargurite    = 0;
     }
 
 
@@ -29,21 +29,6 @@ public class Mouton extends Animal {
         return nbCactus;
     }
 
-    public void setEnFuite(boolean enFuite) {
-        this.enFuite = enFuite;
-    }
-
-    public void setNbHerbe(int nbHerbe) {
-        this.nbHerbe = nbHerbe;
-    }
-
-    public void setNbMargurite(int nbMargurite) {
-        this.nbMargurite = nbMargurite;
-    }
-
-    public void setNbCactus(int nbCactus) {
-        this.nbCactus = nbCactus;
-    }
     public void manger(){
         if(this.getLaCase().getContenu() instanceof Herbe) {
             this.nbHerbe += 1;
@@ -58,10 +43,8 @@ public class Mouton extends Animal {
             this.setMouvementPossible(1);}
         else{
             this.setMouvementPossible(2);
-
+            }
         }
-
-    }
     }
 
 
