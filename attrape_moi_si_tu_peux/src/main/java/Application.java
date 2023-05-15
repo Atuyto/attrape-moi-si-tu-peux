@@ -7,8 +7,8 @@ public class Application {
         Loup l          = new Loup(l1);
         Mouton m        = new Mouton(l1);
 
-        l1.ajouterAnimal(l, 7, 7);
-        l1.ajouterAnimal(m, 5, 7);
+        l1.ajouterAnimal(l, 2, 7);
+        l1.ajouterAnimal(m, 7, 7);
         l1.afficher();
         System.out.println(l.reperer());
 
