@@ -16,13 +16,7 @@ public class Animal {
     }
 
 
-    public void setMouvementPossible(int mouvementPossible) {
-        this.mouvementPossible = mouvementPossible;
-    }
 
-    public void setLaCase(Case laCase) {
-        this.laCase = laCase;
-    }
 
     public void seDeplacer(int nbCase, String orientation)
     {
@@ -48,10 +42,19 @@ public class Animal {
         }
     }
 
+    public void setMouvementPossible(int mouvementPossible) {
+        this.mouvementPossible = mouvementPossible;
+    }
 
-
+    public void setLaCase(Case laCase) {
+        this.laCase = laCase;
+    }
     public int getMouvementPossible() {
         return mouvementPossible;
+    }
+
+    public Labyrinthe getLeLabyrinthe() {
+        return leLabyrinthe;
     }
 
     public int getVision() {

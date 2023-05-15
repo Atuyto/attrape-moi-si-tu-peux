@@ -8,9 +8,9 @@ public class Application {
         Mouton m        = new Mouton(l1);
 
         l1.ajouterAnimal(l, 2, 7);
-        l1.ajouterAnimal(m, 7, 7);
+        l1.ajouterAnimal(m, 2, 7);
         l1.afficher();
-        System.out.println(l.reperer());
+
 
         System.out.print("\n");
         l.seDeplacer(1,"E");
