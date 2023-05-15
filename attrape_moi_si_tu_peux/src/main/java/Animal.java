@@ -64,7 +64,4 @@ public class Animal {
     public Case getLaCase() {
         return this.laCase;}
 
-    public Labyrinthe getLeLabyrinthe() {
-        return leLabyrinthe;
-    }
 }
