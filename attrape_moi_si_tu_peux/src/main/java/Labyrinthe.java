@@ -85,4 +85,12 @@ public class Labyrinthe {
         return p;
     }
 
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
 }
