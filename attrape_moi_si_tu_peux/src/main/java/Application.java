@@ -11,11 +11,39 @@ public class Application {
         l1.ajouterAnimal(m, 2, 7);
         l1.afficher();
 
+        m.manger();
+        l1.setNb_tour(0);
+        System.out.println(l1.getNb_tour());
 
-        System.out.print("\n");
-        l.seDeplacer(1,"E");
+        System.out.print("\n"  );
+
+        l1.setNb_tour(1);
+        m.seDeplacer(1,"O");
+
+        m.manger();
+
+        System.out.print("\n"  );
+        l1.afficher();
+        System.out.println(l1.getNb_tour());
+        l1.getLesCases()[2][7].regeneration();
+
+
+        m.seDeplacer(1,"N");
+        m.manger();
+        l1.setNb_tour(2);
+
+        System.out.print("\n"  );
 
         l1.afficher();
+        l1.getLesCases()[2][7].regeneration();
+        System.out.println(l1.getNb_tour());
+
+        System.out.print("\n"  );
+        l1.setNb_tour(3);
+
+        l1.afficher();
+        l1.getLesCases()[2][7].regeneration();
+        System.out.println(l1.getNb_tour());
 
     }
 }

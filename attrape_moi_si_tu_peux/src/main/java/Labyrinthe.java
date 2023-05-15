@@ -68,6 +68,9 @@ public class Labyrinthe {
     public int getNb_tour() {
         return nb_tour;
     }
+    public void setNb_tour( int i ){
+        this.nb_tour = i;
+    }
 
     public Case[][] getLesCases() {return this.lesCases;}
 
