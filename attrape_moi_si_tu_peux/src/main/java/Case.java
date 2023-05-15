@@ -30,28 +30,29 @@ public class Case {
 
     public Element regeneration()
     {
-        if(leLabyrinthe.getNb_tour() == 0) {
-            ArrayList<Integer> givenList = new ArrayList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
-            for(int i = 1 ; i< 101 ; i++)
-            {
-                if (i < 50) givenList.add(1);
-                if (i < 75 && i > 50) givenList.add((2));
-                if (i< 100 && i > 75) givenList.add(3);
-            }
-            Random rand = new Random();
-            int randomElement = givenList.get(rand.nextInt(givenList.size()));
+        if (this.estVide = true ){
+            if(leLabyrinthe.getNb_tour() == this.tourPasse + 2) {
+                ArrayList<Integer> givenList = new ArrayList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
+                for(int i = 1 ; i< 101 ; i++)
+                {
+                    if (i < 50) givenList.add(1);
+                    if (i < 75 && i > 50) givenList.add((2));
+                    if (i< 100 && i > 75) givenList.add(3);
+                }
+                Random rand = new Random();
+                int randomElement = givenList.get(rand.nextInt(givenList.size()));
 
-            if(randomElement == 1)
-            {
+                if(randomElement == 1)
+                {
                 this.setContenu(new Herbe());
-            }
-            else if (randomElement == 2)
-            {
+                }
+                else if (randomElement == 2)
+                {
                 this.setContenu(new Marguerite());
+                }
+                else this.setContenu(new Cactus());
             }
-            else this.setContenu(new Cactus());
-
-
+        
         }
         return this.getContenu();
     }
