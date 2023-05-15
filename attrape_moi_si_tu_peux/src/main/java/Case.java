@@ -92,4 +92,11 @@ public class Case {
     public void setTourPasse(int tourPasse) {
         this.tourPasse = tourPasse;
     }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+    public Animal setAnimal(Animal animal){
+        return this.animal = animal;
+    }
 }
