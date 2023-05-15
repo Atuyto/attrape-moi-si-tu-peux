@@ -33,32 +33,28 @@ public class Mouton extends Animal {
         if(this.getLaCase().getContenu() instanceof Herbe) {
             this.nbHerbe += 1;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
+            this.getLaCase().setEstVide(true);
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());
             this.setMouvementPossible(2);}
         else if
             (this.getLaCase().getContenu() instanceof Marguerite) {
             this.nbMargurite += 1 ;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
+            this.getLaCase().setEstVide(true);
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());
             this.setMouvementPossible(4);}
         else if
             (this.getLaCase().getContenu() instanceof Cactus) {
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
+            this.getLaCase().setEstVide(true);
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());
             this.setMouvementPossible(1);}
         else{
             this.setMouvementPossible(2);
             }
         }
-    public boolean reperer(String orientation) {
-        if (this.getVision() > this.getMouvementPossible() && this.getLaCase().getContenu() instanceof Rocher) {
+}
 
-        }
-    }
-    }
 
 

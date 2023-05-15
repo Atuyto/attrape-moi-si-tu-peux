@@ -10,7 +10,7 @@ public class Application {
         l1.ajouterAnimal(l, 7, 7);
         l1.ajouterAnimal(m, 5, 7);
         l1.afficher();
-        system.out.println(l.reperer());
+        System.out.println(l.reperer());
 
         System.out.print("\n");
         l.seDeplacer(1,"E");
