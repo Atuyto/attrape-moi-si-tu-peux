@@ -58,5 +58,10 @@ public class Animal {
         return vision;
     }
 
-    public Case getLaCase(){ return this.laCase;}
+    public Case getLaCase() {
+        return this.laCase;}
+
+    public Labyrinthe getLeLabyrinthe() {
+        return leLabyrinthe;
+    }
 }

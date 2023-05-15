@@ -8,7 +8,13 @@ public class Application {
         Mouton m        = new Mouton(l1);
 
         l1.ajouterAnimal(l, 7, 7);
+        l1.ajouterAnimal(m,1,1);
         l1.afficher();
+        m.seDeplacer(2,"S");
+        m.manger();
+        m.seDeplacer(2,"E");
+        System.out.println(m.getNbMargurite()+" "+ m.getNbCactus()+" "+m.getNbHerbe());
+
 
 
         System.out.print("\n");

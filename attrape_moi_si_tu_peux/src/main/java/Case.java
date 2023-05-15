@@ -86,5 +86,7 @@ public class Case {
         return contenu;
     }
 
-
+    public void setTourPasse(int tourPasse) {
+        this.tourPasse = tourPasse;
+    }
 }
