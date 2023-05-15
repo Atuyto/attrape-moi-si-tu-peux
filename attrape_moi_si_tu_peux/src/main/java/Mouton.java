@@ -32,14 +32,17 @@ public class Mouton extends Animal {
     public void manger(){
         if(this.getLaCase().getContenu() instanceof Herbe) {
             this.nbHerbe += 1;
+            this.getLaCase().setContenu(null);
             this.setMouvementPossible(2);}
         else if
             (this.getLaCase().getContenu() instanceof Marguerite) {
             this.nbMargurite += 1 ;
+            this.getLaCase().setContenu(null);
             this.setMouvementPossible(4);}
         else if
             (this.getLaCase().getContenu() instanceof Cactus) {
             this.nbCactus += 1;
+            this.getLaCase().setContenu(null);
             this.setMouvementPossible(1);}
         else{
             this.setMouvementPossible(2);
