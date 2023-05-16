@@ -30,9 +30,7 @@ public class Animal {
         int y  = this.leLabyrinthe.getPosition(this)[1];
         nbCase = Objects.equals(orientation, "N") || Objects.equals(orientation, "O") ? nbCase*(-1) : nbCase;
 
-
         if(orientation.equals("N") || orientation.equals("S")){
-            System.out.println(x + nbCase + ", " + y);
             if (this.leLabyrinthe.getLesCases()[x + nbCase][y].isAccessible()){
                 this.leLabyrinthe.getLesCases()[x + nbCase][y].setAnimal(this);
                 this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
@@ -48,9 +46,6 @@ public class Animal {
         }
     }
 
-    public void setMouvementPossible(int mouvementPossible) {
-        this.mouvementPossible = mouvementPossible;
-    }
 
 
     public int getMouvementPossible() {
