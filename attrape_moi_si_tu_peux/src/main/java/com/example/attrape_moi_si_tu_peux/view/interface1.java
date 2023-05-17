@@ -11,8 +11,8 @@ public class interface1 extends Application {
     @Override
     public void start(Stage stage) {
 
-        Rectangle carre = new Rectangle(50,50, 50,50);
-
+        Rectangle carre = new Rectangle(70,70);
+        carre.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 3;");
         Group gp = new Group(carre);
         Scene sc = new Scene(gp, 500,500);
 
