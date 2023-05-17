@@ -1,3 +1,9 @@
+package com.example.attrape_moi_si_tu_peux.view;
+
+import com.example.attrape_moi_si_tu_peux.Animal;
+import com.example.attrape_moi_si_tu_peux.Case;
+import com.example.attrape_moi_si_tu_peux.Rocher;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

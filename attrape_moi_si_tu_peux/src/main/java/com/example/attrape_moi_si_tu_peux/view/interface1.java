@@ -1,4 +1,4 @@
-package view;
+package com.example.attrape_moi_si_tu_peux.view;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class interface1 extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         Rectangle carre = new Rectangle(50,50, 50,50);
 
@@ -22,7 +22,7 @@ public class interface1 extends Application {
         stage.show();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Application.launch(args);
     }
 }

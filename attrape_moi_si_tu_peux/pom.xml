@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.EKLA</groupId>
-  <artifactId>attrape_moi_si_tu_peux</artifactId>
+  <groupId>com.example</groupId>
+  <artifactId>tp2</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>attrape_moi_si_tu_peux</name>
+  <name>tp2</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,7 +24,7 @@
       <artifactId>javafx-fxml</artifactId>
       <version>19.0.2</version>
     </dependency>
-                                    
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -39,8 +39,8 @@
     </dependency>              </dependencies>
 
   <build>
-        <plugins>
-            <plugin>
+    <plugins>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
@@ -48,7 +48,7 @@
           <source>19</source>
           <target>19</target>
         </configuration>
-            </plugin>
+      </plugin>
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.ekla.attrape_moi_si_tu_peux/com.ekla.attrape_moi_si_tu_peux.HelloApplication</mainClass>
+              <mainClass>com.example.attrape_moi_si_tu_peux/com.example.attrape_moi_si_tu_peux.View.HelloApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

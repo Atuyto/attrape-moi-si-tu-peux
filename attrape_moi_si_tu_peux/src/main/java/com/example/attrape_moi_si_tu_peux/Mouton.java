@@ -1,3 +1,7 @@
+package com.example.attrape_moi_si_tu_peux;
+
+import com.example.attrape_moi_si_tu_peux.view.Labyrinthe;
+
 import java.util.ArrayList;
 
 public class Mouton extends Animal {
@@ -29,7 +33,7 @@ public class Mouton extends Animal {
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour()); // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(4);
         } else if
-        (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un Cactus
+        (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un com.example.attrape_moi_si_tu_peux.Cactus
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();

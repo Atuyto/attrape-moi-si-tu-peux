@@ -1,6 +1,10 @@
+package com.example.attrape_moi_si_tu_peux;
+
+import com.example.attrape_moi_si_tu_peux.view.Labyrinthe;
+
 import java.util.ArrayList;
 
-public class Loup extends Animal{
+public class Loup extends Animal {
     private boolean enChasse;
 
     public Loup(Labyrinthe leLabyrinthe) {

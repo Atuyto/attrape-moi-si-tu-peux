@@ -1,4 +1,6 @@
-import java.util.Objects;
+package com.example.attrape_moi_si_tu_peux;
+
+import com.example.attrape_moi_si_tu_peux.view.Labyrinthe;
 
 public class Animal {
     private int mouvementPossible;
