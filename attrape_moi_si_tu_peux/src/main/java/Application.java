@@ -7,12 +7,12 @@ public class Application {
         Loup l          = new Loup(l1);
         Mouton m        = new Mouton(l1);
 
-        l1.ajouterAnimal(l, 7, 7);
+        l1.ajouterAnimal(l, 4, 4);
         l1.afficher();
 
 
         System.out.print("\n");
-        l.seDeplacer(1,"E");
+        l.seDeplacer(2,"O");
 
         l1.afficher();
 

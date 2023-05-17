@@ -24,24 +24,40 @@ public class Animal {
         this.laCase = laCase;
     }
 
-    public void seDeplacer(int nbCase, String orientation)
-    {
-        int x  = this.leLabyrinthe.getPosition(this)[0];
-        int y  = this.leLabyrinthe.getPosition(this)[1];
-        nbCase = Objects.equals(orientation, "N") || Objects.equals(orientation, "O") ? nbCase*(-1) : nbCase;
-
-        if(orientation.equals("N") || orientation.equals("S")){
-            if (this.leLabyrinthe.getLesCases()[x + nbCase][y].isAccessible()){
-                this.leLabyrinthe.getLesCases()[x + nbCase][y].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[x+nbCase][y]);
+    public void seDeplacer(int nbdep, String orientation) {
+        int x = this.leLabyrinthe.getPosition(this)[0];
+        int y = this.leLabyrinthe.getPosition(this)[1];
+        for (int i = 0; i < nbdep+1; i++) {
+            if (orientation.equals("N")) {
+                if (this.leLabyrinthe.getLesCases()[x - i][y].isAccessible()) {
+                    this.leLabyrinthe.getLesCases()[x - i][y].setAnimal(this);
+                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
+                    this.leLabyrinthe.getLesCases()[x - i + 1][y].setAnimal(null);
+                    this.setLaCase(this.leLabyrinthe.getLesCases()[x - i][y]);
+                }
             }
-        }
-        if(orientation.equals("E") || orientation.equals("O")) {
-            if (this.leLabyrinthe.getLesCases()[x][y + nbCase].isAccessible()) {
-                this.leLabyrinthe.getLesCases()[x][y + nbCase].setAnimal(this);
-                this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
-                this.setLaCase(this.leLabyrinthe.getLesCases()[x][y + nbCase]);
+            if (orientation.equals("S")) {
+                if (this.leLabyrinthe.getLesCases()[x + i][y].isAccessible()) {
+                    this.leLabyrinthe.getLesCases()[x + i][y].setAnimal(this);
+                    this.leLabyrinthe.getLesCases()[x + i -1][y].setAnimal(null);
+                    this.setLaCase(this.leLabyrinthe.getLesCases()[x + i][y]);
+                }
+            }
+            if (orientation.equals("E")) {
+                if (this.leLabyrinthe.getLesCases()[x][y + i].isAccessible()) {
+                    this.leLabyrinthe.getLesCases()[x][y + i].setAnimal(this);
+                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
+                    this.leLabyrinthe.getLesCases()[x][y + i - 1].setAnimal(null);
+                    this.setLaCase(this.leLabyrinthe.getLesCases()[x][y + i]);
+                }
+            }
+            if (orientation.equals("O")) {
+                if (this.leLabyrinthe.getLesCases()[x][y - i].isAccessible()) {
+                    this.leLabyrinthe.getLesCases()[x][y - i].setAnimal(this);
+                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
+                    this.leLabyrinthe.getLesCases()[x][y -i +1].setAnimal(null);
+                    this.setLaCase(this.leLabyrinthe.getLesCases()[x][y - i]);
+                }
             }
         }
     }
