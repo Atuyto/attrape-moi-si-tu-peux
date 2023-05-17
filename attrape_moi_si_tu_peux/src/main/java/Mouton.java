@@ -56,7 +56,7 @@ public class Mouton extends Animal {
         return nbCactus;
     }
 
-    public boolean reperer() {
+    public String reperer() {
         Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
         boolean a = false;
         boolean b = false;
@@ -99,9 +99,19 @@ public class Mouton extends Animal {
         for (Case k : c) {
             if (k.getAnimal() instanceof Loup) { /* Contrôle des cases éloignées maximum de 5 */
                 this.enFuite = true; /* Le mouton bien que stupide tient à sa vie et fuit ! */
+                int pos2[] = this.getLeLabyrinthe().getPosition(k.getAnimal());
+                if (position[0] > pos2[0]) {
+                    return "N";
+                } else if (position[0] < pos2[0]) {
+                    return "S";
+                } else if (position[1] > pos2[1]) {
+                    return "O";
+                } else if (position[1] < pos2[1]) {
+                    return "E";
+                }
             }
         }
-        return this.enFuite;
+        return "";
     }
 }
 
