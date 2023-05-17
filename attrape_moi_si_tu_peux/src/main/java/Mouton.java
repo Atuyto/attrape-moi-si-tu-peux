@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Mouton extends Animal {
     private boolean enFuite;
     private int nbHerbe;
@@ -38,7 +40,6 @@ public class Mouton extends Animal {
         }
     }
 
-
     public boolean isEnFuite() {
         return enFuite;
     }
@@ -55,6 +56,53 @@ public class Mouton extends Animal {
         return nbCactus;
     }
 
+    public boolean reperer() {
+        Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
+        boolean a = false;
+        boolean b = false;
+        ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
+        int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du mouton */
+        for (int i = 0; i < 6; i++) {
+            if (position[1] + i < (this.getLeLabyrinthe().getY()) - 1) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && !a) {
+                    c.add(C[position[0]][position[1] + i]);
+                } else {
+                    a = true;/* permettra de bloquer la vue après avoir vu le rocher*/
+                }
+            }
+            if (position[0] + i < (this.getLeLabyrinthe().getX()) - 1) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0] + i][position[1]].getContenu() instanceof Rocher) && !b) {
+                    c.add(C[position[0] + i][position[1]]);
+                } else {
+                    b = true;
+                }
+            }
+        }
+        a = false;
+        b = false; /*réinitialisation des compteurs*/
+        for (int j = 0; j < 6; j++) {
+            if (position[1] - j > 0) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0]][position[1] - j].getContenu() instanceof Rocher) && !a) {
+                    c.add(C[position[0]][position[1] - j]);
+                } else {
+                    a = true;/* permettra de bloquer la vue après avoir vu le rocher */
+                }
+            }
+            if (position[0] - j > 0) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0] - j][position[1]].getContenu() instanceof Rocher) && !b) {
+                    c.add(C[position[0] - j][position[1]]);
+                } else {
+                    b = true;
+                }
+            }
+        }
+        for (Case k : c) {
+            if (k.getAnimal() instanceof Loup) { /* Contrôle des cases éloignées maximum de 5 */
+                this.enFuite = true; /* Le mouton bien que stupide tient à sa vie et fuit ! */
+            }
+        }
+        return this.enFuite;
+    }
 }
 
 
