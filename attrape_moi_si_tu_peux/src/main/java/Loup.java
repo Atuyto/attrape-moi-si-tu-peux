@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Loup extends Animal{
     private boolean enChasse;
 
@@ -17,13 +19,13 @@ public class Loup extends Animal{
         int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du loup */
         for (int i = 0; i < 6; i++) {
             if (position[1] + i >= (this.getLeLabyrinthe().getY()) - 1) /*Condition de non accession aux tests sur tableau */ {}
-                else if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && (a == false)) {
+                else if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && !a) {
                     c.add(C[position[0]][position[1] + i]);
                 } else {
                     a = true;/* permettra de bloquer la vue après avoir vu le rocher*/
                 }
             if (position[0] + i >= (this.getLeLabyrinthe().getX()) - 1) /*Condition de non accession aux tests sur tableau */ {}
-                else if (!(C[position[0] + i][position[1]].getContenu() instanceof Rocher) && (b == false)) {
+                else if (!(C[position[0] + i][position[1]].getContenu() instanceof Rocher) && !b) {
                     c.add(C[position[0] + i][position[1]]);
                 } else {
                     b = true;
@@ -32,14 +34,15 @@ public class Loup extends Animal{
         a = false;
         b = false; /*réinitialisation des compteurs*/
         for (int j = 0; j < 6; j++) {
-            if (position[1] - j <= 0) /*Condition de non accession aux tests sur tableau */ {}
-                else if (!(C[position[0]][position[1] - j].getContenu() instanceof Rocher) && (a == false)) {
+            if (position[1] - j >0) /*Condition de non accession aux tests sur tableau */ {
+                if (!(C[position[0]][position[1] - j].getContenu() instanceof Rocher) && (!a)) {
                     c.add(C[position[0]][position[1] - j]);
                 } else {
                     a = true;/* permettra de bloquer la vue après avoir vu le rocher */
             }
+            }
             if (position[0] - j <= 0) /*Condition de non accession aux tests sur tableau */ {}
-                else if (!(C[position[0] - j][position[1]].getContenu() instanceof Rocher) && (b == false)) {
+                else if (!(C[position[0] - j][position[1]].getContenu() instanceof Rocher) && (!b)) {
                     c.add(C[position[0] - j][position[1]]);
                 } else {
                     b = true;
