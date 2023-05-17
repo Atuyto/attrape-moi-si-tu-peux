@@ -12,9 +12,7 @@ public class Application {
 
 
         System.out.print("\n");
-        l.seDeplacer(2,"O");
 
-        l1.afficher();
 
     }
 }

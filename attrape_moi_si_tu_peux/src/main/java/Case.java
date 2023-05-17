@@ -51,7 +51,12 @@ public class Case {
 
     public String toString()
     {
-        return this.animal != null ? this.animal.getClass().getName(): this.contenu == null ?   this.getClass().getName()  : this.contenu.getClass().getName();
+        if (this.animal != null){
+            return this.animal instanceof Loup ? "L" : "M";
+        }
+        else {
+            return this.contenu instanceof Herbe ? "h" : this.contenu instanceof Cactus ? "c" : this.contenu instanceof Marguerite ? "m" : "x";
+        }
     }
 
 
