@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux.view;
+package com.example.attrape_moi_si_tu_peux;
 
 import com.example.attrape_moi_si_tu_peux.Animal;
 import com.example.attrape_moi_si_tu_peux.Case;
@@ -37,26 +37,19 @@ public class Labyrinthe {
 
     public void genererGrille()
     {
-        List<Integer> givenList = Arrays.asList(1, 2, 3, 4, 5,6);
-        Random rand = new Random();
-        for(int i = 0 ; i< this.x ; i++)
-        {
+
+        for(int i = 0 ; i< this.x ; i++) {
             for(int j = 0 ; j<this.y ; j++) {
-                int randomElement = givenList.get(rand.nextInt(givenList.size()));
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
-                    if( randomElement == 1) {
-                        this.lesCases[i][j] = new Case(this,  new Rocher() , null);
-                    }
-                    else {
-                        this.lesCases[i][j] = new Case(this);
-                    }
+                    this.lesCases[i][j] = new Case(this);
                 }
             }
         }
     }
+
 
     public void ajouterAnimal(Animal animal, int x, int y){
         if (!(this.getLesCases()[x][x].getContenu() instanceof Rocher)) {

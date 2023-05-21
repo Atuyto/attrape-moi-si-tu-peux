@@ -1,7 +1,5 @@
 package com.example.attrape_moi_si_tu_peux;
 
-import com.example.attrape_moi_si_tu_peux.view.Labyrinthe;
-
 import java.util.ArrayList;
 
 public class Mouton extends Animal {

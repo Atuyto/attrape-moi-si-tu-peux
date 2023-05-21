@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="attrape_moi_si_tu_peux" />
+        <module name="tp2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="attrape_moi_si_tu_peux" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
