@@ -41,10 +41,10 @@ public class Labyrinthe {
         for(int i = 0 ; i< this.x ; i++) {
             for(int j = 0 ; j<this.y ; j++) {
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
-                    this.lesCases[i][j] = new Case(this, new Rocher(), null);
+                    this.lesCases[i][j] = new Case(this, new Rocher());
                 }
                 else {
-                    this.lesCases[i][j] = new Case(this);
+                    this.lesCases[i][j] = new Case(this, new Herbe());
                 }
             }
         }

@@ -12,12 +12,18 @@ public class Case {
     private Animal animal;
 
 
-    public Case(Labyrinthe leLabyrinthe, Element contenu , Animal animal){
+    public Case(Labyrinthe leLabyrinthe, Element contenu ){
         this.estVide        = false;
         this.accessible     = false;
         this.tourPasse      = 0;
         this.leLabyrinthe   = leLabyrinthe;
         this.contenu        = contenu;
+    }
+    public Case(Labyrinthe leLabyrinthe, Animal animal){
+        this.estVide        = false;
+        this.accessible     = false;
+        this.tourPasse      = 0;
+        this.leLabyrinthe   = leLabyrinthe;
         this.animal         = animal ;
     }
     public Case(Labyrinthe leLabyrinthe){
