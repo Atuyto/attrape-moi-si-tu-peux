@@ -17,20 +17,20 @@ public class Labyrinthe {
 
 
     public Labyrinthe(){
-        this.x = 10;
-        this.y = 10;
-        this.nb_tour = 0;
-        this.lesCases =  new  Case[this.x][this.y];
-        this.lesAnimaux =  new Animal[2];
+        this.x              = 10;
+        this.y              = 10;
+        this.nb_tour        = 0;
+        this.lesCases       =  new  Case[this.x][this.y];
+        this.lesAnimaux     =  new Animal[2];
         this.genererGrille();
 
     }
     public Labyrinthe(int x, int y){
-        this.x = x;
-        this.y = y;
-        this.nb_tour = 0;
-        this.lesCases =  new  Case[this.x][this.y];
-        this.lesAnimaux =  new Animal[2];
+        this.x              = x;
+        this.y              = y;
+        this.nb_tour        = 0;
+        this.lesCases       =  new  Case[this.x][this.y];
+        this.lesAnimaux     =  new Animal[2];
         this.genererGrille();
     }
 
@@ -57,19 +57,14 @@ public class Labyrinthe {
         }
     }
 
-    public void afficher()
-    {
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
+    public void afficher() {
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
                 System.out.print(lesCases[i][j].toString() + "\t");
                 }
-
             System.out.print("\n");
             }
         }
-
     public int getNb_tour() {
         return nb_tour;
     }
@@ -79,22 +74,15 @@ public class Labyrinthe {
 
     public Case[][] getLesCases() {return this.lesCases;}
 
-    public int[] getPosition(Animal animal)
-    {
+    public int[] getPosition(Animal animal) {
         int[] p = new int[2];
-
-        for(int i = 0 ; i< this.x ; i++)
-        {
-            for(int j = 0 ; j<this.y ; j++)
-            {
-                if (this.lesCases[i][j].getAnimal() == animal )
-                {
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
+                if (this.lesCases[i][j].getAnimal() == animal ) {
                     p[0] = i ; p[1] = j;
                     break;
                 }
-
             }
-
         }
         return p;
     }

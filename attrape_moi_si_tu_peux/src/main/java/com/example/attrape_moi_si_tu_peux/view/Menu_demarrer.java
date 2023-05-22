@@ -15,12 +15,11 @@ import javafx.stage.Stage;
 public class Menu_demarrer {
 
     public Menu_demarrer(Stage stage){
-            Group gp = new Group();
-            Scene scene = new Scene (gp, 1000, 800);
-
-            Font f = new Font("Arial", 28);
-            Button b0 = new Button( "Jouer");
-            Button b1 = new Button("Options");
+            Group gp        = new Group();
+            Scene scene     = new Scene (gp, 1000, 800);
+            Font f          = new Font("Arial", 28);
+            Button b0       = new Button( "Jouer");
+            Button b1       = new Button("Options");
 
             b0.setFont(f); b1.setFont(f);
             b0.setLayoutX(400); b1.setLayoutX(400);

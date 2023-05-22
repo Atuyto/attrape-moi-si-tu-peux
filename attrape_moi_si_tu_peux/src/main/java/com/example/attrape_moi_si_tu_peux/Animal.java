@@ -15,20 +15,11 @@ public class Animal {
 
     }
 
-
-    public void setMouvementPossible(int mouvementPossible) {
-        this.mouvementPossible = mouvementPossible;
-    }
-
-    public void setLaCase(Case laCase) {
-        this.laCase = laCase;
-    }
-
     public void seDeplacer(int nbdep, String orientation){
-        int x = this.leLabyrinthe.getPosition(this)[0];
-        int y = this.leLabyrinthe.getPosition(this)[1];
-        int i = 0;
-        boolean possible=true;
+        int x               = this.leLabyrinthe.getPosition(this)[0];
+        int y               = this.leLabyrinthe.getPosition(this)[1];
+        int i               = 0;
+        boolean possible    = true;
         while(i < nbdep && (possible)){
             if (x + i > 0 || this.getLeLabyrinthe().getX()-1 < x + i || y + i > 0 || this.getLeLabyrinthe().getY()-1 < y + i ){
                 i++;
@@ -98,4 +89,11 @@ public class Animal {
     }
 
     public Case getLaCase(){ return this.laCase;}
+    public void setMouvementPossible(int mouvementPossible) {
+        this.mouvementPossible = mouvementPossible;
+    }
+
+    public void setLaCase(Case laCase) {
+        this.laCase = laCase;
+    }
 }

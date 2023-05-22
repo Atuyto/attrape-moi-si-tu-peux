@@ -14,11 +14,12 @@ public class Loup extends Animal {
 
 
     public String reperer() {
-        Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
-        boolean a = false;
-        boolean b = false;
-        ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
-        int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du loup */
+        Case[][] C          = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
+        boolean a           = false;
+        boolean b           = false;
+        ArrayList<Case> c   = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
+        int position[]      = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du loup */
+
         for (int i = 0; i < 6; i++) {
             if (position[1] + i < (this.getLeLabyrinthe().getY()) - 1) /*Condition d'accession aux tests sur tableau */ {
                 if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && !a) {

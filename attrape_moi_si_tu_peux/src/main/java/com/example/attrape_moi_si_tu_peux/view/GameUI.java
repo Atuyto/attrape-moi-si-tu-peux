@@ -1,32 +1,84 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
-import com.example.attrape_moi_si_tu_peux.Rocher;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameUI {
 
     public GameUI(Stage stage){
-        Labyrinthe lab = new Labyrinthe(10, 10);
-        CaseFX caseFX[][] = new CaseFX[lab.getX()][lab.getY()];
-        int x = 150;
-        Group gp = new Group();
+        Labyrinthe lab          = new Labyrinthe(10, 10);
+        Group gpLab             = new Group();
+        Group gpLeft            = new Group();
+        Group gpRight           = new Group();
+        CaseFX[][] caseFX = new CaseFX[lab.getX()][lab.getY()];
+        VBox vboxtext           = new VBox();
+        BorderPane pane         = new BorderPane();
+        VBox vboxButton         = new VBox();
+
+        Text herbeManger        = new Text("Herbe mangé");
+        Text cactusManger       = new Text("Cactus mangé");
+        Text margueriteManger   = new Text("Marguerite Mangé");
+        Text titleTop           = new Text("Attrrape moi si tu peux !! ");
+
+        Button buttonEditer     = new Button("Editer labyrinthe");
+        Button buttonPause      = new Button("Mettre pause");
+        Button buttonSave       = new Button("Sauvegarder labyrinthe");
+        Button buttonRetour     = new Button("Retour");
+
+        int x = 0;
         for (int i = 0 ; i < lab.getX() ; i++){
-            int y = 50;
+            int y = 0;
             for (int j = 0 ; j < lab.getY() ; j++){
                 caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y );
-                gp.getChildren().add(caseFX[i][j].getGp());
-                y += 70;
+                gpLab.getChildren().add(caseFX[i][j].getGp());
+                y += 60;
             }
-            x+= 70;
+            x+= 60;
         }
 
-        lab.getLesCases()[3][3].setContenu(new Rocher());
-        caseFX[3][3].change(null);
-        Scene sc = new Scene(gp, 1000,800);
 
+        herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        margueriteManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
+        buttonEditer.setFont(Font.font("Verdana", 20 ));
+        buttonPause.setFont(Font.font("Verdana", 20 ));
+        buttonSave.setFont(Font.font("Verdana", 20 ));
+        buttonRetour.setFont(Font.font("Verdana", 20 ));
+
+
+        vboxButton.getChildren().addAll(buttonEditer,buttonPause,buttonSave,buttonRetour);
+        vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
+        vboxtext.setSpacing(25);
+        gpLeft.getChildren().add(vboxtext);
+        gpRight.getChildren().add(vboxButton);
+
+
+        pane.setLeft(gpLeft);
+        pane.setTop(titleTop);
+        pane.setCenter(gpLab);
+        pane.setRight(gpRight);
+        pane.setPadding(new Insets(20,50,20,20));
+        BorderPane.setAlignment(titleTop, Pos.CENTER);
+        BorderPane.setAlignment(gpLeft, Pos.CENTER);
+        BorderPane.setAlignment(gpLab, Pos.CENTER);
+        BorderPane.setAlignment(gpRight, Pos.CENTER);
+        BorderPane.setMargin(gpLeft, new Insets(25));
+
+
+        Scene sc = new Scene(pane, 1200,800);
         stage.setScene(sc);
     }
 }
