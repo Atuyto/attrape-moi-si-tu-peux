@@ -24,43 +24,64 @@ public class Animal {
         this.laCase = laCase;
     }
 
-    public void seDeplacer(int nbdep, String orientation) {
+    public void seDeplacer(int nbdep, String orientation){
         int x = this.leLabyrinthe.getPosition(this)[0];
         int y = this.leLabyrinthe.getPosition(this)[1];
-        for (int i = 0; i < nbdep+1; i++) {
-            if (orientation.equals("N")) {
-                if (this.leLabyrinthe.getLesCases()[x - i][y].isAccessible()) {
-                    this.leLabyrinthe.getLesCases()[x - i][y].setAnimal(this);
-                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
-                    this.leLabyrinthe.getLesCases()[x - i + 1][y].setAnimal(null);
-                    this.setLaCase(this.leLabyrinthe.getLesCases()[x - i][y]);
+        int i = 0;
+        boolean possible=true;
+        while(i < nbdep && (possible)){
+            if (x + i > 0 || this.getLeLabyrinthe().getX()-1 < x + i || y + i > 0 || this.getLeLabyrinthe().getY()-1 < y + i ){
+                i++;
+                if ( orientation.equals("N")) {
+                    if (this.getLeLabyrinthe().getLesCases()[x - i][y].isAccessible()) {
+                        this.getLeLabyrinthe().getLesCases()[x-i][y].setAnimal(this);
+                        this.getLeLabyrinthe().getLesCases()[x-i+1][y].setEstVide();
+                        this.getLeLabyrinthe().getLesCases()[x-i+1][y].setAnimal(null);
+                    }
+                    else{
+                        System.out.println("impossible de se déplacer ici");
+                        possible = false;
+                    }
                 }
-            }
-            if (orientation.equals("S")) {
-                if (this.leLabyrinthe.getLesCases()[x + i][y].isAccessible()) {
-                    this.leLabyrinthe.getLesCases()[x + i][y].setAnimal(this);
-                    this.leLabyrinthe.getLesCases()[x + i -1][y].setAnimal(null);
-                    this.setLaCase(this.leLabyrinthe.getLesCases()[x + i][y]);
+                if (orientation.equals(("S"))) {
+                    if (this.getLeLabyrinthe().getLesCases()[x + i][y].isAccessible()) {
+                        this.getLeLabyrinthe().getLesCases()[x+i][y].setAnimal(this);
+                        this.getLeLabyrinthe().getLesCases()[x+i-1][y].setEstVide();
+                        this.getLeLabyrinthe().getLesCases()[x+i-1][y].setAnimal(null);
+                    }
+                    else {
+                        System.out.println("impossible de se déplacer ici");
+                        possible = false;
+                    }
                 }
-            }
-            if (orientation.equals("E")) {
-                if (this.leLabyrinthe.getLesCases()[x][y + i].isAccessible()) {
-                    this.leLabyrinthe.getLesCases()[x][y + i].setAnimal(this);
-                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
-                    this.leLabyrinthe.getLesCases()[x][y + i - 1].setAnimal(null);
-                    this.setLaCase(this.leLabyrinthe.getLesCases()[x][y + i]);
+                if (orientation.equals("E")) {
+                    if (this.getLeLabyrinthe().getLesCases()[x][y + i].isAccessible()) {
+                        this.getLeLabyrinthe().getLesCases()[x][y+i].setAnimal(this);
+                        this.getLeLabyrinthe().getLesCases()[x][y+i-1].setEstVide();
+                        this.getLeLabyrinthe().getLesCases()[x][y+i-1].setAnimal(null);
+                    }
+                    else{
+                        System.out.println("impossible de se déplacer ici");
+                        possible = false;
+                    }
                 }
-            }
-            if (orientation.equals("O")) {
-                if (this.leLabyrinthe.getLesCases()[x][y - i].isAccessible()) {
-                    this.leLabyrinthe.getLesCases()[x][y - i].setAnimal(this);
-                    this.leLabyrinthe.getLesCases()[x][y].setAnimal(null);
-                    this.leLabyrinthe.getLesCases()[x][y -i +1].setAnimal(null);
-                    this.setLaCase(this.leLabyrinthe.getLesCases()[x][y - i]);
+                if (orientation.equals("O")){
+                    if (this.getLeLabyrinthe().getLesCases()[x][y-i].isAccessible()){
+                        this.getLeLabyrinthe().getLesCases()[x][y-i].setAnimal(this);
+                        this.getLeLabyrinthe().getLesCases()[x][y-i+1].setEstVide();
+                        this.getLeLabyrinthe().getLesCases()[x][y-i+1].setAnimal(null);
+                        }
+                    else{
+                        System.out.println("impossible de se déplacer ici");
+                        possible = false;
+                    }
+                    }
                 }
+
             }
         }
-    }
+
+
 
 
 
