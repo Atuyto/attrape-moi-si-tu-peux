@@ -10,10 +10,10 @@ public class Mouton extends Animal {
 
     public Mouton(Labyrinthe leLabyrinthe) {
         super(2, leLabyrinthe);
-        this.enFuite = false;
-        this.nbHerbe = 0;
-        this.nbCactus = 0;
-        this.nbMargurite = 0;
+        this.enFuite        = false;
+        this.nbHerbe        = 0;
+        this.nbCactus       = 0;
+        this.nbMargurite    = 0;
     }
 
     public void manger() {
@@ -59,9 +59,9 @@ public class Mouton extends Animal {
     }
 
     public String reperer() {
-        Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
-        boolean a = false;
-        boolean b = false;
+        Case[][] C      = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
+        boolean a       = false;
+        boolean b       = false;
         ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
         int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du mouton */
         for (int i = 0; i < 6; i++) {
