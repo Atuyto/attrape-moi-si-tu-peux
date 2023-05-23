@@ -52,13 +52,15 @@ public class GameUI extends Stage{
             }
             x+= 60;
         }
-        int i = 0;
-        for ( int i ; i < lab.getX() ; i++) {
+
+        for (int i = 0; i < lab.getX() ; i++) {
             for(int j = 0; j < lab.getY(); j++){
+                int finalJ = j;
+                int finalI = i;
                 caseFX[i][j].getGp().setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        caseFX[i][j].setElement();
+                        caseFX[finalI][finalJ].setElement();
                     }
                 });
             }
