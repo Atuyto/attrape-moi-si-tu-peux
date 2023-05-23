@@ -4,12 +4,18 @@ import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,23 +28,31 @@ public class Menu_demarrer {
 
 
     public Menu_demarrer(Stage stage){
-            Group gp        = new Group();
-            Scene scene     = new Scene (gp, 1000, 800);
-            Font f          = new Font("Arial", 28);
-            Button b0       = new Button( "Jouer");
-            Button b1       = new Button("Options");
+        VBox vBox               = new VBox();
+        BorderPane pane         = new BorderPane();
+        Button buttonPlay       = new Button( "Jouer");
+        Button buttonOption     = new Button("Options");
+        Button buttonQuit       = new Button("Quitter");
+        Scene scene             = new Scene (pane, 1000, 800);
 
-            b0.setFont(f); b1.setFont(f);
-            b0.setLayoutX(400); b1.setLayoutX(400);
-            b0.setLayoutY(275); b1.setLayoutY(475);
-            b0.setPrefSize(200, 100); b1.setPrefSize(200, 100);
-            gp.getChildren().add(b0); gp.getChildren().add(b1);
+        buttonPlay.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        buttonOption.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        buttonQuit.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
-            eventGameUI = new EventGameUI(this);
-            b0.setOnMouseClicked(eventGameUI);
+        vBox.getChildren().addAll(buttonPlay, buttonOption, buttonQuit);
+        pane.setCenter(vBox);
 
-            stage.setScene(scene);
-            stagelocal=stage;
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(15);
+        BorderPane.setAlignment(vBox, Pos.CENTER);
+
+
+
+        eventGameUI = new EventGameUI(this);
+        buttonPlay.setOnMouseClicked(eventGameUI);
+
+        stage.setScene(scene);
+        stagelocal=stage;
     }
 
     public void close(){
