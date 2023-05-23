@@ -15,12 +15,14 @@ public class CaseFX {
 
     private Image[] lesImages;
     private ImageView imageView;
+    private Case laCase;
 
     public CaseFX(Case laCase, int x, int y){
         gp                  = new Group();
         this.x              = x;
         this.y              = y;
         this.scale          = 60;
+        this.laCase = laCase;
         this.lesImages      = new Image[4];
         this.lesImages[0]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Rocher.png").toExternalForm());
         this.lesImages[1]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Herbe.png").toExternalForm());
@@ -37,28 +39,32 @@ public class CaseFX {
         imageView.setFitWidth(this.scale);
         imageView.setX(x); imageView.setY(y);
 
-        imageView.setImage(laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
-                laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :
-                laCase.getContenu() instanceof  Cactus ? this.lesImages[2]  :
-                laCase.getContenu() instanceof Marguerite ? this.lesImages[3]  : null);
+        imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
+                this.laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :
+                this.laCase.getContenu() instanceof  Cactus ? this.lesImages[2]  :
+                this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3]  : null);
         gp.getChildren().add(imageView);
 
 
-        
+
     }
-
-
     public Group getGp() {
         return gp;
     }
 
+    public void click(){
+        gp.setOnMouseClicked(mouseEvent -> setElement());
+    }
+
     public EventHandler<? super MouseEvent> setElement(){
+
         int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
                 imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
                 imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
                 imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
-        this.imageView.setImage(index == 3 ? this.lesImages[0] : this.lesImages[index +1]);
-
+        if(index == 3){index =0;} else index ++;
+        this.imageView.setImage(this.lesImages[index]);
+        this.laCase.setContenu(index == 0 ? new Rocher() : index == 1 ? new Herbe() : index == 2 ? new Cactus() : new Marguerite());
         return null;
     }
 

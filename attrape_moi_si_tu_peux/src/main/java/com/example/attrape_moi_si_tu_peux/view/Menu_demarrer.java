@@ -19,6 +19,8 @@ public class Menu_demarrer {
     private EventGameUI eventGameUI;
     private Stage stagelocal;
 
+
+
     public Menu_demarrer(Stage stage){
             Group gp        = new Group();
             Scene scene     = new Scene (gp, 1000, 800);
@@ -32,9 +34,7 @@ public class Menu_demarrer {
             b0.setPrefSize(200, 100); b1.setPrefSize(200, 100);
             gp.getChildren().add(b0); gp.getChildren().add(b1);
 
-            gameUI=new GameUI();
-            eventGameUI = new EventGameUI(this,gameUI);
-            gameUI.setEventGameUI(eventGameUI);
+            eventGameUI = new EventGameUI(this);
             b0.setOnMouseClicked(eventGameUI);
 
             stage.setScene(scene);

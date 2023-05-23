@@ -59,14 +59,6 @@ public class Labyrinthe {
         }
     }
 
-    public void afficher() {
-        for(int i = 0 ; i< this.x ; i++) {
-            for(int j = 0 ; j<this.y ; j++) {
-                System.out.print(lesCases[i][j].toString() + "\t");
-                }
-            System.out.print("\n");
-            }
-        }
 
     public String toString() {
         String string = "";
@@ -91,9 +83,9 @@ public class Labyrinthe {
         return string;
     }
 
-    public void sauvegarder_labyrinthe(String s, String path) {
+    /*public void sauvegarder_labyrinthe(String s, String path) {
         Files.write(Paths.get(path), s.getBytes());
-    }
+    }*/
     public int getNb_tour() {
         return nb_tour;
     }
