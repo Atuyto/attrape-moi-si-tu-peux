@@ -1,6 +1,7 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
+import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -14,14 +15,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class GameUI {
+public class GameUI extends Stage{
 
-    public GameUI(Stage stage){
+    private EventGameUI eventGameUI;
+
+    public void GameUI(){
         Labyrinthe lab          = new Labyrinthe(10, 10);
         Group gpLab             = new Group();
         Group gpLeft            = new Group();
         Group gpRight           = new Group();
-        CaseFX[][] caseFX = new CaseFX[lab.getX()][lab.getY()];
+        CaseFX[][] caseFX       = new CaseFX[lab.getX()][lab.getY()];
         VBox vboxtext           = new VBox();
         BorderPane pane         = new BorderPane();
         VBox vboxButton         = new VBox();
@@ -35,6 +38,7 @@ public class GameUI {
         Button buttonPause      = new Button("Mettre pause");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
         Button buttonRetour     = new Button("Retour");
+
 
         int x = 0;
         for (int i = 0 ; i < lab.getX() ; i++){
@@ -59,19 +63,27 @@ public class GameUI {
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
 
-        vboxButton.getChildren().addAll(buttonEditer,buttonPause,buttonSave,buttonRetour);
+        vboxButton.getChildren().addAll(buttonEditer,buttonPause,buttonSave);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
         gpLeft.getChildren().add(vboxtext);
+
         gpRight.getChildren().add(vboxButton);
 
+
+
+        // Evenement des différents boutton
+
+        buttonRetour.setOnMouseClicked(eventGameUI);
 
         pane.setLeft(gpLeft);
         pane.setTop(titleTop);
         pane.setCenter(gpLab);
         pane.setRight(gpRight);
+        pane.setBottom(buttonRetour);
         pane.setPadding(new Insets(20,50,20,20));
         BorderPane.setAlignment(titleTop, Pos.CENTER);
+        BorderPane.setAlignment(buttonRetour,Pos.BOTTOM_RIGHT);
         BorderPane.setAlignment(gpLeft, Pos.CENTER);
         BorderPane.setAlignment(gpLab, Pos.CENTER);
         BorderPane.setAlignment(gpRight, Pos.CENTER);
@@ -79,6 +91,9 @@ public class GameUI {
 
 
         Scene sc = new Scene(pane, 1200,800);
-        stage.setScene(sc);
+        this.setScene(sc);
     }
+
+    public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
+
 }

@@ -1,5 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
+import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -13,6 +14,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Menu_demarrer {
+    private GameUI gameUI;
+
+    private EventGameUI eventGameUI;
+    private Stage stagelocal;
 
     public Menu_demarrer(Stage stage){
             Group gp        = new Group();
@@ -26,14 +31,23 @@ public class Menu_demarrer {
             b0.setLayoutY(275); b1.setLayoutY(475);
             b0.setPrefSize(200, 100); b1.setPrefSize(200, 100);
             gp.getChildren().add(b0); gp.getChildren().add(b1);
-            b0.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    GameUI gameUI = new GameUI(stage);
-                }
-            }));
+
+            gameUI=new GameUI();
+            eventGameUI = new EventGameUI(this,gameUI);
+            gameUI.setEventGameUI(eventGameUI);
+            b0.setOnMouseClicked(eventGameUI);
+
             stage.setScene(scene);
-        }
+            stagelocal=stage;
+    }
+
+    public void close(){
+        stagelocal.close();
+    }
+
+    public void open(){
+        stagelocal.show();
+    }
 }
 
 
