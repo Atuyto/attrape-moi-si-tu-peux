@@ -1,6 +1,8 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
+import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
+import com.example.attrape_moi_si_tu_peux.Rocher;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,16 +24,20 @@ public class GameUI extends Stage{
     private boolean edition;
     private Labyrinthe lab;
     private CaseFX[][] caseFX;
+    private Group gpLab;
+    private Group gpLeft;
+    private Group gpRight;
+    private BorderPane pane;
 
 
     public void GameUI(){
         lab                     = new Labyrinthe(10, 10);
-        Group gpLab             = new Group();
-        Group gpLeft            = new Group();
-        Group gpRight           = new Group();
+        gpLab                   = new Group();
+        gpLeft                  = new Group();
+        gpRight                 = new Group();
         caseFX                  = new CaseFX[lab.getX()][lab.getY()];
         VBox vboxtext           = new VBox();
-        BorderPane pane         = new BorderPane();
+        pane                    = new BorderPane();
         VBox vboxButton         = new VBox();
         edition                 = false;
 
@@ -46,18 +52,8 @@ public class GameUI extends Stage{
         Button buttonRetour     = new Button("Retour");
 
 
-        int x = 0;
-        for (int i = 0 ; i < lab.getX() ; i++){
-            int y = 0;
-            for (int j = 0 ; j < lab.getY() ; j++){
-                caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y);
-                gpLab.getChildren().add(caseFX[i][j].getGp());
-                y += 60;
-            }
-            x+= 60;
-        }
 
-
+        this.afficherGrille();
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -98,15 +94,25 @@ public class GameUI extends Stage{
         BorderPane.setAlignment(gpRight, Pos.CENTER);
         BorderPane.setMargin(gpLeft, new Insets(25));
 
-        pane.requestLayout();
-
-
 
         Scene sc = new Scene(pane, 1200,800);
         this.setScene(sc);
     }
 
     public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
+
+    public void afficherGrille(){
+        int x = 0;
+        for (int i = 0 ; i < lab.getX() ; i++){
+            int y = 0;
+            for (int j = 0 ; j < lab.getY() ; j++){
+                caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y);
+                gpLab.getChildren().add(caseFX[i][j].getGp());
+                y += 60;
+            }
+            x+= 60;
+        }
+    }
 
     public void activerEdition(){
         this.setEdition();
