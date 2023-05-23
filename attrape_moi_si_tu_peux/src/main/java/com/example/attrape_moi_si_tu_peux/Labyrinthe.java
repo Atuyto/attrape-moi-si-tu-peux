@@ -7,6 +7,8 @@ import com.example.attrape_moi_si_tu_peux.Rocher;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Labyrinthe {
     private final int x;
@@ -65,6 +67,33 @@ public class Labyrinthe {
             System.out.print("\n");
             }
         }
+
+    public String toString() {
+        String string = "";
+        for(int i = 0 ; i< this.x ; i++) {
+            for (int j = 0; j < this.y; j++) {
+                if (lesCases[i][j].getAnimal() instanceof Mouton) {
+                    string += "m";
+                } else if (lesCases[i][j].getAnimal() instanceof Loup) {
+                    string += "l";
+                } else if ((lesCases[i][j].getContenu() instanceof Herbe) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
+                    string += "s";
+                } else if (lesCases[i][j].getContenu() instanceof Herbe) {
+                    string += "h";
+                } else if (lesCases[i][j].getContenu() instanceof Rocher) {
+                    string += "x";
+                } else if (lesCases[i][j].getContenu() instanceof Cactus) {
+                    string += "c";
+                }
+            }
+            string += "\n";
+        }
+        return string;
+    }
+
+    public void sauvegarder_labyrinthe(String s, String path) {
+        Files.write(Paths.get(path), s.getBytes());
+    }
     public int getNb_tour() {
         return nb_tour;
     }
