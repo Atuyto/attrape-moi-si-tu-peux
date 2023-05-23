@@ -49,11 +49,11 @@ public class GameUI extends Stage{
         Button buttonEditer     = new Button("Editer labyrinthe");
         Button buttonPause      = new Button("Démarrer Simulation");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
+        Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
 
 
 
-        this.afficherGrille();
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -62,12 +62,14 @@ public class GameUI extends Stage{
 
         buttonEditer.setFont(Font.font("Verdana", 20 ));
         buttonPause.setFont(Font.font("Verdana", 20 ));
+        buttonGenererLab.setFont(Font.font("Verdana", 20 ));
         buttonSave.setFont(Font.font("Verdana", 20 ));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
         buttonEditer.setId("Edition");
 
-        vboxButton.getChildren().addAll(buttonEditer,buttonPause,buttonSave);
+        vboxButton.getChildren().addAll(buttonEditer, buttonGenererLab,buttonPause,buttonSave);
+        vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
         gpLeft.getChildren().add(vboxtext);
@@ -79,6 +81,7 @@ public class GameUI extends Stage{
 
         buttonRetour.setOnMouseClicked(eventGameUI);
         buttonEditer.setOnMouseClicked(eventGameUI);
+        buttonGenererLab.setOnMouseClicked(MouseEvent -> genererLab());
 
 
         pane.setLeft(gpLeft);
@@ -94,6 +97,7 @@ public class GameUI extends Stage{
         BorderPane.setAlignment(gpRight, Pos.CENTER);
         BorderPane.setMargin(gpLeft, new Insets(25));
 
+        this.afficherGrille();
 
         Scene sc = new Scene(pane, 1200,800);
         this.setScene(sc);
@@ -134,6 +138,11 @@ public class GameUI extends Stage{
 
             }
         }
+    }
+
+    public void genererLab(){
+        this.lab.genererGrilleAleatoire();
+        this.afficherGrille();
     }
 
     public void setEdition() {

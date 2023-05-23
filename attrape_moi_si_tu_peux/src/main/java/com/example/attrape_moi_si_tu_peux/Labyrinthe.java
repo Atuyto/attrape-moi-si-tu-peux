@@ -37,9 +37,7 @@ public class Labyrinthe {
     }
 
 
-    public void genererGrille()
-    {
-
+    public void genererGrille() {
         for(int i = 0 ; i< this.x ; i++) {
             for(int j = 0 ; j<this.y ; j++) {
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
@@ -47,6 +45,30 @@ public class Labyrinthe {
                 }
                 else {
                     this.lesCases[i][j] = new Case(this, new Herbe());
+                }
+            }
+        }
+    }
+
+    public void genererGrilleAleatoire() {
+        Random random = new Random();
+        for(int i = 0 ; i< this.x ; i++) {
+            for(int j = 0 ; j<this.y ; j++) {
+                int randomIndex = random.nextInt(6);
+                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
+                    this.lesCases[i][j] = new Case(this, new Rocher());
+                }
+                else {
+                    int nbVoisinRoche = 0;
+                     if (this.lesCases[i+1][j].getContenu() instanceof Rocher){ nbVoisinRoche += 1;}
+                     if(this.lesCases[i-1][j].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                     if(this.lesCases[i+1][j-1].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                     if(this.lesCases[i-1][j+1].getContenu() instanceof Rocher) { nbVoisinRoche +=1; }
+                    if (randomIndex == 1 && nbVoisinRoche <3){
+                        this.lesCases[i][j] = new Case(this, new Rocher());
+                    }
+                    else this.lesCases[i][j].regeneration();
+
                 }
             }
         }
@@ -83,6 +105,8 @@ public class Labyrinthe {
         return string;
     }
 
+
+
     /*public void sauvegarder_labyrinthe(String s, String path) {
         Files.write(Paths.get(path), s.getBytes());
     }*/
@@ -115,5 +139,6 @@ public class Labyrinthe {
     public int getY() {
         return this.y;
     }
+
 
 }
