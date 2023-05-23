@@ -25,5 +25,6 @@ public class EventGameUI implements EventHandler {
             gameUI.close();
             menu.open();
         }
+
     }
 }

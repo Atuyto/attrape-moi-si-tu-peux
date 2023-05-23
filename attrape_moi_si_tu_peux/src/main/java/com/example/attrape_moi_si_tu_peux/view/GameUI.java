@@ -2,11 +2,13 @@ package com.example.attrape_moi_si_tu_peux.view;
 
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -50,7 +52,17 @@ public class GameUI extends Stage{
             }
             x+= 60;
         }
-
+        int i = 0;
+        for ( int i ; i < lab.getX() ; i++) {
+            for(int j = 0; j < lab.getY(); j++){
+                caseFX[i][j].getGp().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        caseFX[i][j].setElement();
+                    }
+                });
+            }
+        }
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
