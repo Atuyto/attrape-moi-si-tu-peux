@@ -36,7 +36,7 @@ public class Menu_demarrer extends Application {
             public void handle(MouseEvent e) {
                 stage0.close();
                 interface1 i1 = new interface1();
-                i1.start(new Stage());
+                i1.start(stage0);
             }
         }));
         stage0.setScene(scene);

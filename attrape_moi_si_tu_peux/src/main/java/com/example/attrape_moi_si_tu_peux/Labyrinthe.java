@@ -44,7 +44,7 @@ public class Labyrinthe {
                     this.lesCases[i][j] = new Case(this, new Rocher(), null);
                 }
                 else {
-                    this.lesCases[i][j] = new Case(this);
+                    this.lesCases[i][j] = new Case(this, new Herbe(), null);
                 }
             }
         }
