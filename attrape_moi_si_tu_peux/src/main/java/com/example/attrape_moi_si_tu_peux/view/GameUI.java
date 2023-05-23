@@ -35,7 +35,7 @@ public class GameUI extends Stage{
         Text titleTop           = new Text("Attrrape moi si tu peux !! ");
 
         Button buttonEditer     = new Button("Editer labyrinthe");
-        Button buttonPause      = new Button("Mettre pause");
+        Button buttonPause      = new Button("Démarrer Simulation");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
         Button buttonRetour     = new Button("Retour");
 
