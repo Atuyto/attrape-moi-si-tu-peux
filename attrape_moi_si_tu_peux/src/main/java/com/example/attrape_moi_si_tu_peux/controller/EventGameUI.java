@@ -25,6 +25,10 @@ public class EventGameUI implements EventHandler {
             gameUI.close();
             menu.open();
         }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Editer labyrinthe"))){
+            gameUI.setEdition();
+            gameUI.editerLab();
+        }
 
     }
 }

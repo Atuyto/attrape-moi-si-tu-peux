@@ -1,5 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
+import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.event.EventHandler;
@@ -20,13 +21,17 @@ import javafx.stage.Stage;
 public class GameUI extends Stage{
 
     private EventGameUI eventGameUI;
+    private Labyrinthe lab;
+    private CaseFX[][] caseFX;
+    private boolean edition;
 
     public void GameUI(){
-        Labyrinthe lab          = new Labyrinthe(10, 10);
+        edition = false;
+        lab                     = new Labyrinthe(10, 10);
         Group gpLab             = new Group();
         Group gpLeft            = new Group();
         Group gpRight           = new Group();
-        CaseFX[][] caseFX       = new CaseFX[lab.getX()][lab.getY()];
+        caseFX                  = new CaseFX[lab.getX()][lab.getY()];
         VBox vboxtext           = new VBox();
         BorderPane pane         = new BorderPane();
         VBox vboxButton         = new VBox();
@@ -53,18 +58,6 @@ public class GameUI extends Stage{
             x+= 60;
         }
 
-        for (int i = 0; i < lab.getX() ; i++) {
-            for(int j = 0; j < lab.getY(); j++){
-                int finalJ = j;
-                int finalI = i;
-                caseFX[i][j].getGp().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        caseFX[finalI][finalJ].setElement();
-                    }
-                });
-            }
-        }
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -89,6 +82,7 @@ public class GameUI extends Stage{
         // Evenement des différents boutton
 
         buttonRetour.setOnMouseClicked(eventGameUI);
+        buttonEditer.setOnMouseClicked(eventGameUI);
 
         pane.setLeft(gpLeft);
         pane.setTop(titleTop);
@@ -106,8 +100,29 @@ public class GameUI extends Stage{
 
         Scene sc = new Scene(pane, 1200,800);
         this.setScene(sc);
+
     }
 
     public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
+
+    public void setEdition() {
+        this.edition = !this.edition;
+    }
+
+    public void editerLab() {
+        System.out.println(this.edition);
+        int i = 0;
+        int j = 0;
+        while (i< lab.getX() && !edition){
+            while (j<lab.getY() && !edition){
+                caseFX[i][j].getGp().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        caseFX[i][j].setElement();
+                    }
+                });
+            }
+        }
+    }
 
 }

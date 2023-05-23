@@ -12,8 +12,10 @@ public class interface1 extends Application {
 
         Menu_demarrer menuDemarrer = new Menu_demarrer(stage);
 
+
         stage.setTitle("Attrape moi si tu peux !");
         stage.show();
+
     }
 
     public static void main(String[] args) {
