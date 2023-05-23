@@ -123,22 +123,16 @@ public class GameUI extends Stage{
         for (int i = 1; i < lab.getX()-1 ; i++) {
             for (int j = 1; j < lab.getY()-1; j++)  {
                 CaseFX c = caseFX[i][j];
-                c.getGp().setOnMousePressed(mouseEvent -> c.click());
-
-            }
-        }
-
-    }
-    public void desactiverEdition(){
-        this.setEdition();
-        for (int i = 1; i < lab.getX()-1 ; i++) {
-            for (int j = 1; j < lab.getY()-1; j++) {
-                CaseFX c = caseFX[i][j];
-                c.getGp().setOnMousePressed(null);
-
+                if(this.edition){
+                    c.getGp().setOnMouseClicked(mouseEvent -> c.setElement());
+                }
+                else {
+                    c.getGp().setOnMouseClicked(null);
+                }
             }
         }
     }
+
 
     public void genererLab(){
         this.lab.genererGrilleAleatoire();

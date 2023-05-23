@@ -12,7 +12,6 @@ public class CaseFX {
     private final int y;
     private final Group gp ;
     private int scale;
-
     private Image[] lesImages;
     private ImageView imageView;
     private Case laCase;
@@ -22,7 +21,7 @@ public class CaseFX {
         this.x              = x;
         this.y              = y;
         this.scale          = 60;
-        this.laCase = laCase;
+        this.laCase         = laCase;
         this.lesImages      = new Image[4];
         this.lesImages[0]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Rocher.png").toExternalForm());
         this.lesImages[1]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Herbe.png").toExternalForm());
@@ -52,12 +51,7 @@ public class CaseFX {
         return gp;
     }
 
-    public void click(){
-        gp.setOnMouseClicked(mouseEvent -> setElement());
-    }
-
     public EventHandler<? super MouseEvent> setElement(){
-
         int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
                 imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
                 imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :

@@ -52,24 +52,19 @@ public class Labyrinthe {
 
     public void genererGrilleAleatoire() {
         Random random = new Random();
-        for(int i = 0 ; i< this.x ; i++) {
-            for(int j = 0 ; j<this.y ; j++) {
+        for(int i = 1 ; i< this.x -1; i++) {
+            for(int j = 1 ; j<this.y -1; j++) {
                 int randomIndex = random.nextInt(6);
-                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
+                int nbVoisinRoche = 0;
+                if (this.lesCases[i+1][j].getContenu() instanceof Rocher){ nbVoisinRoche += 1;}
+                if(this.lesCases[i-1][j].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                if(this.lesCases[i+1][j-1].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                if(this.lesCases[i-1][j+1].getContenu() instanceof Rocher) { nbVoisinRoche +=1; }
+                if (randomIndex == 1 && nbVoisinRoche <3){
                     this.lesCases[i][j] = new Case(this, new Rocher());
                 }
-                else {
-                    int nbVoisinRoche = 0;
-                     if (this.lesCases[i+1][j].getContenu() instanceof Rocher){ nbVoisinRoche += 1;}
-                     if(this.lesCases[i-1][j].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
-                     if(this.lesCases[i+1][j-1].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
-                     if(this.lesCases[i-1][j+1].getContenu() instanceof Rocher) { nbVoisinRoche +=1; }
-                    if (randomIndex == 1 && nbVoisinRoche <3){
-                        this.lesCases[i][j] = new Case(this, new Rocher());
-                    }
-                    else this.lesCases[i][j].regeneration();
+                else this.lesCases[i][j].regeneration();
 
-                }
             }
         }
     }

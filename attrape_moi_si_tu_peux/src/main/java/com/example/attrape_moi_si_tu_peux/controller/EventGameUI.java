@@ -31,7 +31,7 @@ public class EventGameUI implements EventHandler {
         if(Objects.equals(((Button) event.getSource()).getId(), "Edition")){
             if (gameUI.getEdition()) {
                 ((Button) event.getSource()).setText("Editer labyrinthe");
-                gameUI.desactiverEdition();
+                gameUI.activerEdition();
             } else {
                 gameUI.activerEdition();
                 ((Button) event.getSource()).setText("Arreter edition");
