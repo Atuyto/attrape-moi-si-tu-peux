@@ -11,6 +11,7 @@ public class Case {
     private Element contenu;
     private Animal animal;
 
+    private boolean sortie;
 
     public Case(Labyrinthe leLabyrinthe, Element contenu ){
         this.estVide        = false;
@@ -18,6 +19,7 @@ public class Case {
         this.tourPasse      = 0;
         this.leLabyrinthe   = leLabyrinthe;
         this.contenu        = contenu;
+        this.sortie         = false;
     }
     public Case(Labyrinthe leLabyrinthe, Animal animal){
         this.estVide        = false;
@@ -25,6 +27,7 @@ public class Case {
         this.tourPasse      = 0;
         this.leLabyrinthe   = leLabyrinthe;
         this.animal         = animal ;
+        this.sortie         = false;
     }
     public Case(Labyrinthe leLabyrinthe){
         this.estVide        = false;
@@ -32,6 +35,7 @@ public class Case {
         this.tourPasse      = 0;
         this.leLabyrinthe   = leLabyrinthe;
         this.contenu        = this.regeneration();
+        this.sortie         = false;
 
     }
 
@@ -80,6 +84,10 @@ public class Case {
     }
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public void setSortie(boolean sortie) {
+        this.sortie = sortie;
     }
 
     public boolean isAccessible() {

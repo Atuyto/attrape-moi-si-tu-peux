@@ -94,19 +94,21 @@ public class CaseFX {
     }
 
     public void setClicked(){
-        System.out.println(this.gameUI.getNbsorti());
         if(this.gameUI.getNbsorti() != 1){
+            this.gameUI.afficherTitle();
             this.setSortie();
             setElement();
             this.gameUI.setNbsorti(1);
+            this.laCase.setSortie(true);
         }
         if(this.gameUI.getNbsorti() == 1 && this.getSortie()){
             setElement();
             if(this.laCase.getContenu() instanceof Rocher){
+                this.gameUI.messageSetSortie();
                 this.setSortie();
                 this.gameUI.setNbsorti(0);
+                this.laCase.setSortie(false);
             }
-
         }
 
     }

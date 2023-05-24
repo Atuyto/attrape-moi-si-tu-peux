@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -48,7 +50,7 @@ public class GameUI extends Stage{
         Text herbeManger        = new Text("Herbe mangé");
         Text cactusManger       = new Text("Cactus mangé");
         Text margueriteManger   = new Text("Marguerite Mangé");
-        Text titleTop           = new Text("Attrrape moi si tu peux !! ");
+
 
         Button buttonEditer     = new Button("Editer labyrinthe");
         Button buttonPause      = new Button("Démarrer Simulation");
@@ -61,7 +63,7 @@ public class GameUI extends Stage{
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         cactusManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         margueriteManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
 
         buttonEditer.setFont(Font.font("Verdana", 20 ));
         buttonPause.setFont(Font.font("Verdana", 20 ));
@@ -88,17 +90,17 @@ public class GameUI extends Stage{
 
 
         pane.setLeft(gpLeft);
-        pane.setTop(titleTop);
+
         pane.setCenter(gpLab);
         pane.setRight(gpRight);
         pane.setBottom(buttonRetour);
         pane.setPadding(new Insets(20,50,20,20));
-        BorderPane.setAlignment(titleTop, Pos.CENTER);
         BorderPane.setAlignment(buttonRetour,Pos.BOTTOM_RIGHT);
         BorderPane.setAlignment(gpLeft, Pos.CENTER);
         BorderPane.setAlignment(gpLab, Pos.CENTER);
         BorderPane.setAlignment(gpRight, Pos.CENTER);
         BorderPane.setMargin(gpLeft, new Insets(25));
+        messageSetSortie();
 
 
         this.setScene(sc);
@@ -143,6 +145,22 @@ public class GameUI extends Stage{
                 }
             }
         }
+    }
+
+    public void messageSetSortie(){
+        Text textmsg = new Text("Veuillez séléctionner une case de sortie");
+        textmsg.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        textmsg.setFill(Color.RED);
+        BorderPane.setAlignment(textmsg, Pos.CENTER);
+        this.pane.setTop(textmsg);
+
+    }
+
+    public void afficherTitle(){
+        Text titleTop = new Text("Attrrape moi si tu peux !! ");
+        titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        BorderPane.setAlignment(titleTop, Pos.CENTER);
+        this.pane.setTop(titleTop);
     }
 
 
