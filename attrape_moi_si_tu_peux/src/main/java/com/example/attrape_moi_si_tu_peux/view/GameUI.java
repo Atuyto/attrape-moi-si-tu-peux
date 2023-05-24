@@ -1,6 +1,8 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
+import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
+import com.example.attrape_moi_si_tu_peux.Rocher;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,6 +30,8 @@ public class GameUI extends Stage{
     private Group gpRight;
     private BorderPane pane;
 
+    private int nbsorti;
+    private Scene sc;
 
     public void GameUI(){
         lab                     = new Labyrinthe(10, 10);
@@ -39,6 +43,7 @@ public class GameUI extends Stage{
         pane                    = new BorderPane();
         VBox vboxButton         = new VBox();
         edition                 = false;
+        nbsorti                  = 0;
 
         Text herbeManger        = new Text("Herbe mangé");
         Text cactusManger       = new Text("Cactus mangé");
@@ -50,8 +55,7 @@ public class GameUI extends Stage{
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
         Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
-
-
+        sc                      = new Scene(pane, 1200,800);
 
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -96,10 +100,11 @@ public class GameUI extends Stage{
         BorderPane.setAlignment(gpRight, Pos.CENTER);
         BorderPane.setMargin(gpLeft, new Insets(25));
 
+
+        this.setScene(sc);
+
         this.afficherGrille();
 
-        Scene sc = new Scene(pane, 1200,800);
-        this.setScene(sc);
     }
 
     public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
@@ -109,12 +114,20 @@ public class GameUI extends Stage{
         for (int i = 0 ; i < lab.getX() ; i++){
             int y = 0;
             for (int j = 0 ; j < lab.getY() ; j++){
-                caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y);
-                gpLab.getChildren().add(caseFX[i][j].getGp());
+                if (i == 0 || j == 0 || i == this.lab.getX() -1 || j == this.lab.getY() -1){
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
+                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                }
+                else {
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
+                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                }
+
                 y += 60;
             }
             x+= 60;
         }
+        System.out.println(this.caseFX[0][3].getBorder());
     }
 
     public void activerEdition(){
@@ -141,6 +154,15 @@ public class GameUI extends Stage{
     public void setEdition() {
         this.edition = ! this.edition;
     }
+
+    public int getNbsorti() {
+        return nbsorti;
+    }
+
+    public void setNbsorti(int nbsorti) {
+        this.nbsorti = nbsorti;
+    }
+
     public boolean getEdition(){
         return this.edition;
     }

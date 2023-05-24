@@ -41,4 +41,8 @@ public class EventGameUI implements EventHandler {
         }
 
     }
+
+    public GameUI getGameUI() {
+        return gameUI;
+    }
 }

@@ -63,6 +63,11 @@ public class Menu_demarrer {
     public void open(){
         stagelocal.show();
     }
+
+    public EventGameUI getEventGameUI() {
+        return eventGameUI;
+    }
+
 }
 
 
