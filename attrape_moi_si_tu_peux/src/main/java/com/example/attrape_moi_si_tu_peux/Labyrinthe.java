@@ -36,7 +36,6 @@ public class Labyrinthe {
         this.genererGrille();
     }
 
-
     public void genererGrille() {
         for(int i = 0 ; i< this.x ; i++) {
             for(int j = 0 ; j<this.y ; j++) {
@@ -49,7 +48,6 @@ public class Labyrinthe {
             }
         }
     }
-
     public void genererGrilleAleatoire() {
         Random random = new Random();
         for(int i = 1 ; i< this.x -1; i++) {

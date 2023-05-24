@@ -1,26 +1,22 @@
 package com.example.attrape_moi_si_tu_peux.view;
 import com.example.attrape_moi_si_tu_peux.*;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CaseFX {
 
-    private GameUI gameUI;
+    private final GameUI gameUI;
     private final int x;
     private final int y;
     private final Group gp ;
     private int scale;
     private Image[] lesImages;
     private ImageView imageView;
-    private Case laCase;
+    private final Case laCase;
     private boolean sortie;
-    private boolean border;
+    private final boolean border;
 
     public CaseFX(GameUI gameUI,Case laCase, int x, int y){
         this.gameUI              = gameUI;
@@ -30,25 +26,21 @@ public class CaseFX {
         this.scale          = 60;
         this.laCase         = laCase;
         this.border         = false;
-        creerCase();
+        this.creerCase();
 
     }
     public CaseFX(GameUI gameUI,Case laCase, int x, int y, boolean border){
-        this.gameUI              = gameUI;
+        this.gameUI         = gameUI;
         gp                  = new Group();
         this.x              = x;
         this.y              = y;
-        this.scale          = 60;
+        this.scale          =  60;
         this.laCase         = laCase;
         this.border         = border;
         this.creerCase();
         if(this.getBorder()){
             this.getGp().setOnMouseClicked(mouseEvent -> this.setClicked());
         }
-
-
-
-
     }
     public void creerCase(){
 
@@ -58,7 +50,7 @@ public class CaseFX {
         this.lesImages[2]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Cactus.png").toExternalForm());
         this.lesImages[3]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Marguerite.png").toExternalForm());
         Rectangle leCarre   = new Rectangle(this.scale, this.scale);
-        sortie              = false;
+        this.sortie         = false;
         leCarre.setX(x);
         leCarre.setY(y);
         gp.getChildren().add(leCarre);
@@ -75,34 +67,32 @@ public class CaseFX {
                                 this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3]  : null);
         gp.getChildren().add(imageView);
 
-
-
     }
     public Group getGp() {
         return gp;
     }
 
-    public EventHandler<? super MouseEvent> setElement(){
+    public void setElement(){
         int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
                 imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
                 imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
                 imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
-        if(index == 3){index =0;} else index ++;
+        if(index == 3){index =0;} else index +=1;
+        System.out.println(index);
         this.imageView.setImage(this.lesImages[index]);
         this.laCase.setContenu(index == 0 ? new Rocher() : index == 1 ? new Herbe() : index == 2 ? new Cactus() : new Marguerite());
-        return null;
     }
 
     public void setClicked(){
         if(this.gameUI.getNbsorti() != 1){
             this.gameUI.afficherTitle();
             this.setSortie();
-            setElement();
+            this.setElement();
             this.gameUI.setNbsorti(1);
             this.laCase.setSortie(true);
         }
         if(this.gameUI.getNbsorti() == 1 && this.getSortie()){
-            setElement();
+            this.setElement();
             if(this.laCase.getContenu() instanceof Rocher){
                 this.gameUI.messageSetSortie();
                 this.setSortie();
@@ -110,7 +100,6 @@ public class CaseFX {
                 this.laCase.setSortie(false);
             }
         }
-
     }
 
     public boolean getBorder(){
@@ -128,5 +117,9 @@ public class CaseFX {
 
     public Case getLaCase() {
         return laCase;
+    }
+
+    public int getScale() {
+        return scale;
     }
 }

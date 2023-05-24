@@ -21,6 +21,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static javafx.scene.input.KeyCode.O;
+
 public class GameUI extends Stage{
 
     private EventGameUI eventGameUI;
@@ -124,12 +126,10 @@ public class GameUI extends Stage{
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
                     this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
                 }
-
-                y += 60;
+                y += this.caseFX[0][0].getScale();
             }
-            x+= 60;
+            x += this.caseFX[0][0].getScale();;
         }
-        System.out.println(this.caseFX[0][3].getBorder());
     }
 
     public void activerEdition(){
@@ -146,6 +146,7 @@ public class GameUI extends Stage{
             }
         }
     }
+
 
     public void messageSetSortie(){
         Text textmsg = new Text("Veuillez séléctionner une case de sortie");
