@@ -19,11 +19,10 @@ public class CaseFX {
     private final boolean border;
 
     public CaseFX(GameUI gameUI,Case laCase, int x, int y){
-        this.gameUI              = gameUI;
+        this.gameUI         = gameUI;
         gp                  = new Group();
         this.x              = x;
         this.y              = y;
-        this.scale          = 60;
         this.laCase         = laCase;
         this.border         = false;
         this.creerCase();
@@ -34,7 +33,6 @@ public class CaseFX {
         gp                  = new Group();
         this.x              = x;
         this.y              = y;
-        this.scale          =  60;
         this.laCase         = laCase;
         this.border         = border;
         this.creerCase();
@@ -43,23 +41,24 @@ public class CaseFX {
         }
     }
     public void creerCase(){
-
         this.lesImages      = new Image[4];
         this.lesImages[0]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Rocher.png").toExternalForm());
         this.lesImages[1]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Herbe.png").toExternalForm());
         this.lesImages[2]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Cactus.png").toExternalForm());
         this.lesImages[3]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Marguerite.png").toExternalForm());
-        Rectangle leCarre   = new Rectangle(this.scale, this.scale);
         this.sortie         = false;
-        leCarre.setX(x);
-        leCarre.setY(y);
+        this.scale          = 45;
+        Rectangle leCarre   = new Rectangle(this.scale, this.scale);
+
+        leCarre.setX(this.x);
+        leCarre.setY(this.y);
         gp.getChildren().add(leCarre);
         leCarre.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 3;");
 
         imageView = new ImageView();
         imageView.setFitHeight(this.scale);
         imageView.setFitWidth(this.scale);
-        imageView.setX(x); imageView.setY(y);
+        imageView.setX(this.x ); imageView.setY(this.y);
 
         imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
                 this.laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :

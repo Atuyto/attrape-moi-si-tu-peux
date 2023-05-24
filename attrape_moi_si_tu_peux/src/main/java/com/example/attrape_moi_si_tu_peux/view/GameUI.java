@@ -38,7 +38,7 @@ public class GameUI extends Stage{
     private Scene sc;
 
     public void GameUI(){
-        lab                     = new Labyrinthe(10, 10);
+        lab                     = new Labyrinthe(15, 15);
         gpLab                   = new Group();
         gpLeft                  = new Group();
         gpRight                 = new Group();
@@ -128,7 +128,7 @@ public class GameUI extends Stage{
                 }
                 y += this.caseFX[0][0].getScale();
             }
-            x += this.caseFX[0][0].getScale();;
+            x += this.caseFX[0][0].getScale();
         }
     }
 
