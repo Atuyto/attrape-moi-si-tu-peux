@@ -6,18 +6,21 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import java.util.Objects;
+
 public class EventGameUI implements EventHandler {
     private Menu_demarrer menu;
     private GameUI gameUI;
 
-    public EventGameUI(Menu_demarrer menu,GameUI gameUI) {
+    public EventGameUI(Menu_demarrer menu) {
         this.menu = menu;
-        this.gameUI = gameUI;
     }
 
     @Override
     public void handle(Event event) {
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Jouer"))){
+            gameUI = new GameUI();
+            gameUI.setEventGameUI(this);
             gameUI.show();
             menu.close();
         }
@@ -25,9 +28,16 @@ public class EventGameUI implements EventHandler {
             gameUI.close();
             menu.open();
         }
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Editer labyrinthe"))){
-            gameUI.setEdition();
-            gameUI.editerLab();
+        if(Objects.equals(((Button) event.getSource()).getId(), "Edition")){
+            if (gameUI.getEdition()) {
+                ((Button) event.getSource()).setText("Editer labyrinthe");
+                gameUI.activerEdition();
+            } else {
+                gameUI.activerEdition();
+                ((Button) event.getSource()).setText("Arreter edition");
+
+            }
+
         }
 
     }

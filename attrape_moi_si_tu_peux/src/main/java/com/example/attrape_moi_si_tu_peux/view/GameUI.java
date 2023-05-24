@@ -1,6 +1,5 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
-import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.event.EventHandler;
@@ -21,20 +20,25 @@ import javafx.stage.Stage;
 public class GameUI extends Stage{
 
     private EventGameUI eventGameUI;
+    private boolean edition;
     private Labyrinthe lab;
     private CaseFX[][] caseFX;
-    private boolean edition;
+    private Group gpLab;
+    private Group gpLeft;
+    private Group gpRight;
+    private BorderPane pane;
+
 
     public void GameUI(){
-        edition = false;
         lab                     = new Labyrinthe(10, 10);
-        Group gpLab             = new Group();
-        Group gpLeft            = new Group();
-        Group gpRight           = new Group();
+        gpLab                   = new Group();
+        gpLeft                  = new Group();
+        gpRight                 = new Group();
         caseFX                  = new CaseFX[lab.getX()][lab.getY()];
         VBox vboxtext           = new VBox();
-        BorderPane pane         = new BorderPane();
+        pane                    = new BorderPane();
         VBox vboxButton         = new VBox();
+        edition                 = false;
 
         Text herbeManger        = new Text("Herbe mangé");
         Text cactusManger       = new Text("Cactus mangé");
@@ -44,19 +48,10 @@ public class GameUI extends Stage{
         Button buttonEditer     = new Button("Editer labyrinthe");
         Button buttonPause      = new Button("Démarrer Simulation");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
+        Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
 
 
-        int x = 0;
-        for (int i = 0 ; i < lab.getX() ; i++){
-            int y = 0;
-            for (int j = 0 ; j < lab.getY() ; j++){
-                caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y );
-                gpLab.getChildren().add(caseFX[i][j].getGp());
-                y += 60;
-            }
-            x+= 60;
-        }
 
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -66,11 +61,14 @@ public class GameUI extends Stage{
 
         buttonEditer.setFont(Font.font("Verdana", 20 ));
         buttonPause.setFont(Font.font("Verdana", 20 ));
+        buttonGenererLab.setFont(Font.font("Verdana", 20 ));
         buttonSave.setFont(Font.font("Verdana", 20 ));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
+        buttonEditer.setId("Edition");
 
-        vboxButton.getChildren().addAll(buttonEditer,buttonPause,buttonSave);
+        vboxButton.getChildren().addAll(buttonEditer, buttonGenererLab,buttonPause,buttonSave);
+        vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
         gpLeft.getChildren().add(vboxtext);
@@ -78,11 +76,12 @@ public class GameUI extends Stage{
         gpRight.getChildren().add(vboxButton);
 
 
-
         // Evenement des différents boutton
 
         buttonRetour.setOnMouseClicked(eventGameUI);
         buttonEditer.setOnMouseClicked(eventGameUI);
+        buttonGenererLab.setOnMouseClicked(MouseEvent -> genererLab());
+
 
         pane.setLeft(gpLeft);
         pane.setTop(titleTop);
@@ -97,32 +96,52 @@ public class GameUI extends Stage{
         BorderPane.setAlignment(gpRight, Pos.CENTER);
         BorderPane.setMargin(gpLeft, new Insets(25));
 
+        this.afficherGrille();
 
         Scene sc = new Scene(pane, 1200,800);
         this.setScene(sc);
-
     }
 
     public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
 
-    public void setEdition() {
-        this.edition = !this.edition;
+    public void afficherGrille(){
+        int x = 0;
+        for (int i = 0 ; i < lab.getX() ; i++){
+            int y = 0;
+            for (int j = 0 ; j < lab.getY() ; j++){
+                caseFX[i][j] = new CaseFX(lab.getLesCases()[i][j], x, y);
+                gpLab.getChildren().add(caseFX[i][j].getGp());
+                y += 60;
+            }
+            x+= 60;
+        }
     }
 
-    public void editerLab() {
-        System.out.println(this.edition);
-        int i = 0;
-        int j = 0;
-        while (i< lab.getX() && !edition){
-            while (j<lab.getY() && !edition){
-                caseFX[i][j].getGp().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        caseFX[i][j].setElement();
-                    }
-                });
+    public void activerEdition(){
+        this.setEdition();
+        for (int i = 1; i < lab.getX()-1 ; i++) {
+            for (int j = 1; j < lab.getY()-1; j++)  {
+                CaseFX c = caseFX[i][j];
+                if(this.edition){
+                    c.getGp().setOnMouseClicked(mouseEvent -> c.setElement());
+                }
+                else {
+                    c.getGp().setOnMouseClicked(null);
+                }
             }
         }
     }
 
+
+    public void genererLab(){
+        this.lab.genererGrilleAleatoire();
+        this.afficherGrille();
+    }
+
+    public void setEdition() {
+        this.edition = ! this.edition;
+    }
+    public boolean getEdition(){
+        return this.edition;
+    }
 }

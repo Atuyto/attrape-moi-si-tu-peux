@@ -7,6 +7,8 @@ import com.example.attrape_moi_si_tu_peux.Rocher;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Labyrinthe {
     private final int x;
@@ -35,9 +37,7 @@ public class Labyrinthe {
     }
 
 
-    public void genererGrille()
-    {
-
+    public void genererGrille() {
         for(int i = 0 ; i< this.x ; i++) {
             for(int j = 0 ; j<this.y ; j++) {
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
@@ -50,6 +50,25 @@ public class Labyrinthe {
         }
     }
 
+    public void genererGrilleAleatoire() {
+        Random random = new Random();
+        for(int i = 1 ; i< this.x -1; i++) {
+            for(int j = 1 ; j<this.y -1; j++) {
+                int randomIndex = random.nextInt(6);
+                int nbVoisinRoche = 0;
+                if (this.lesCases[i+1][j].getContenu() instanceof Rocher){ nbVoisinRoche += 1;}
+                if(this.lesCases[i-1][j].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                if(this.lesCases[i+1][j-1].getContenu() instanceof Rocher) { nbVoisinRoche += 1;}
+                if(this.lesCases[i-1][j+1].getContenu() instanceof Rocher) { nbVoisinRoche +=1; }
+                if (randomIndex == 1 && nbVoisinRoche <3){
+                    this.lesCases[i][j] = new Case(this, new Rocher());
+                }
+                else this.lesCases[i][j].regeneration();
+
+            }
+        }
+    }
+
 
     public void ajouterAnimal(Animal animal, int x, int y){
         if (!(this.getLesCases()[x][x].getContenu() instanceof Rocher)) {
@@ -57,14 +76,35 @@ public class Labyrinthe {
         }
     }
 
-    public void afficher() {
+
+    public String toString() {
+        String string = "";
         for(int i = 0 ; i< this.x ; i++) {
-            for(int j = 0 ; j<this.y ; j++) {
-                System.out.print(lesCases[i][j].toString() + "\t");
+            for (int j = 0; j < this.y; j++) {
+                if (lesCases[i][j].getAnimal() instanceof Mouton) {
+                    string += "m";
+                } else if (lesCases[i][j].getAnimal() instanceof Loup) {
+                    string += "l";
+                } else if ((lesCases[i][j].getContenu() instanceof Herbe) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
+                    string += "s";
+                } else if (lesCases[i][j].getContenu() instanceof Herbe) {
+                    string += "h";
+                } else if (lesCases[i][j].getContenu() instanceof Rocher) {
+                    string += "x";
+                } else if (lesCases[i][j].getContenu() instanceof Cactus) {
+                    string += "c";
                 }
-            System.out.print("\n");
             }
+            string += "\n";
         }
+        return string;
+    }
+
+
+
+    /*public void sauvegarder_labyrinthe(String s, String path) {
+        Files.write(Paths.get(path), s.getBytes());
+    }*/
     public int getNb_tour() {
         return nb_tour;
     }
@@ -94,5 +134,6 @@ public class Labyrinthe {
     public int getY() {
         return this.y;
     }
+
 
 }
