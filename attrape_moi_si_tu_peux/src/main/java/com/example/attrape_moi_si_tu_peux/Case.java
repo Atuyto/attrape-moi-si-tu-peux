@@ -112,4 +112,7 @@ public class Case {
         this.tourPasse = tourPasse;
     }
 
+    public Labyrinthe getLeLabyrinthe() {
+        return leLabyrinthe;
+    }
 }

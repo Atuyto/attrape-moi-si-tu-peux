@@ -35,12 +35,20 @@ public class EventGameUI implements EventHandler {
             } else {
                 gameUI.activerEdition();
                 ((Button) event.getSource()).setText("Arreter edition");
-
             }
-
         }
-
+        if(Objects.equals(((Button) event.getSource()).getId(), "Edition animal")){
+            if (gameUI.getLab().getLesAnimaux().size() != 2) {
+                ((Button) event.getSource()).setText("Enregistrer emplacement");
+                gameUI.activerAddAnimal();
+            }
+            else {
+                gameUI.activerAddAnimal();
+                ((Button) event.getSource()).setText("Ajouter animaux");
+            }
+        }
     }
+
 
     public GameUI getGameUI() {
         return gameUI;
