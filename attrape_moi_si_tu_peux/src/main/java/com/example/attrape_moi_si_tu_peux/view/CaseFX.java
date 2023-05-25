@@ -104,13 +104,13 @@ public class CaseFX {
             this.laCase.setAnimal(null);
         }
 
-        else if(nbAnimaux!=2){
+        else if(nbAnimaux!=2 && ! (this.laCase.getContenu() instanceof Rocher)){
             if (nbAnimaux == 0) {
                 animal = new Mouton(this.getLaCase().getLeLabyrinthe());
                 this.imageViewAnim.setImage(this.lesAnimaux[1]);
                 this.laCase.setAnimal(animal);
                 this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
-                this.getGp().getChildren().add(imageViewAnim);
+
             }
             if (nbAnimaux == 1) {
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Mouton) {
@@ -118,17 +118,21 @@ public class CaseFX {
                     this.imageViewAnim.setImage(this.lesAnimaux[0]);
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);// pb ici
-                    this.getGp().getChildren().add(imageViewAnim);
+
                 }
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Loup) {
                     animal = new Mouton(this.laCase.getLeLabyrinthe());
                     this.imageViewAnim.setImage(this.lesAnimaux[1]);
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
-                    this.getGp().getChildren().add(imageViewAnim);
+
                 }
             }
         }
+        if(!(this.getGp().getChildren().contains(imageViewAnim))){
+            this.getGp().getChildren().add(imageViewAnim);
+        }
+
     }
 
     public void sortiClick(){
