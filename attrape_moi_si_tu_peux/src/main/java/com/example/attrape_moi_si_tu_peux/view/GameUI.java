@@ -94,7 +94,7 @@ public class GameUI extends Stage{
         buttonEditer.setOnMouseClicked(eventGameUI);
         buttonAddAnimauw.setOnMouseClicked(eventGameUI);
 
-        buttonGenererLab.setOnMouseClicked(MouseEvent -> genererLab());
+        buttonGenererLab.setOnMouseClicked(eventGameUI);
 
 
         pane.setLeft(gpLeft);
