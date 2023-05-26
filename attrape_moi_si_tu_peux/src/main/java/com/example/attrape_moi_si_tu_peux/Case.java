@@ -102,6 +102,10 @@ public class Case {
         return tourPasse;
     }
 
+    public Labyrinthe getLeLabyrinthe() {
+        return leLabyrinthe;
+    }
+
     public Animal getAnimal(){return animal;}
 
     public Element getContenu() {

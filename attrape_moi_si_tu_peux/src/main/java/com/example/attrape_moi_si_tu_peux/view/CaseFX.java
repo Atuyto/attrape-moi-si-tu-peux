@@ -47,9 +47,8 @@ public class CaseFX {
         this.lesImages[2]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Cactus.png").toExternalForm());
         this.lesImages[3]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Marguerite.png").toExternalForm());
         this.sortie         = false;
-        this.scale          = 45;
+        this.scale          = 45 ;
         Rectangle leCarre   = new Rectangle(this.scale, this.scale);
-
         leCarre.setX(this.x);
         leCarre.setY(this.y);
         gp.getChildren().add(leCarre);

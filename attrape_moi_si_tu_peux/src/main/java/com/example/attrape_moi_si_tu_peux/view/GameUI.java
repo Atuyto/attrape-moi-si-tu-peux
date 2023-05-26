@@ -1,27 +1,20 @@
 package com.example.attrape_moi_si_tu_peux.view;
-
-import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Labyrinthe;
-import com.example.attrape_moi_si_tu_peux.Rocher;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import static javafx.scene.input.KeyCode.O;
 
 public class GameUI extends Stage{
 
@@ -47,7 +40,7 @@ public class GameUI extends Stage{
         pane                    = new BorderPane();
         VBox vboxButton         = new VBox();
         edition                 = false;
-        nbsorti                  = 0;
+        nbsorti                 = 0;
 
         Text herbeManger        = new Text("Herbe mangé");
         Text cactusManger       = new Text("Cactus mangé");
@@ -59,7 +52,7 @@ public class GameUI extends Stage{
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
         Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
-        sc                      = new Scene(pane, 1200,800);
+        sc                      = new Scene(pane, 1400,900);
 
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
