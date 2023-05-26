@@ -20,8 +20,7 @@ public class Labyrinthe {
         this.x              = 10;
         this.y              = 10;
         this.nb_tour        = 0;
-        this.lesCases       =  new  Case[this.x][this.y];
-        this.lesAnimaux     = new ArrayList<>();
+        this.lesCases       =  new  Case[this.x][this.y];this.lesAnimaux     = new ArrayList<>();
         this.genererGrille();
 
     }
