@@ -1,4 +1,5 @@
 package com.example.attrape_moi_si_tu_peux.view;
+
 import com.example.attrape_moi_si_tu_peux.*;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -18,6 +19,7 @@ public class CaseFX {
     private final Case laCase;
     private boolean sortie;
     private final boolean border;
+
     public Image[] lesAnimaux;
 
     public CaseFX(GameUI gameUI,Case laCase, int x, int y){
@@ -39,9 +41,8 @@ public class CaseFX {
         this.laCase         = laCase;
         this.border         = border;
         this.creerCase();
-        if(this.getBorder()){
-            this.getGp().setOnMouseClicked(mouseEvent -> this.sortiClick());
-        }
+
+
     }
     public void creerCase(){
         this.lesImages      = new Image[4];
@@ -64,7 +65,7 @@ public class CaseFX {
 
         imageViewAnim.setFitHeight(this.scale);
         imageViewAnim.setFitWidth(this.scale);
-        imageViewAnim.setX(this.x ); imageViewAnim.setY(this.y);
+        imageViewAnim.setX(this.x); imageViewAnim.setY(this.y);
 
 
         leCarre.setX(this.x);
@@ -85,11 +86,9 @@ public class CaseFX {
     }
 
     public void setElement(){
-        int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
-                imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
-                imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
-                imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
-        if(index == 3){index =0;} else index +=1;
+        int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 1 :
+                imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 2 :
+                imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  3 : 0;
         this.imageView.setImage(this.lesImages[index]);
         this.laCase.setContenu(index == 0 ? new Rocher() : index == 1 ? new Herbe() : index == 2 ? new Cactus() : new Marguerite());
     }
@@ -117,8 +116,7 @@ public class CaseFX {
                     animal = new Loup(this.getLaCase().getLeLabyrinthe());
                     this.imageViewAnim.setImage(this.lesAnimaux[0]);
                     this.laCase.setAnimal(animal);
-                    this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);// pb ici
-
+                    this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
                 }
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Loup) {
                     animal = new Mouton(this.laCase.getLeLabyrinthe());
@@ -137,19 +135,22 @@ public class CaseFX {
 
     public void sortiClick(){
         if(this.gameUI.getNbsorti() != 1){
-            this.gameUI.afficherTitle();
-            this.setSortie();
             this.setElement();
-            this.gameUI.setNbsorti(1);
             this.laCase.setSortie(true);
+            this.setSortie();
+            this.gameUI.setNbsorti(1);
+            this.gameUI.afficherTitle();
+            this.gameUI.activerSetSortie();
         }
         if(this.gameUI.getNbsorti() == 1 && this.getSortie()){
             this.setElement();
             if(this.laCase.getContenu() instanceof Rocher){
-                this.gameUI.messageSetSortie();
                 this.setSortie();
                 this.gameUI.setNbsorti(0);
                 this.laCase.setSortie(false);
+                this.gameUI.activerSetSortie();
+                this.gameUI.messageSetSortie();
+
             }
         }
     }

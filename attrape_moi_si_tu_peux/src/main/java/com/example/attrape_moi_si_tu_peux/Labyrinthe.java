@@ -5,11 +5,8 @@ import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Rocher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 
 public class Labyrinthe {
     private final int x;
