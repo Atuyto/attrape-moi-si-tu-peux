@@ -4,16 +4,16 @@ import com.example.attrape_moi_si_tu_peux.Animal;
 import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Rocher;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Labyrinthe {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
     private int nb_tour;
     private Case[][] lesCases;
     private ArrayList<Animal> lesAnimaux;
@@ -78,8 +78,8 @@ public class Labyrinthe {
 
     public String toString() {
         String string = "";
-        for(int i = 0 ; i< this.x ; i++) {
-            for (int j = 0; j < this.y; j++) {
+        for(int i = 0 ; i < this.y ; i++) {
+            for (int j = 0; j < this.x; j++) {
                 if (lesCases[i][j].getAnimal() instanceof Mouton) {
                     string += "m";
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
@@ -92,6 +92,8 @@ public class Labyrinthe {
                     string += "x";
                 } else if (lesCases[i][j].getContenu() instanceof Cactus) {
                     string += "c";
+                } else if (lesCases[i][j].getContenu() instanceof Marguerite) {
+                    string += "m";
                 }
             }
             string += "\n";
@@ -99,12 +101,73 @@ public class Labyrinthe {
         return string;
     }
 
+    public void sauvegarderLabyrinthe() {
+        try {
+            FileWriter fw = new FileWriter("labyrinthe.txt");
 
-
-    /*public void sauvegarder_labyrinthe(String s, String path) {
-        Files.write(Paths.get(path), s.getBytes());
+            fw.write(this.toString());
+            fw.close();}
+        catch (IOException ex)
+        {ex.printStackTrace();}
     }
-   */
+
+    public String openLab() {
+        String string = "";
+        this.x = 0;
+        int y = 0;
+        try {
+            // Le fichier d'entrée
+            FileInputStream file = new FileInputStream("labyrinthe.txt");
+            Scanner scanner = new Scanner(file);
+
+            //renvoie true s'il y a une autre ligne à lire
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine()+"\n";
+                string += line;
+                y++;
+
+                if (this.x == 0) {
+                    this.x = line.length()-1;
+
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.y = y;
+        this.lesCases = new Case[this.y][this.x];
+        return string;
+    }
+    public void genererGrilleSauve(String s) {
+
+        int i = 0;
+        int j = 0;
+        for (int n = 0; n < s.length(); n++) {
+
+            if (s.charAt(n) == 'x') {
+                this.lesCases[j][i] = new Case(this, new Rocher());
+            } else if (s.charAt(n) == 'M') {
+                this.lesCases[j][i] = new Case(this, new Herbe());
+                this.lesCases[j][i].setAnimal(new Mouton(this));
+            } else if (s.charAt(n) == 'L') {
+                this.lesCases[j][i] = new Case(this, new Herbe());
+                this.lesCases[j][i].setAnimal(new Loup(this));
+            } else if (s.charAt(n) == 'h') {
+                this.lesCases[j][i] = new Case(this, new Herbe());
+            } else if (s.charAt(n) == 'm') {
+                this.lesCases[j][i] = new Case(this, new Marguerite());
+            } else if (s.charAt(n) == 'c') {
+                this.lesCases[j][i] = new Case(this, new Cactus());
+            } else if (s.charAt(n) == 's') {
+                this.lesCases[j][i] = new Case(this, new Herbe());
+            } else if (s.charAt(n) == '\n') {
+                i = -1; j++;
+            }
+            i++;
+        }
+    }
+
     public int getNb_tour() {
         return nb_tour;
     }
