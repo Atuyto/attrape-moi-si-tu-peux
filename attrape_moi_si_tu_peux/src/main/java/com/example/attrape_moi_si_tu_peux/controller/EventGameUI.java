@@ -1,5 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.controller;
 
+import com.example.attrape_moi_si_tu_peux.Animal;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
 import javafx.event.Event;
@@ -35,12 +36,25 @@ public class EventGameUI implements EventHandler {
             } else {
                 gameUI.activerEdition();
                 ((Button) event.getSource()).setText("Arreter edition");
-
             }
-
+        }
+        if(Objects.equals(((Button) event.getSource()).getId(), "Edition animal")){
+            if (gameUI.getLab().getLesAnimaux().size() != 2) {
+                ((Button) event.getSource()).setText("Enregistrer emplacement");
+                gameUI.activerAddAnimal();
+            }
+            else {
+                gameUI.activerAddAnimal();
+                ((Button) event.getSource()).setText("Ajouter animaux");
+            }
+        }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Génération aléatoire"))){
+            this.gameUI.getLab().getLesAnimaux().clear();
+            this.gameUI.genererLab();
         }
 
     }
+
 
     public GameUI getGameUI() {
         return gameUI;

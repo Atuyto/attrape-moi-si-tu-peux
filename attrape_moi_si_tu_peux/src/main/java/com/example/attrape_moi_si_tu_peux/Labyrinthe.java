@@ -4,6 +4,7 @@ import com.example.attrape_moi_si_tu_peux.Animal;
 import com.example.attrape_moi_si_tu_peux.Case;
 import com.example.attrape_moi_si_tu_peux.Rocher;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +16,7 @@ public class Labyrinthe {
     private final int y;
     private int nb_tour;
     private Case[][] lesCases;
-    private Animal[] lesAnimaux;
+    private ArrayList<Animal> lesAnimaux;
 
 
     public Labyrinthe(){
@@ -23,7 +24,7 @@ public class Labyrinthe {
         this.y              = 10;
         this.nb_tour        = 0;
         this.lesCases       =  new  Case[this.x][this.y];
-        this.lesAnimaux     =  new Animal[2];
+        this.lesAnimaux     = new ArrayList<>();
         this.genererGrille();
 
     }
@@ -32,7 +33,7 @@ public class Labyrinthe {
         this.y              = y;
         this.nb_tour        = 0;
         this.lesCases       =  new  Case[this.x][this.y];
-        this.lesAnimaux     =  new Animal[2];
+        this.lesAnimaux     = new ArrayList<>();
         this.genererGrille();
     }
 
@@ -102,7 +103,8 @@ public class Labyrinthe {
 
     /*public void sauvegarder_labyrinthe(String s, String path) {
         Files.write(Paths.get(path), s.getBytes());
-    }*/
+    }
+   */
     public int getNb_tour() {
         return nb_tour;
     }
@@ -133,5 +135,16 @@ public class Labyrinthe {
         return this.y;
     }
 
+    public ArrayList<Animal> getLesAnimaux() {
+        return this.lesAnimaux;
+    }
+
+    public boolean setLesAnimaux(Animal animal) {
+        if (this.lesAnimaux.size() == 2) return false;
+        else {
+            this.lesAnimaux.add(animal);
+            };
+            return true;
+        }
 
 }
