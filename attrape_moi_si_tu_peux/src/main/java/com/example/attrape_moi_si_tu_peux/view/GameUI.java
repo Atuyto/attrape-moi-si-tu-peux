@@ -1,9 +1,10 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
-import com.example.attrape_moi_si_tu_peux.Case;
-import com.example.attrape_moi_si_tu_peux.Labyrinthe;
-import com.example.attrape_moi_si_tu_peux.Rocher;
+import com.example.attrape_moi_si_tu_peux.*;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +21,10 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.Arrays;
+import java.util.Random;
 
 import static javafx.scene.input.KeyCode.O;
 
@@ -40,7 +45,7 @@ public class GameUI extends Stage{
     private int nbAnimaux;
 
     public void GameUI(){
-        lab                     = new Labyrinthe(15, 18);
+        lab                     = new Labyrinthe(15, 15);
         gpLab                   = new Group();
         gpLeft                  = new Group();
         gpRight                 = new Group();
@@ -58,7 +63,7 @@ public class GameUI extends Stage{
 
         Button buttonAddAnimauw = new Button("Ajouter animaux");
         Button buttonEditer     = new Button("Editer labyrinthe");
-        Button buttonPause      = new Button("Démarrer Simulation");
+        Button buttonSimu      = new Button("Démarrer Simulation");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
         Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
@@ -71,7 +76,7 @@ public class GameUI extends Stage{
 
         buttonAddAnimauw.setFont(Font.font("Verdana", 20 ));
         buttonEditer.setFont(Font.font("Verdana", 20 ));
-        buttonPause.setFont(Font.font("Verdana", 20 ));
+        buttonSimu.setFont(Font.font("Verdana", 20 ));
         buttonGenererLab.setFont(Font.font("Verdana", 20 ));
         buttonSave.setFont(Font.font("Verdana", 20 ));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
@@ -79,7 +84,7 @@ public class GameUI extends Stage{
         buttonEditer.setId("Edition");
         buttonAddAnimauw.setId("Edition animal");
 
-        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonPause,buttonSave);
+        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
@@ -93,8 +98,8 @@ public class GameUI extends Stage{
         buttonRetour.setOnMouseClicked(eventGameUI);
         buttonEditer.setOnMouseClicked(eventGameUI);
         buttonAddAnimauw.setOnMouseClicked(eventGameUI);
-
         buttonGenererLab.setOnMouseClicked(eventGameUI);
+        buttonSimu.setOnMouseClicked(eventGameUI);
 
 
         pane.setLeft(gpLeft);
@@ -165,6 +170,49 @@ public class GameUI extends Stage{
                 }
             }
         }
+    }
+
+    public void simulation(){
+
+        Timeline boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                String[] orient = new String[]{"N", "E", "S", "O"};
+                Random random = new Random();
+                int[] loup = new int[2];
+                int[] mouton = new int[2];
+                for (Animal a : lab.getLesAnimaux()) {
+                    if (a instanceof Mouton) {
+                        mouton[0] = lab.getPosition(a)[0];
+                        mouton[1] = lab.getPosition(a)[1];
+                    }
+                    if (a instanceof Loup) {
+                        loup[0] = lab.getPosition(a)[0];
+                        loup[1] = lab.getPosition(a)[1];
+                    }
+
+                }
+
+                if (lab.getNb_tour() % 2 == 0) {
+                    String choice = orient[random.nextInt(orient.length)];
+                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
+                    caseFX[loup[0]][loup[1]].deleteAnimal();
+                    caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                } else {
+                    String choice = orient[random.nextInt(orient.length)];
+                    int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
+                    caseFX[mouton[0]][mouton[1]].deleteAnimal();
+                    caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
+
+                }
+                lab.setNb_tour(1);
+
+            }
+        }));
+
+        boucle.setCycleCount(Timeline.INDEFINITE);
+        boucle.play();
     }
 
     public void messageSetSortie(){

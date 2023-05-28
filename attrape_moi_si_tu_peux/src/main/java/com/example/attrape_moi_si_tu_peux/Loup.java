@@ -71,4 +71,9 @@ public class Loup extends Animal {
         }
         return "";
     }
+
+    @Override
+    public void manger() {
+
+    }
 }

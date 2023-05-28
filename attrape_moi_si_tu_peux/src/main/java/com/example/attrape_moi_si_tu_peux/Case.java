@@ -91,7 +91,7 @@ public class Case {
     }
 
     public boolean isAccessible() {
-        return !(this.contenu instanceof Rocher) || (this.accessible = false);
+        return !(this.contenu instanceof Rocher);
     }
 
     public boolean isEstVide() {

@@ -29,19 +29,8 @@ public class interface1 extends Application {
         menuDemarrer = new Menu_demarrer(stage);
         eventGameUI = menuDemarrer.getEventGameUI();
         gameUI = eventGameUI.getGameUI();
-        boolean w = true;
 
-        /*
-        test = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println(Stage.getWindows());
-            }
-        }));
 
-        test.setCycleCount(Timeline.INDEFINITE);
-        test.play();
-        */
 
         stage.setTitle("Attrape moi si tu peux !");
         stage.show();

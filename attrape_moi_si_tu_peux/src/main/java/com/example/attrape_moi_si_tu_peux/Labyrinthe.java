@@ -67,38 +67,34 @@ public class Labyrinthe {
             }
         }
     }
-
-
     public void ajouterAnimal(Animal animal, int x, int y){
         if (!(this.getLesCases()[x][x].getContenu() instanceof Rocher)) {
             this.getLesCases()[x][y].setAnimal(animal);
         }
     }
-
-
     public String toString() {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for(int i = 0 ; i < this.y ; i++) {
             for (int j = 0; j < this.x; j++) {
                 if (lesCases[i][j].getAnimal() instanceof Mouton) {
-                    string += "m";
+                    string.append("m");
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
-                    string += "l";
+                    string.append("l");
                 } else if ((lesCases[i][j].getContenu() instanceof Herbe) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
-                    string += "s";
+                    string.append("s");
                 } else if (lesCases[i][j].getContenu() instanceof Herbe) {
-                    string += "h";
+                    string.append("h");
                 } else if (lesCases[i][j].getContenu() instanceof Rocher) {
-                    string += "x";
+                    string.append("x");
                 } else if (lesCases[i][j].getContenu() instanceof Cactus) {
-                    string += "c";
+                    string.append("c");
                 } else if (lesCases[i][j].getContenu() instanceof Marguerite) {
-                    string += "m";
+                    string.append("m");
                 }
             }
-            string += "\n";
+            string.append("\n");
         }
-        return string;
+        return string.toString();
     }
 
     public void sauvegarderLabyrinthe() {
@@ -172,7 +168,7 @@ public class Labyrinthe {
         return nb_tour;
     }
     public void setNb_tour( int i ){
-        this.nb_tour = i;
+        this.nb_tour += i;
     }
 
     public Case[][] getLesCases() {return this.lesCases;}

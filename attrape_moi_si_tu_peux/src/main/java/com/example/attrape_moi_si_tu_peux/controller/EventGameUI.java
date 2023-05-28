@@ -53,6 +53,10 @@ public class EventGameUI implements EventHandler {
             this.gameUI.genererLab();
         }
 
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Démarrer Simulation"))){
+            this.gameUI.simulation();
+        }
+
     }
 
 
