@@ -74,6 +74,7 @@ public abstract class Animal {
 
                     }
                 }
+                this.laCase = this.getLeLabyrinthe().getLesCases()[x][y];
                 i++;
             }
 

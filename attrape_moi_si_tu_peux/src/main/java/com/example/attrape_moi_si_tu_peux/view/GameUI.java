@@ -191,7 +191,6 @@ public class GameUI extends Stage{
                         loup[0] = lab.getPosition(a)[0];
                         loup[1] = lab.getPosition(a)[1];
                     }
-
                 }
 
                 if (lab.getNb_tour() % 2 == 0) {
@@ -204,9 +203,20 @@ public class GameUI extends Stage{
                     int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
                     caseFX[mouton[0]][mouton[1]].deleteAnimal();
                     caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
+                    caseFX[newPosM[0]][newPosM[1]].manger();
 
                 }
                 lab.setNb_tour(1);
+                /*
+                for(int i = 0; i<lab.getX(); i++){
+                    for(int j = 0; j<lab.getY(); j++){
+                        if(lab.getLesCases()[i][j].isEstVide()){
+                            caseFX[i][j].repousser();
+                        }
+                    }
+                }
+
+                 */
 
             }
         }));

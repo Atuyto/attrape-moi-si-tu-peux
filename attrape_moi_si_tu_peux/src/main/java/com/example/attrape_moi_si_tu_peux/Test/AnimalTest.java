@@ -1,5 +1,6 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Test;
 
+import com.example.attrape_moi_si_tu_peux.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

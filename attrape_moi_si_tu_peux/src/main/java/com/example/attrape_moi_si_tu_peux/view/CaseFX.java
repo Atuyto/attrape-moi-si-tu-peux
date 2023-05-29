@@ -99,7 +99,22 @@ public class CaseFX {
 
     public void manger(){
         this.laCase.getAnimal().manger();
-        //this.imageView.setImage(this.lesImages[1]);
+        this.imageView.setImage(null);
+    }
+
+    public void repousser(){
+        this.laCase.regeneration();
+        if(this.laCase.getContenu()!=null){
+            if(this.laCase.getContenu() instanceof Herbe) {
+                this.imageView.setImage(this.lesImages[1]);
+            }
+            if(this.laCase.getContenu() instanceof Marguerite) {
+                this.imageView.setImage(this.lesImages[3]);
+            }
+            if(this.laCase.getContenu() instanceof Cactus) {
+                this.imageView.setImage(this.lesImages[2]);
+            }
+        }
     }
 
     public void deleteAnimal(){
