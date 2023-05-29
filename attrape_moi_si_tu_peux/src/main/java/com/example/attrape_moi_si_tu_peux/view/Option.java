@@ -1,5 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
+import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,55 +23,72 @@ import javafx.stage.Stage;
 import java.util.function.BiPredicate;
 
 public class Option extends Stage {
-    public Option() {
+    private EventGameUI eventGameUI;
+    public void Option() {
 
-        ComboBox<Integer> cb = new ComboBox<>();
-        ComboBox<Integer> cb1 = new ComboBox<>();
-        Group gp = new Group();
-        CheckBox chb = new CheckBox();
-        CheckBox chb1 = new CheckBox();
-        Text titleTop = new Text("Veuillez choisir les dimensions du labyrinthe");
-        Text titleMiddle = new Text("Quels rôles voulez vous jouer ? ");
-        Button b1 = new Button("Importer labyrinthe");
-        BorderPane p = new BorderPane();
+        ComboBox<Integer> cb        = new ComboBox<>();
+        ComboBox<Integer> cb1       = new ComboBox<>();
+        Group gp                    = new Group();
+        CheckBox chb                = new CheckBox("Loup");
+        CheckBox chb1               = new CheckBox("Mouton");
+        Text titleTop               = new Text("Veuillez choisir les dimensions du labyrinthe (en construction)");
+        Text textRole               = new Text("Quels rôles voulez vous jouer ? (en construction)  ");
+        Text title                  = new Text("Option");
+        Button buttonimport         = new Button("Importer labyrinthe");
+        Button buttonRetour         = new Button("Retour");
+        BorderPane pane             = new BorderPane();
+
+        HBox hBoxDimension          = new HBox();
+        HBox hBoxPos                = new HBox();
+        VBox vBoxMain               = new VBox();
+
+        titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
+        textRole.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
+        buttonimport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+        buttonRetour.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+
         cb.getItems().addAll(10,11,12,13,14,15);
         cb1.getItems().addAll(10,11,12,13,14,15);
-        gp.getChildren().addAll(cb,cb1,titleTop,titleMiddle,b1,chb,chb1);
-        p.setBottom(chb);
-        p.setBottom(chb1);
-        p.setCenter(gp);
-        p.setTop(titleTop);
-        p.setCenter(titleMiddle);
-        p.setBottom(b1);
-        BorderPane.setAlignment(chb,Pos.CENTER);
-        BorderPane.setAlignment(chb1,Pos.CENTER);
-        BorderPane.setAlignment(titleTop,Pos.CENTER);
-        BorderPane.setAlignment(titleMiddle,Pos.CENTER);
-        BorderPane.setAlignment(b1,Pos.CENTER);
-        titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
-        titleMiddle.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
-        b1.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
-        b1.setTranslateY(-100);
-        p.setRight(cb);
-        BorderPane.setAlignment(cb,Pos.CENTER);
-        p.setLeft(cb1);
-        BorderPane.setAlignment(cb1,Pos.CENTER);
-        BorderPane.setMargin(cb1,new Insets(150));
-        BorderPane.setMargin(titleTop, new Insets(100));
-        cb1.setTranslateY(-225);
-        cb.setTranslateY(-225);
-        cb.setTranslateX(-150);
-        titleMiddle.setTranslateX(-150);
-        titleMiddle.setTranslateY(-150);
-        BorderPane.setAlignment(chb,Pos.BOTTOM_RIGHT);
-        BorderPane.setAlignment(chb1,Pos.BOTTOM_LEFT);
+
+        vBoxMain.setSpacing(20);
+
+        cb.setScaleX(1.5); cb.setScaleY(1.5);
+        cb1.setScaleX(1.5); cb1.setScaleY(1.5);
+        chb.setScaleX(1.5); chb.setScaleY(1.5);
+        chb1.setScaleX(1.5); chb1.setScaleY(1.5);
+
+        hBoxDimension.getChildren().addAll(cb, cb1);
+        hBoxPos.getChildren().addAll(chb, chb1);
+        vBoxMain.getChildren().addAll(titleTop, hBoxDimension, textRole, hBoxPos);
+        hBoxPos.setSpacing(400);
+        hBoxDimension.setSpacing(400);
+        gp.getChildren().add(vBoxMain);
 
 
-        Scene scene = new Scene(p, 1000, 800);
+        pane.setTop(title);
+        pane.setCenter(gp);
+        pane.setBottom(buttonRetour);
+
+
+
+        BorderPane.setAlignment(vBoxMain, Pos.CENTER);
+        BorderPane.setAlignment(buttonRetour, Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(title, Pos.CENTER);
+
+
+        buttonRetour.setOnMouseClicked(eventGameUI);
+
+
+        Scene scene = new Scene(pane, 1000, 800);
         this.setScene(scene);
         this.setTitle("Attrape moi si tu peux ");
 
         }
 
+    public void setEventGameUI(EventGameUI eventGameUI) {
+        this.eventGameUI = eventGameUI;
+        this.Option();
+    }
 }
 

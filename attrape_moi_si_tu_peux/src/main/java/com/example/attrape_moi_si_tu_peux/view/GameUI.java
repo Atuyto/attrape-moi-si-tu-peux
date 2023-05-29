@@ -122,7 +122,9 @@ public class GameUI extends Stage{
 
     }
 
-    public void setEventGameUI(EventGameUI eventGameUI) {this.eventGameUI = eventGameUI; this.GameUI();}
+    public void setEventGameUI(EventGameUI eventGameUI) {
+        this.eventGameUI = eventGameUI;
+        this.GameUI();}
 
     public void afficherGrille(){
         int x = 0;

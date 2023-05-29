@@ -18,6 +18,8 @@ public class EventGameUI implements EventHandler {
 
     public EventGameUI(Menu_demarrer menu) {
         this.menu = menu;
+        option = new Option();
+        option.setEventGameUI(this);
     }
 
     @Override
@@ -28,8 +30,16 @@ public class EventGameUI implements EventHandler {
             gameUI.show();
             menu.close();
         }
+
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Retour"))){
-            gameUI.close();
+            Button button = (Button) event.getSource();
+            if(button.getScene().getWindow() instanceof Option){
+                option.close();
+            }
+            if(button.getScene().getWindow() instanceof GameUI){
+                gameUI.close();
+            }
+
             menu.open();
         }
         if(Objects.equals(((Button) event.getSource()).getId(), "Edition")){
@@ -60,9 +70,8 @@ public class EventGameUI implements EventHandler {
             this.gameUI.simulation();
         }
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Options"))){
-            option = new Option();
             option.show();
-            menu.open();
+            menu.close();
         }
 
     }
