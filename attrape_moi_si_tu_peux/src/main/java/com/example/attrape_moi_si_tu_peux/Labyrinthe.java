@@ -67,34 +67,41 @@ public class Labyrinthe {
             }
         }
     }
+
+
     public void ajouterAnimal(Animal animal, int x, int y){
-        if (!(this.getLesCases()[x][x].getContenu() instanceof Rocher)) {
+        if (!(this.getLesCases()[x][y].getContenu() instanceof Rocher)) {
             this.getLesCases()[x][y].setAnimal(animal);
+            animal.setLaCase(getLesCases()[x][y]);
         }
     }
+
+
     public String toString() {
-        StringBuilder string = new StringBuilder();
+        String string = "";
         for(int i = 0 ; i < this.y ; i++) {
             for (int j = 0; j < this.x; j++) {
                 if (lesCases[i][j].getAnimal() instanceof Mouton) {
-                    string.append("m");
+                    string += "m";
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
-                    string.append("l");
+                    string += "l";
                 } else if ((lesCases[i][j].getContenu() instanceof Herbe) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
-                    string.append("s");
+                    string += "s";
                 } else if (lesCases[i][j].getContenu() instanceof Herbe) {
-                    string.append("h");
+                    string += "h";
                 } else if (lesCases[i][j].getContenu() instanceof Rocher) {
-                    string.append("x");
+                    string += "x";
                 } else if (lesCases[i][j].getContenu() instanceof Cactus) {
-                    string.append("c");
+                    string += "c";
                 } else if (lesCases[i][j].getContenu() instanceof Marguerite) {
-                    string.append("m");
+                    string += "m";
+                } else if (lesCases[i][j].getContenu() == null) {
+                    string += "v";
                 }
             }
-            string.append("\n");
+            string += "\n";
         }
-        return string.toString();
+        return string;
     }
 
     public void sauvegarderLabyrinthe() {
@@ -168,7 +175,7 @@ public class Labyrinthe {
         return nb_tour;
     }
     public void setNb_tour( int i ){
-        this.nb_tour += i;
+        this.nb_tour = i;
     }
 
     public Case[][] getLesCases() {return this.lesCases;}

@@ -22,15 +22,16 @@ public abstract class Animal {
         while(i < nbdep){
             if (x + 1 > 0 || this.getLeLabyrinthe().getX()-1 < x + 1 || y + 1 > 0 || this.getLeLabyrinthe().getY()-1 < y + 1 ) {
 
-                if (orientation.equals("N")) {
+                if (orientation.equals("O")) {
                    int tmpy = y-1;
                     if (this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible()) {
                         this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
                         this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
+
                         y = tmpy;
                     }
                 }
-                if (orientation.equals(("S"))) {
+                if (orientation.equals(("E"))) {
                    int tmpy = y+1;
                     if (this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible()) {
                         this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
@@ -38,7 +39,7 @@ public abstract class Animal {
                         y = tmpy;
                     }
                 }
-                if (orientation.equals("E")) {
+                if (orientation.equals("S")) {
                     int tmpx = x+1;
                     if (this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible()) {
                         this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
@@ -46,7 +47,7 @@ public abstract class Animal {
                         x= tmpx;
                     }
                 }
-                if (orientation.equals("O")) {
+                if (orientation.equals("N")) {
                     int tmpx = x-1;
                     if (this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible()) {
                         this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
