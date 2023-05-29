@@ -12,13 +12,12 @@ public class Loup extends Animal {
     }
 
 
-
     public String reperer() {
-        Case[][] C          = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
-        boolean a           = false;
-        boolean b           = false;
-        ArrayList<Case> c   = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
-        int position[]      = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du loup */
+        Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
+        boolean a = false;
+        boolean b = false;
+        ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
+        int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du loup */
 
         for (int i = 0; i < 6; i++) {
             if (position[1] + i < (this.getLeLabyrinthe().getY()) - 1) /*Condition d'accession aux tests sur tableau */ {
@@ -74,6 +73,24 @@ public class Loup extends Animal {
 
     @Override
     public void manger() {
+        Case[][] c = this.getLeLabyrinthe().getLesCases();
+        int position[] = this.getLeLabyrinthe().getPosition(this);
+        if (c[position[0] - 1][position[1]].getAnimal() instanceof Mouton) { // On vérifie si le contenu de la case est une herbe
+            c[position[0] - 1][position[1]].setAnimal(this);
+            this.getLaCase().setAnimal(null);
 
-    }
+        } else if (c[position[0] + 1][position[1]].getAnimal() instanceof Mouton) {
+            c[position[0] + 1][position[1]].setAnimal(this);
+            this.getLaCase().setAnimal(null);
+
+        } else if (c[position[0]][position[1] - 1].getAnimal() instanceof Mouton) {
+            c[position[0]][position[1] - 1].setAnimal(this);
+            this.getLaCase().setAnimal(null);
+
+        } else if (c[position[0]][position[1] + 1].getAnimal() instanceof Mouton) {
+            c[position[0]][position[1] + 1].setAnimal(this);
+            this.getLaCase().setAnimal(null);
+        }
+        System.out.println("Gagner");
+     }
 }
