@@ -25,6 +25,8 @@ public class Menu_demarrer {
     private EventGameUI eventGameUI;
     private Stage stagelocal;
 
+    private Option option;
+
 
 
     public Menu_demarrer(Stage stage){
@@ -51,6 +53,7 @@ public class Menu_demarrer {
         eventGameUI = new EventGameUI(this);
         buttonPlay.setOnMouseClicked(eventGameUI);
         buttonQuit.setOnMouseClicked(MouseEvent -> stage.close());
+        buttonOption.setOnMouseClicked(eventGameUI);
 
         stage.setScene(scene);
         stagelocal=stage;

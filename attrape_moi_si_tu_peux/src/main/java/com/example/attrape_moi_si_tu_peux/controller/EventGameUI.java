@@ -3,6 +3,7 @@ package com.example.attrape_moi_si_tu_peux.controller;
 import com.example.attrape_moi_si_tu_peux.Animal;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
+import com.example.attrape_moi_si_tu_peux.view.Option;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,6 +13,8 @@ import java.util.Objects;
 public class EventGameUI implements EventHandler {
     private Menu_demarrer menu;
     private GameUI gameUI;
+
+    private Option option;
 
     public EventGameUI(Menu_demarrer menu) {
         this.menu = menu;
@@ -56,8 +59,14 @@ public class EventGameUI implements EventHandler {
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Démarrer Simulation"))){
             this.gameUI.simulation();
         }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Options"))){
+            option = new Option();
+            option.show();
+            menu.open();
+        }
 
     }
+
 
 
     public GameUI getGameUI() {

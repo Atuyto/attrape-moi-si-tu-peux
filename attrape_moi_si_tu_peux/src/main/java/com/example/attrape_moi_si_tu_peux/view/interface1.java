@@ -17,6 +17,8 @@ public class interface1 extends Application {
     Menu_demarrer menuDemarrer;
     private EventGameUI eventGameUI;
 
+    private Option option;
+
     private boolean simulation;
 
     private Timeline test;
