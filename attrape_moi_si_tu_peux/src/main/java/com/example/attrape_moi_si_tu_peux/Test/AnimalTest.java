@@ -25,8 +25,7 @@ class AnimalTest {
 
     @AfterEach
     void reset() {
-        laby = new Labyrinthe(8, 8);
-        laby.genererGrille();
+        init();
     }
 
     @Test
