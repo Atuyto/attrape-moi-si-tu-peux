@@ -105,7 +105,7 @@ public class GameUI extends Stage{
         buttonEditer.setId("Edition");
         buttonAddAnimauw.setId("Edition animal");
 
-        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
+        vboxButton.getChildren().addAll(buttonGenererLab,buttonEditer, buttonAddAnimauw, buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
