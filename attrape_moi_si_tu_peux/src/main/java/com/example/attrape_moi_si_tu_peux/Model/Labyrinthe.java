@@ -146,33 +146,79 @@ public class Labyrinthe {
         }
         return matrice;
     }
-
+/*
     public void genererGrille(char[][] c){
-        for(int i = 0; i<this.getX(); i++){
-            for(int j = 0; j<this.getY(); j++){
+        System.out.println(this.x + "," +this.y);
+        for(int i = 0; i<this.getY(); i++){
+            for(int j = 0; j<this.getX(); j++){
                 if (c[i][j] == 'x') {
-                    this.lesCases[j][i] = new Case(this, new Rocher());
+                    this.lesCases[i][j] = new Case(this, new Rocher());
                 } else if (c[j][i]== 'm') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    this.lesCases[i][j] = new Case(this, new Herbe());
                     Mouton mouton = new Mouton(this);
-                    this.ajouterAnimal(mouton, j, i);
+                    this.ajouterAnimal(mouton, i, j);
                     this.setLesAnimaux(mouton);
-                } else if (c[j][i] == 'l') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
+                } else if (c[i][j] == 'l') {
+                    this.lesCases[i][j] = new Case(this, new Herbe());
                     Loup loup = new Loup(this);
-                    this.ajouterAnimal(loup, j, i);
+                    this.ajouterAnimal(loup, i, j);
                     this.setLesAnimaux(loup);
-                } else if (c[j][i]== 'h') {
+                } else if (c[i][j]== 'h') {
                     this.lesCases[j][i] = new Case(this, new Herbe());
-                } else if (c[j][i]== 'f') {
-                    this.lesCases[j][i] = new Case(this, new Marguerite());
-                } else if (c[j][i]== 'c') {
+                } else if (c[i][j]== 'f') {
+                    this.lesCases[i][j] = new Case(this, new Marguerite());
+                } else if (c[i][j]== 'c') {
                     this.lesCases[j][i] = new Case(this, new Cactus());
                 } else if (c[i][j] == 's') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                    this.lesCases[j][i].setSortie(true);
+                    this.lesCases[i][j] = new Case(this, new Herbe());
+                    this.lesCases[i][j].setSortie(true);
                 }
             }
+        }
+
+    }
+
+
+ */
+    public void genererGrille(char[][] c){
+        System.out.println(this.x + "," +this.y);
+        int j = 0;
+        for(char[] ligne : c){
+            int i =0;
+            for(char colone : ligne){
+                if (colone == 'x') {
+                    this.lesCases[i][j] = new Case(this, new Rocher());
+                }
+                if (colone == 'm') {
+                    this.lesCases[i][j] = new Case(this, new Herbe());
+                    Mouton mouton = new Mouton(this);
+                    this.ajouterAnimal(mouton, i, j);
+                    this.setLesAnimaux(mouton);
+                }
+                if (colone== 'l') {
+                    this.lesCases[i][j] = new Case(this, new Herbe());
+                    Loup loup = new Loup(this);
+                    this.ajouterAnimal(loup, i, j);
+                    this.setLesAnimaux(loup);
+                }
+
+                if (colone== 'h') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                }
+                if (colone== 'f') {
+                    this.lesCases[i][j] = new Case(this, new Marguerite());
+                }
+
+                if (colone== 'c') {
+                    this.lesCases[j][i] = new Case(this, new Cactus());
+                }
+                if (colone == 's') {
+                    this.lesCases[i][j] = new Case(this, new Herbe());
+                    this.lesCases[i][j].setSortie(true);
+                }
+                i++;
+            }
+            j++;
         }
 
     }
