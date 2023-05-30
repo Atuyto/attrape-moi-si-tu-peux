@@ -153,18 +153,20 @@ public class GameUI extends Stage{
 
     public void afficherGrille() {
         int x = 0;
-        for (int i = 0; i < lab.getY(); i++) {
+        for (int i = 0; i < lab.getX(); i++) {
             int y = 0;
-            for (int j = 0; j < lab.getX(); j++) {
-                if (i == 0 || j == 0 || i == this.lab.getY() - 1 || j == this.lab.getX() - 1) {
+            for (int j = 0; j < lab.getY(); j++) {
+                if (i == 0 || j == 0 || j == this.lab.getY() - 1 || i == this.lab.getX() - 1) {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
 
                 }
                 else {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
                 }
+
                 if(this.lab.getLesCases()[i][j].getSortie()){
                     this.caseFX[i][j].setSortie();
+                    System.out.println(this.lab.getLesCases()[i][j].getSortie() );
                     this.nbsorti = 1;
                     this.afficherTitle();
                 }
