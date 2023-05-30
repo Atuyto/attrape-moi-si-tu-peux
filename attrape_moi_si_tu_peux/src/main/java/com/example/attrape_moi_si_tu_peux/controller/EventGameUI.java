@@ -95,20 +95,17 @@ public class EventGameUI implements EventHandler {
             fileChooser.getExtensionFilters().add(extFilter);
 
             File fileSelected = fileChooser.showOpenDialog(stage);
-
-
-            Labyrinthe lab = new Labyrinthe();
-            lab.genererGrilleSauve(lab.openLab(String.valueOf(fileSelected)));
-            gameUI = new GameUI(lab);
-            Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
-            gameUI.setEventGameUI(this);
-            this.gameUI.show();
-            menu.close();
-            option.close();
-            mesImport.show();
-
-
-
+            if(fileSelected != null){
+                Labyrinthe lab = new Labyrinthe();
+                lab.genererGrilleSauve(lab.openLab(String.valueOf(fileSelected)));
+                gameUI = new GameUI(lab);
+                Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
+                gameUI.setEventGameUI(this);
+                this.gameUI.show();
+                menu.close();
+                option.close();
+                mesImport.show();
+            }
         }
     }
 
