@@ -74,7 +74,7 @@ public class CaseFX {
         gp.getChildren().add(leCarre);
         leCarre.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 3;");
 
-
+        System.out.println(this.laCase);
         imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
                 this.laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :
                         this.laCase.getContenu() instanceof  Cactus ? this.lesImages[2]  :
@@ -90,8 +90,8 @@ public class CaseFX {
     public void setElement(){
         int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
                 imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
-                imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
-                imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
+                        imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
+                                imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
         if(index == 3){index =0;} else index +=1;
         this.imageView.setImage(this.lesImages[index]);
         this.laCase.setContenu(index == 0 ? new Rocher() : index == 1 ? new Herbe() : index == 2 ? new Cactus() : new Marguerite());
@@ -99,22 +99,19 @@ public class CaseFX {
 
     public void manger(){
         this.laCase.getAnimal().manger();
-        if(this.laCase.getContenu() == null){
-            this.imageView.setImage(null);
-        }
-
+        this.imageView.setImage(null);
     }
 
     public void repousser(){
-        Element e = this.laCase.regeneration();
-        if(e!=null){
-            if(e instanceof Herbe) {
+        this.laCase.regeneration();
+        if(this.laCase.getContenu()!=null){
+            if(this.laCase.getContenu() instanceof Herbe) {
                 this.imageView.setImage(this.lesImages[1]);
             }
-            if(e instanceof Marguerite) {
+            if(this.laCase.getContenu() instanceof Marguerite) {
                 this.imageView.setImage(this.lesImages[3]);
             }
-            if(e instanceof Cactus) {
+            if(this.laCase.getContenu() instanceof Cactus) {
                 this.imageView.setImage(this.lesImages[2]);
             }
         }
@@ -123,7 +120,7 @@ public class CaseFX {
     public void deleteAnimal(){
         this.imageViewAnim.setImage(null);
     }
-    public void afficherAnimal(){
+    public void afficherAnimal() {
         if (this.laCase.getAnimal() instanceof Loup) {
             this.imageViewAnim.setImage(this.lesAnimaux[0]);
 
@@ -133,7 +130,6 @@ public class CaseFX {
             this.imageViewAnim.setImage(this.lesAnimaux[1]);
 
         }
-
     }
 
     public void setAnimaux() {
@@ -160,7 +156,7 @@ public class CaseFX {
                     animal = new Loup(this.getLaCase().getLeLabyrinthe());
                     this.imageViewAnim.setImage(this.lesAnimaux[0]);
                     this.laCase.setAnimal(animal);
-                    this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);// pb ici
+                    this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
 
                 }
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Loup) {
@@ -169,9 +165,10 @@ public class CaseFX {
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
                 }
-                }
             }
+        }
     }
+
 
     public void sortiClick(){
         if(this.gameUI.getNbsorti() != 1){
@@ -191,7 +188,16 @@ public class CaseFX {
             }
         }
     }
-
+    public boolean checkSortie() {
+        if (this.border&&(!(this.laCase.getContenu() instanceof Rocher))) {
+            System.out.println(true);
+            this.setSortie();
+            this.gp.setOnMouseClicked(null);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean getBorder(){
         return this.border;
     }
@@ -208,8 +214,6 @@ public class CaseFX {
     public Case getLaCase() {
         return laCase;
     }
-
-
 
     public int getScale() {
         return scale;

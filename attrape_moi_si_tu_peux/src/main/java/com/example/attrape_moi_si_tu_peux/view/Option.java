@@ -35,6 +35,7 @@ public class Option extends Stage {
         Text titleTop               = new Text("Veuillez choisir les dimensions du labyrinthe");
         Text textRole               = new Text("Quels rôles voulez vous jouer ? (en construction)  ");
         Button saveOption           = new Button("Sauvegarder option");
+        Button buttonImport           = new Button("Importer Labyrinthe");
         Text title                  = new Text("Option");
         Button buttonRetour         = new Button("Retour");
         BorderPane pane             = new BorderPane();
@@ -48,6 +49,7 @@ public class Option extends Stage {
         textRole.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
         saveOption.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
         buttonRetour.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+        buttonImport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
 
         cb.getItems().addAll(10,11,12,13,14,15);
         cb1.getItems().addAll(10,11,12,13,14,15);
@@ -61,7 +63,7 @@ public class Option extends Stage {
 
         hBoxDimension.getChildren().addAll(cb, cb1);
         hBoxPos.getChildren().addAll(chb, chb1);
-        vBoxMain.getChildren().addAll(titleTop, hBoxDimension, textRole, hBoxPos, saveOption);
+        vBoxMain.getChildren().addAll(titleTop, hBoxDimension, textRole, hBoxPos, saveOption, buttonImport);
         hBoxPos.setSpacing(400);
         hBoxDimension.setSpacing(400);
         gp.getChildren().add(vBoxMain);
@@ -85,6 +87,7 @@ public class Option extends Stage {
 
 
         buttonRetour.setOnMouseClicked(eventGameUI);
+        buttonImport.setOnMouseClicked(eventGameUI);
 
 
         Scene scene = new Scene(pane, 1000, 800);

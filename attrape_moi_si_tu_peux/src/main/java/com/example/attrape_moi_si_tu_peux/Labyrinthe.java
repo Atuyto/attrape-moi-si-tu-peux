@@ -85,7 +85,7 @@ public class Labyrinthe {
                     string.append("M");
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
                     string.append("L");
-                } else if (!(lesCases[i][j].getContenu() instanceof Rocher) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
+                } else if (!(lesCases[i][j].getContenu() instanceof Rocher) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y-1))) {
                     string.append("s");
                 } else if (lesCases[i][j].getContenu() instanceof Herbe) {
                     string.append("h");
@@ -116,8 +116,8 @@ public class Labyrinthe {
 
     public String openLab() {
         String string = "";
-        this.x = 0;
-        int y = 0;
+        this.y = 0;
+        int x = 0;
         try {
             // Le fichier d'entrée
             FileInputStream file = new FileInputStream("labyrinthe.txt");
@@ -127,10 +127,10 @@ public class Labyrinthe {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine()+"\n";
                 string += line;
-                y++;
+                x++;
 
-                if (this.x == 0) {
-                    this.x = line.length()-1;
+                if (this.y == 0) {
+                    this.y = line.length()-1;
 
                 }
             }
@@ -138,8 +138,8 @@ public class Labyrinthe {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.y = y;
-        this.lesCases = new Case[this.y][this.x];
+        this.x = x;
+        this.lesCases = new Case[this.x][this.y];
         return string;
     }
     public void genererGrilleSauve(String s) {
@@ -154,12 +154,12 @@ public class Labyrinthe {
                 this.lesCases[j][i] = new Case(this, new Herbe());
                 Mouton mouton = new Mouton(this);
                 this.ajouterAnimal(mouton, j, i);
-                this.lesCases[j][i].setAnimal(mouton);
+                this.setLesAnimaux(mouton);
             } else if (s.charAt(n) == 'L') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
                 Loup loup = new Loup(this);
                 this.ajouterAnimal(loup, j, i);
-                this.lesCases[j][i].setAnimal(loup);
+                this.setLesAnimaux(loup);
             } else if (s.charAt(n) == 'h') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
             } else if (s.charAt(n) == 'm') {
@@ -213,8 +213,8 @@ public class Labyrinthe {
         if (this.lesAnimaux.size() == 2) return false;
         else {
             this.lesAnimaux.add(animal);
-            };
-            return true;
-        }
+        };
+        return true;
+    }
 
 }

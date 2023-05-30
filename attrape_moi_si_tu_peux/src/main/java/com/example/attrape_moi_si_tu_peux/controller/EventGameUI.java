@@ -1,6 +1,7 @@
 package com.example.attrape_moi_si_tu_peux.controller;
 
 import com.example.attrape_moi_si_tu_peux.Animal;
+import com.example.attrape_moi_si_tu_peux.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.Loup;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
@@ -84,13 +85,15 @@ public class EventGameUI implements EventHandler {
             Alert mesSave = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Sauvegardé");
             mesSave.show();
         }
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer labyrinthe"))){
-            this.gameUI.getLab().genererGrilleSauve(this.gameUI.getLab().openLab());
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer Labyrinthe"))) {
+            Labyrinthe lab = new Labyrinthe();
+            lab.genererGrilleSauve(lab.openLab());
+            gameUI = new GameUI(lab);
             Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
             ((Button) event.getSource()).setText("Enregistrer emplacement");
-            mesImport.show();
-            this.gameUI.afficherGrille();
             this.gameUI.show();
+            menu.close();
+            option.close();
             mesImport.show();
         }
     }

@@ -46,16 +46,23 @@ public class GameUI extends Stage{
     public GameUI(int xchoix, int ychoix) {
         this.x = xchoix;
         this.y = ychoix;
+        this.lab = new Labyrinthe(this.x, this.y);
         GameUI();
     }
     public GameUI(){
         this.x = 10;
         this.y = 10;
+        this.lab = new Labyrinthe(this.x, this.y);
+        GameUI();
+    }
+    public GameUI(Labyrinthe lab){
+        this.x = lab.getX();
+        this.y = lab.getY();
+        this.lab = lab;
         GameUI();
     }
 
     public void GameUI(){
-        lab                     = new Labyrinthe(this.x, this.y);
         gpLab                   = new Group();
         gpLeft                  = new Group();
         gpRight                 = new Group();
@@ -75,7 +82,6 @@ public class GameUI extends Stage{
         Button buttonEditer     = new Button("Editer labyrinthe");
         Button buttonSimu      = new Button("Démarrer Simulation");
         Button buttonSave       = new Button("Sauvegarder labyrinthe");
-        Button buttonImport     = new Button("Importer labyrinthe");
         Button buttonGenererLab = new Button("Génération aléatoire");
         Button buttonRetour     = new Button("Retour");
         sc                      = new Scene(pane, 1200,800);
@@ -90,13 +96,12 @@ public class GameUI extends Stage{
         buttonSimu.setFont(Font.font("Verdana", 20 ));
         buttonGenererLab.setFont(Font.font("Verdana", 20 ));
         buttonSave.setFont(Font.font("Verdana", 20 ));
-        buttonImport.setFont(Font.font("Verdana", 20));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
         buttonEditer.setId("Edition");
         buttonAddAnimauw.setId("Edition animal");
 
-        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave, buttonImport);
+        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
@@ -115,7 +120,6 @@ public class GameUI extends Stage{
         buttonSimu.setOnMouseClicked(eventGameUI);
 
         buttonSave.setOnMouseClicked(eventGameUI);
-        buttonImport.setOnMouseClicked(eventGameUI);
 
 
         pane.setLeft(gpLeft);
@@ -142,18 +146,29 @@ public class GameUI extends Stage{
         this.eventGameUI = eventGameUI;
         this.GameUI();}
 
-    public void afficherGrille(){
+    public void afficherGrille() {
         int x = 0;
-        for (int i = 0 ; i < lab.getX() ; i++){
+        for (int i = 0; i < lab.getX(); i++) {
             int y = 0;
-            for (int j = 0 ; j < lab.getY() ; j++){
-                if (i == 0 || j == 0 || i == this.lab.getX() -1 || j == this.lab.getY() -1){
+            for (int j = 0; j < lab.getY(); j++) {
+                if (i == 0 || j == 0 || i == this.lab.getX() - 1 || j == this.lab.getY() - 1) {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
                     this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
-                }
-                else {
+                    this.caseFX[i][j].afficherAnimal();
+                    if (this.caseFX[i][j].checkSortie()) {
+                        this.nbsorti++;
+                        this.afficherTitle();
+                    }
+                    System.out.println(this.nbsorti);
+                } else {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
                     this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                    this.caseFX[i][j].afficherAnimal();
+                    if (this.caseFX[i][j].checkSortie()) {
+                        this.nbsorti++;
+                        this.afficherTitle();
+                    }
+                    System.out.println(this.nbsorti);
                 }
                 y += this.caseFX[0][0].getScale();
             }
