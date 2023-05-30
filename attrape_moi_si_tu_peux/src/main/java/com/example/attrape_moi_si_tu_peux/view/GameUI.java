@@ -215,10 +215,12 @@ public class GameUI extends Stage{
                 }
                 String choiceL;
                 String choiceM;
+                int[] newPosL = new int[2];
+                int[] newPosM = new int[2];
 
                 if (lab.getNb_tour() % 2 == 0) {
                     choiceL = orient.get(random.nextInt(orient.size()));
-                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[loup[0]][loup[1]].getAnimal().getMouvementPossible(), choiceL);
+                    newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[loup[0]][loup[1]].getAnimal().getMouvementPossible(), choiceL);
                     if(!(Arrays.equals(newPosL, loup))) {
                         caseFX[loup[0]][loup[1]].deleteAnimal();
                         caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
@@ -229,10 +231,11 @@ public class GameUI extends Stage{
                     }
                 } else {
                     choiceM = orient2.get(random.nextInt(orient.size()));
-                    int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceM);
+                    newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceM);
                     if(!(Arrays.equals(newPosM, mouton))){
                         caseFX[mouton[0]][mouton[1]].deleteAnimal();
                         caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
+                        caseFX[newPosM[0]][newPosM[1]].manger();
                         lab.setNb_tour(1);
                     }
                     else {
@@ -241,8 +244,8 @@ public class GameUI extends Stage{
 
                 }
 
-                for(int i = 0; i<lab.getX(); i++){
-                    for(int j = 0; j<lab.getY(); j++){
+                for(int i = 1; i<lab.getX()-1; i++){
+                    for(int j = 1; j<lab.getY()-1; j++){
                         if(lab.getLesCases()[i][j].isEstVide()){
                             caseFX[i][j].repousser();
                         }

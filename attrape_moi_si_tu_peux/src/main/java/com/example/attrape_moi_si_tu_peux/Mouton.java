@@ -41,6 +41,7 @@ public class Mouton extends Animal {
             this.getLaCase().setTourPasse(tourPasse);  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(1);
         }
+
     }
 
     public boolean isEnFuite() {
