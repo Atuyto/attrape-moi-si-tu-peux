@@ -23,21 +23,24 @@ public class Mouton extends Animal {
             this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(2);
-        } else if
+        }
+        if
         (this.getLaCase().getContenu() instanceof Marguerite) { // On vérifie si le contenu de la case est une marguerite
             this.nbMargurite += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour()); // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(4);
-        } else if
+        }
+        if
         (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un com.example.attrape_moi_si_tu_peux.Cactus
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(1);
-        } else {
+        }
+        else {
             this.setMouvementPossible(2);
         }
     }

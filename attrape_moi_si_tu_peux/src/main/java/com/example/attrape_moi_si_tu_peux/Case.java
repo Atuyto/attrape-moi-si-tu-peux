@@ -40,10 +40,9 @@ public class Case {
     }
 
 
-    public Element regeneration()
-    {
+    public Element regeneration() {
+        System.out.println(tourPasse);
         if ( (leLabyrinthe.getNb_tour() == this.tourPasse + 2)|| (leLabyrinthe.getNb_tour()  == 0)) {
-            ;
         ArrayList<Integer> givenList = new ArrayList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
         for(int i = 1 ; i< 101 ; i++)
         {
@@ -91,7 +90,7 @@ public class Case {
     }
 
     public boolean isAccessible() {
-        return !(this.contenu instanceof Rocher) || (this.accessible = false);
+        return !(this.contenu instanceof Rocher);
     }
 
     public boolean isEstVide() {
