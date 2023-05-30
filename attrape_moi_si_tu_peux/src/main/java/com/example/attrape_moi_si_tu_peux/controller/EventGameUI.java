@@ -1,8 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.controller;
 
-import com.example.attrape_moi_si_tu_peux.Animal;
-import com.example.attrape_moi_si_tu_peux.Labyrinthe;
-import com.example.attrape_moi_si_tu_peux.Loup;
+import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
 import com.example.attrape_moi_si_tu_peux.view.Option;
@@ -10,7 +8,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.Objects;
 
 public class EventGameUI implements EventHandler {
@@ -86,8 +87,18 @@ public class EventGameUI implements EventHandler {
             mesSave.show();
         }
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer Labyrinthe"))) {
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Ouvrir votre fichier labyrinthe");
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers texte (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            File fileSelected = fileChooser.showOpenDialog(stage);
+
+
             Labyrinthe lab = new Labyrinthe();
-            lab.genererGrilleSauve(lab.openLab());
+            lab.genererGrilleSauve(lab.openLab(String.valueOf(fileSelected)));
             gameUI = new GameUI(lab);
             Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
             gameUI.setEventGameUI(this);
@@ -95,6 +106,8 @@ public class EventGameUI implements EventHandler {
             menu.close();
             option.close();
             mesImport.show();
+
+
 
         }
     }

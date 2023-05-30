@@ -1,5 +1,5 @@
 package com.example.attrape_moi_si_tu_peux.view;
-import com.example.attrape_moi_si_tu_peux.*;
+import com.example.attrape_moi_si_tu_peux.Model.*;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

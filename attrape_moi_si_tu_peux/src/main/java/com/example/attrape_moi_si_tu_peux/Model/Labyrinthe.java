@@ -1,15 +1,9 @@
-package com.example.attrape_moi_si_tu_peux;
-
-import com.example.attrape_moi_si_tu_peux.Animal;
-import com.example.attrape_moi_si_tu_peux.Case;
-import com.example.attrape_moi_si_tu_peux.Rocher;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Labyrinthe {
     private int x;
@@ -114,13 +108,13 @@ public class Labyrinthe {
         {ex.printStackTrace();}
     }
 
-    public String openLab() {
+    public String openLab(String path) {
         String string = "";
         this.y = 0;
         int x = 0;
         try {
             // Le fichier d'entrée
-            FileInputStream file = new FileInputStream("labyrinthe.txt");
+            FileInputStream file = new FileInputStream(path);
             Scanner scanner = new Scanner(file);
 
             //renvoie true s'il y a une autre ligne à lire

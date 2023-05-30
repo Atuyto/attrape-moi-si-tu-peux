@@ -1,6 +1,9 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
-import com.example.attrape_moi_si_tu_peux.*;
+import com.example.attrape_moi_si_tu_peux.Model.Animal;
+import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
+import com.example.attrape_moi_si_tu_peux.Model.Loup;
+import com.example.attrape_moi_si_tu_peux.Model.Mouton;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

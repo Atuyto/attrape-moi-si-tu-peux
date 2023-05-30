@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 public abstract class Animal {
     private int mouvementPossible;
@@ -81,10 +81,6 @@ public abstract class Animal {
         }
         return new int[]{x , y};
         }
-
-
-
-
 
     public int getMouvementPossible() {
         return mouvementPossible;
