@@ -1,11 +1,13 @@
 package com.example.attrape_moi_si_tu_peux.controller;
 
 import com.example.attrape_moi_si_tu_peux.Animal;
+import com.example.attrape_moi_si_tu_peux.Loup;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
 import com.example.attrape_moi_si_tu_peux.view.Option;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.util.Objects;
@@ -73,7 +75,22 @@ public class EventGameUI implements EventHandler {
             option.show();
             menu.close();
         }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Sauvegarder labyrinthe"))){
+            this.gameUI.getLab().sauvegarderLabyrinthe();
+            Alert mesSave = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Sauvegardé");
+            mesSave.show();
+        }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer labyrinthe"))){
+            System.out.println(this.gameUI.getLab().openLab());
+            this.gameUI.getLab().genererGrilleSauve(this.gameUI.getLab().openLab());
+            System.out.println(this.gameUI.getLab());
+            Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
+            ((Button) event.getSource()).setText("Enregistrer emplacement");
 
+            this.gameUI.afficherGrille();
+            this.gameUI.show();
+            mesImport.show();
+        }
     }
 
 
