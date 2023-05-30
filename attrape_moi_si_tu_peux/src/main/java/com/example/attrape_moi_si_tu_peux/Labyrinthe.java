@@ -140,7 +140,6 @@ public class Labyrinthe {
         }
         this.y = y;
         this.lesCases = new Case[this.y][this.x];
-        System.out.println(this.x+"/"+this.y);
         return string;
     }
     public void genererGrilleSauve(String s) {

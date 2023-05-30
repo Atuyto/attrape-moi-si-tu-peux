@@ -11,11 +11,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -23,13 +21,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import static javafx.scene.input.KeyCode.O;
-
 public class GameUI extends Stage{
 
+    private final int x;
+    private final int y;
     private EventGameUI eventGameUI;
     private boolean edition;
     private Labyrinthe lab;
@@ -44,8 +43,19 @@ public class GameUI extends Stage{
 
     private int nbAnimaux;
 
+    public GameUI(int xchoix, int ychoix) {
+        this.x = xchoix;
+        this.y = ychoix;
+        GameUI();
+    }
+    public GameUI(){
+        this.x = 10;
+        this.y = 10;
+        GameUI();
+    }
+
     public void GameUI(){
-        lab                     = new Labyrinthe(15, 15);
+        lab                     = new Labyrinthe(this.x, this.y);
         gpLab                   = new Group();
         gpLeft                  = new Group();
         gpRight                 = new Group();
@@ -137,7 +147,6 @@ public class GameUI extends Stage{
         for (int i = 0 ; i < lab.getX() ; i++){
             int y = 0;
             for (int j = 0 ; j < lab.getY() ; j++){
-                System.out.println(i+"/"+j);
                 if (i == 0 || j == 0 || i == this.lab.getX() -1 || j == this.lab.getY() -1){
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
                     this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
@@ -187,7 +196,10 @@ public class GameUI extends Stage{
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                String[] orient = new String[]{"N", "E", "S", "O"};
+                ArrayList<String> orient = new ArrayList<>();
+                orient.add("N");orient.add("S");orient.add("O"); orient.add("E");
+                ArrayList<String> orient2 = new ArrayList<>();
+                orient2.add("N");orient2.add("S");orient2.add("O"); orient2.add("E");
                 Random random = new Random();
                 int[] loup = new int[2];
                 int[] mouton = new int[2];
@@ -201,23 +213,32 @@ public class GameUI extends Stage{
                         loup[1] = lab.getPosition(a)[1];
                     }
                 }
-                String choiceL = orient[random.nextInt(orient.length)];
-                String choiceM = orient[random.nextInt(orient.length)];
+                String choiceL;
+                String choiceM;
 
                 if (lab.getNb_tour() % 2 == 0) {
-
-                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceL);
-                    if(!(Arrays.equals(newPosL, mouton))) {
+                    choiceL = orient.get(random.nextInt(orient.size()));
+                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[loup[0]][loup[1]].getAnimal().getMouvementPossible(), choiceL);
+                    if(!(Arrays.equals(newPosL, loup))) {
                         caseFX[loup[0]][loup[1]].deleteAnimal();
                         caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                        lab.setNb_tour(1);
+                    }
+                    else {
+                        orient.remove(orient.lastIndexOf(choiceL));
                     }
                 } else {
+                    choiceM = orient2.get(random.nextInt(orient.size()));
                     int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceM);
                     if(!(Arrays.equals(newPosM, mouton))){
                         caseFX[mouton[0]][mouton[1]].deleteAnimal();
                         caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
+                        lab.setNb_tour(1);
                     }
-                    
+                    else {
+                        orient2.remove(orient2.lastIndexOf(choiceM));
+                    }
+
                 }
 
                 for(int i = 0; i<lab.getX(); i++){
@@ -227,6 +248,7 @@ public class GameUI extends Stage{
                         }
                     }
                 }
+
             }
         }));
 

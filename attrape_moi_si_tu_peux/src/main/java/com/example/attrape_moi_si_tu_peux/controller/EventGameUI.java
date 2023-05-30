@@ -27,7 +27,11 @@ public class EventGameUI implements EventHandler {
     @Override
     public void handle(Event event) {
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Jouer"))){
-            gameUI = new GameUI();
+            if ( option.getXchoix() != 0 && option.getYchoix() != 0){
+                gameUI = new GameUI(option.getXchoix(), option.getYchoix());
+            }else {
+                gameUI = new GameUI();
+            }
             gameUI.setEventGameUI(this);
             gameUI.show();
             menu.close();
@@ -81,12 +85,10 @@ public class EventGameUI implements EventHandler {
             mesSave.show();
         }
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer labyrinthe"))){
-            System.out.println(this.gameUI.getLab().openLab());
             this.gameUI.getLab().genererGrilleSauve(this.gameUI.getLab().openLab());
-            System.out.println(this.gameUI.getLab());
             Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
             ((Button) event.getSource()).setText("Enregistrer emplacement");
-
+            mesImport.show();
             this.gameUI.afficherGrille();
             this.gameUI.show();
             mesImport.show();
