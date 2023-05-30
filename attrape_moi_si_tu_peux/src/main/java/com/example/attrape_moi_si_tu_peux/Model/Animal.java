@@ -11,8 +11,6 @@ public abstract class Animal {
         this.mouvementPossible  = mouvementPossible;
         this.vision             = 5;
         this.leLabyrinthe       = leLabyrinthe;
-
-
     }
 
     public int[] seDeplacer(int nbdep, String orientation){
