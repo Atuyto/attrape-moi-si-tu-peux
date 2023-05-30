@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class EventGameUI implements EventHandler {
@@ -87,6 +88,8 @@ public class EventGameUI implements EventHandler {
             mesSave.show();
         }
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer Labyrinthe"))) {
+
+
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Ouvrir votre fichier labyrinthe");
@@ -95,9 +98,10 @@ public class EventGameUI implements EventHandler {
             fileChooser.getExtensionFilters().add(extFilter);
 
             File fileSelected = fileChooser.showOpenDialog(stage);
+
             if(fileSelected != null){
                 Labyrinthe lab = new Labyrinthe();
-                lab.genererGrilleSauve(lab.openLab(String.valueOf(fileSelected)));
+                lab.generateGrille(lab.lecture(String.valueOf(fileSelected)));
                 gameUI = new GameUI(lab);
                 Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
                 gameUI.setEventGameUI(this);
@@ -105,7 +109,10 @@ public class EventGameUI implements EventHandler {
                 menu.close();
                 option.close();
                 mesImport.show();
+
             }
+
+
         }
     }
 

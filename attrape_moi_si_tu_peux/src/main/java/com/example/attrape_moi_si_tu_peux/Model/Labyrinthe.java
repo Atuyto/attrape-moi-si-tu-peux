@@ -1,8 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.Model;
 
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Labyrinthe {
@@ -101,11 +99,81 @@ public class Labyrinthe {
     public void sauvegarderLabyrinthe() {
         try {
             FileWriter fw = new FileWriter("labyrinthe.txt");
-
             fw.write(this.toString());
             fw.close();}
         catch (IOException ex)
         {ex.printStackTrace();}
+    }
+
+
+    public char[][] lecture(String path){
+        BufferedReader br;
+        char[][] matrice = new char[0][];
+        try (BufferedReader br1 = new BufferedReader(new FileReader(path))) {
+            String ligne;
+            int nombreLignes = 0;
+            int nombreColonnes = 0;
+
+            // Compter le nombre de lignes et le nombre maximum de colonnes dans le fichier
+            while ((ligne = br1.readLine()) != null) {
+                nombreLignes++;
+                nombreColonnes = Math.max(nombreColonnes, ligne.length());
+            }
+
+            // Réinitialiser le lecteur de fichier
+            br1.close();
+
+            br = new BufferedReader(new FileReader(path));
+            // Créer une matrice avec les dimensions appropriées
+            matrice = new char[nombreLignes][nombreColonnes];
+            this.x = nombreLignes;
+            this.y = nombreColonnes;
+
+            int i = 0;
+            while ((ligne = br.readLine()) != null) {
+                char[] caracteres = ligne.toCharArray();
+                System.arraycopy(caracteres, 0, matrice[i], 0, caracteres.length);
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return matrice;
+    }
+
+    public void generateGrille(char[][] c){
+        for(int i = 0 ; i < this.getX(); i++){
+            for(int j = 0; j < this.getY(); j++){
+                if (c[i][j] == 'x') {
+                    this.lesCases[j][i] = new Case(this, new Rocher());
+                }
+                if (c[i][j] == 'M') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    Mouton mouton = new Mouton(this);
+                    this.ajouterAnimal(mouton, i, j);
+                    this.setLesAnimaux(mouton);
+                }
+                if (c[i][j] == 'L') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    Loup loup = new Loup(this);
+                    this.ajouterAnimal(loup, i, j);
+                    this.setLesAnimaux(loup);
+                }
+                if (c[i][j] == 'h') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                }
+                if (c[i][j] == 'm') {
+                    this.lesCases[j][i] = new Case(this, new Marguerite());
+                }
+                if (c[i][j] == 'c') {
+                    this.lesCases[j][i] = new Case(this, new Cactus());
+                }
+                if (c[i][j] == 's') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                }
+            }
+        }
     }
 
     public String openLab(String path) {
@@ -122,10 +190,8 @@ public class Labyrinthe {
                 String line = scanner.nextLine()+"\n";
                 string += line;
                 x++;
-
                 if (this.y == 0) {
                     this.y = line.length()-1;
-
                 }
             }
             scanner.close();
@@ -141,7 +207,6 @@ public class Labyrinthe {
         int i = 0;
         int j = 0;
         for (int n = 0; n < s.length(); n++) {
-
             if (s.charAt(n) == 'x') {
                 this.lesCases[j][i] = new Case(this, new Rocher());
             } else if (s.charAt(n) == 'M') {
