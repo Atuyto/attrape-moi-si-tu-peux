@@ -177,37 +177,6 @@ public class Labyrinthe {
 
     }
 
-    public void genererGrilleSauve(String s) {
-
-        int i = 0;
-        int j = 0;
-        for (int n = 0; n < s.length(); n++) {
-            if (s.charAt(n) == 'x') {
-                this.lesCases[j][i] = new Case(this, new Rocher());
-            } else if (s.charAt(n) == 'm') {
-                this.lesCases[j][i] = new Case(this, new Herbe());
-                Mouton mouton = new Mouton(this);
-                this.ajouterAnimal(mouton, j, i);
-                this.setLesAnimaux(mouton);
-            } else if (s.charAt(n) == 'l') {
-                this.lesCases[j][i] = new Case(this, new Herbe());
-                Loup loup = new Loup(this);
-                this.ajouterAnimal(loup, j, i);
-                this.setLesAnimaux(loup);
-            } else if (s.charAt(n) == 'h') {
-                this.lesCases[j][i] = new Case(this, new Herbe());
-            } else if (s.charAt(n) == 'f') {
-                this.lesCases[j][i] = new Case(this, new Marguerite());
-            } else if (s.charAt(n) == 'c') {
-                this.lesCases[j][i] = new Case(this, new Cactus());
-            } else if (s.charAt(n) == 's') {
-                this.lesCases[j][i] = new Case(this, new Herbe());
-            } else if (s.charAt(n) == '\n') {
-                i = -1; j++;
-            }
-            i++;
-        }
-    }
 
     public int getNb_tour() {
         return nb_tour;
