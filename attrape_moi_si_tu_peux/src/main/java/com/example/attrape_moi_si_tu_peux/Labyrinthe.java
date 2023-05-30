@@ -79,13 +79,13 @@ public class Labyrinthe {
 
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for(int i = 0 ; i < this.y ; i++) {
-            for (int j = 0; j < this.x; j++) {
+        for(int i = 0 ; i < this.x ; i++) {
+            for (int j = 0; j < this.y; j++) {
                 if (lesCases[i][j].getAnimal() instanceof Mouton) {
-                    string.append("m");
+                    string.append("M");
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
-                    string.append("l");
-                } else if ((lesCases[i][j].getContenu() instanceof Herbe) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
+                    string.append("L");
+                } else if (!(lesCases[i][j].getContenu() instanceof Rocher) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y))) {
                     string.append("s");
                 } else if (lesCases[i][j].getContenu() instanceof Herbe) {
                     string.append("h");
@@ -140,6 +140,7 @@ public class Labyrinthe {
         }
         this.y = y;
         this.lesCases = new Case[this.y][this.x];
+        System.out.println(this.x+"/"+this.y);
         return string;
     }
     public void genererGrilleSauve(String s) {
@@ -152,10 +153,14 @@ public class Labyrinthe {
                 this.lesCases[j][i] = new Case(this, new Rocher());
             } else if (s.charAt(n) == 'M') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
-                this.lesCases[j][i].setAnimal(new Mouton(this));
+                Mouton mouton = new Mouton(this);
+                this.ajouterAnimal(mouton, j, i);
+                this.lesCases[j][i].setAnimal(mouton);
             } else if (s.charAt(n) == 'L') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
-                this.lesCases[j][i].setAnimal(new Loup(this));
+                Loup loup = new Loup(this);
+                this.ajouterAnimal(loup, j, i);
+                this.lesCases[j][i].setAnimal(loup);
             } else if (s.charAt(n) == 'h') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
             } else if (s.charAt(n) == 'm') {
