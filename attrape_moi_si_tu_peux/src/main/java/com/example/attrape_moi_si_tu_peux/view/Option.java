@@ -24,6 +24,7 @@ import java.util.function.BiPredicate;
 public class Option extends Stage {
     private EventGameUI eventGameUI;
     private int xchoix;
+
     private int ychoix;
     public void Option() {
 

@@ -74,7 +74,7 @@ public class CaseFX {
         gp.getChildren().add(leCarre);
         leCarre.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 3;");
 
-        System.out.println(this.laCase);
+
         imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
                 this.laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :
                         this.laCase.getContenu() instanceof  Cactus ? this.lesImages[2]  :
@@ -190,7 +190,6 @@ public class CaseFX {
     }
     public boolean checkSortie() {
         if (this.border&&(!(this.laCase.getContenu() instanceof Rocher))) {
-            System.out.println(true);
             this.setSortie();
             this.gp.setOnMouseClicked(null);
             return true;

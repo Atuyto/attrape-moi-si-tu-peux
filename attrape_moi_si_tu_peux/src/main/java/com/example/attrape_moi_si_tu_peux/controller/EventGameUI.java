@@ -90,11 +90,12 @@ public class EventGameUI implements EventHandler {
             lab.genererGrilleSauve(lab.openLab());
             gameUI = new GameUI(lab);
             Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
-            ((Button) event.getSource()).setText("Enregistrer emplacement");
+            gameUI.setEventGameUI(this);
             this.gameUI.show();
             menu.close();
             option.close();
             mesImport.show();
+
         }
     }
 

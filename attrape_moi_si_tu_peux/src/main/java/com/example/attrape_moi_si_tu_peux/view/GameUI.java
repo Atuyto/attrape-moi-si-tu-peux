@@ -33,6 +33,7 @@ public class GameUI extends Stage{
     private boolean edition;
     private Labyrinthe lab;
     private CaseFX[][] caseFX;
+
     private Group gpLab;
     private Group gpLeft;
     private Group gpRight;
@@ -142,6 +143,7 @@ public class GameUI extends Stage{
 
     }
 
+
     public void setEventGameUI(EventGameUI eventGameUI) {
         this.eventGameUI = eventGameUI;
         this.GameUI();}
@@ -159,7 +161,6 @@ public class GameUI extends Stage{
                         this.nbsorti++;
                         this.afficherTitle();
                     }
-                    System.out.println(this.nbsorti);
                 } else {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
                     this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
@@ -168,7 +169,6 @@ public class GameUI extends Stage{
                         this.nbsorti++;
                         this.afficherTitle();
                     }
-                    System.out.println(this.nbsorti);
                 }
                 y += this.caseFX[0][0].getScale();
             }

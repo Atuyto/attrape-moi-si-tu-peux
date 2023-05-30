@@ -55,8 +55,6 @@ public class Case {
         this.tourPasse = 0;
         }
 
-        System.out.println(this.tourPasse + "," + leLabyrinthe.getNb_tour());
-        System.out.println(this.getContenu());
         return this.getContenu();
     }
 
