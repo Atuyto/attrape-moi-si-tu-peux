@@ -99,19 +99,22 @@ public class CaseFX {
 
     public void manger(){
         this.laCase.getAnimal().manger();
-        this.imageView.setImage(null);
+        if(this.laCase.getContenu() == null){
+            this.imageView.setImage(null);
+        }
+
     }
 
     public void repousser(){
-        this.laCase.regeneration();
-        if(this.laCase.getContenu()!=null){
-            if(this.laCase.getContenu() instanceof Herbe) {
+        Element e = this.laCase.regeneration();
+        if(e!=null){
+            if(e instanceof Herbe) {
                 this.imageView.setImage(this.lesImages[1]);
             }
-            if(this.laCase.getContenu() instanceof Marguerite) {
+            if(e instanceof Marguerite) {
                 this.imageView.setImage(this.lesImages[3]);
             }
-            if(this.laCase.getContenu() instanceof Cactus) {
+            if(e instanceof Cactus) {
                 this.imageView.setImage(this.lesImages[2]);
             }
         }
@@ -168,8 +171,6 @@ public class CaseFX {
                 }
                 }
             }
-        }
-
     }
 
     public void sortiClick(){

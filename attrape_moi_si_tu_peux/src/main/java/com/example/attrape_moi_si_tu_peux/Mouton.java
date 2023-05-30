@@ -17,11 +17,12 @@ public class Mouton extends Animal {
     }
 
     public void manger() {
+        int tourPasse = this.getLeLabyrinthe().getNb_tour();
         if (this.getLaCase().getContenu() instanceof Herbe) { // On vérifie si le contenu de la case est une herbe
             this.nbHerbe += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();
-            this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
+            this.getLaCase().setTourPasse(tourPasse);  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(2);
         }
         if
@@ -29,7 +30,7 @@ public class Mouton extends Animal {
             this.nbMargurite += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();
-            this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour()); // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
+            this.getLaCase().setTourPasse(tourPasse); // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(4);
         }
         if
@@ -37,11 +38,8 @@ public class Mouton extends Animal {
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();
-            this.getLaCase().setTourPasse(this.getLeLabyrinthe().getNb_tour());  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
+            this.getLaCase().setTourPasse(tourPasse);  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(1);
-        }
-        else {
-            this.setMouvementPossible(2);
         }
     }
 

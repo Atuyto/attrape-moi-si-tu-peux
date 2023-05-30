@@ -194,22 +194,25 @@ public class GameUI extends Stage{
                         loup[1] = lab.getPosition(a)[1];
                     }
                 }
+                String choiceL = orient[random.nextInt(orient.length)];
+                String choiceM = orient[random.nextInt(orient.length)];
 
                 if (lab.getNb_tour() % 2 == 0) {
-                    String choice = orient[random.nextInt(orient.length)];
-                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                    caseFX[loup[0]][loup[1]].deleteAnimal();
-                    caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
-                } else {
-                    String choice = orient[random.nextInt(orient.length)];
-                    int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                    caseFX[mouton[0]][mouton[1]].deleteAnimal();
-                    caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
-                    caseFX[newPosM[0]][newPosM[1]].manger();
 
+                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceL);
+                    if(!(Arrays.equals(newPosL, mouton))) {
+                        caseFX[loup[0]][loup[1]].deleteAnimal();
+                        caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                    }
+                } else {
+                    int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choiceM);
+                    if(!(Arrays.equals(newPosM, mouton))){
+                        caseFX[mouton[0]][mouton[1]].deleteAnimal();
+                        caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
+                    }
+                    
                 }
-                lab.setNb_tour(1);
-                /*
+
                 for(int i = 0; i<lab.getX(); i++){
                     for(int j = 0; j<lab.getY(); j++){
                         if(lab.getLesCases()[i][j].isEstVide()){
@@ -217,9 +220,6 @@ public class GameUI extends Stage{
                         }
                     }
                 }
-
-                 */
-
             }
         }));
 
