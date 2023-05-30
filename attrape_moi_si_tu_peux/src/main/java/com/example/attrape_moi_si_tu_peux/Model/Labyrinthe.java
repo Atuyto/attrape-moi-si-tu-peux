@@ -74,9 +74,9 @@ public class Labyrinthe {
         for(int i = 0 ; i < this.x ; i++) {
             for (int j = 0; j < this.y; j++) {
                 if (lesCases[i][j].getAnimal() instanceof Mouton) {
-                    string.append("M");
+                    string.append("m");
                 } else if (lesCases[i][j].getAnimal() instanceof Loup) {
-                    string.append("L");
+                    string.append("l");
                 } else if (!(lesCases[i][j].getContenu() instanceof Rocher) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y-1))) {
                     string.append("s");
                 } else if (lesCases[i][j].getContenu() instanceof Herbe) {
@@ -86,9 +86,7 @@ public class Labyrinthe {
                 } else if (lesCases[i][j].getContenu() instanceof Cactus) {
                     string.append("c");
                 } else if (lesCases[i][j].getContenu() instanceof Marguerite) {
-                    string.append("m");
-                } else if (lesCases[i][j].getContenu() == null) {
-                    string.append("v");
+                    string.append("f");
                 }
             }
             string.append("\n");
@@ -106,75 +104,8 @@ public class Labyrinthe {
     }
 
 
-    public char[][] lecture(String path){
-        BufferedReader br;
-        char[][] matrice = new char[0][];
-        try (BufferedReader br1 = new BufferedReader(new FileReader(path))) {
-            String ligne;
-            int nombreLignes = 0;
-            int nombreColonnes = 0;
 
-            // Compter le nombre de lignes et le nombre maximum de colonnes dans le fichier
-            while ((ligne = br1.readLine()) != null) {
-                nombreLignes++;
-                nombreColonnes = Math.max(nombreColonnes, ligne.length());
-            }
 
-            // Réinitialiser le lecteur de fichier
-            br1.close();
-
-            br = new BufferedReader(new FileReader(path));
-            // Créer une matrice avec les dimensions appropriées
-            matrice = new char[nombreLignes][nombreColonnes];
-            this.x = nombreLignes;
-            this.y = nombreColonnes;
-
-            int i = 0;
-            while ((ligne = br.readLine()) != null) {
-                char[] caracteres = ligne.toCharArray();
-                System.arraycopy(caracteres, 0, matrice[i], 0, caracteres.length);
-                i++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return matrice;
-    }
-
-    public void generateGrille(char[][] c){
-        for(int i = 0 ; i < this.getX(); i++){
-            for(int j = 0; j < this.getY(); j++){
-                if (c[i][j] == 'x') {
-                    this.lesCases[j][i] = new Case(this, new Rocher());
-                }
-                if (c[i][j] == 'M') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                    Mouton mouton = new Mouton(this);
-                    this.ajouterAnimal(mouton, i, j);
-                    this.setLesAnimaux(mouton);
-                }
-                if (c[i][j] == 'L') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                    Loup loup = new Loup(this);
-                    this.ajouterAnimal(loup, i, j);
-                    this.setLesAnimaux(loup);
-                }
-                if (c[i][j] == 'h') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                }
-                if (c[i][j] == 'm') {
-                    this.lesCases[j][i] = new Case(this, new Marguerite());
-                }
-                if (c[i][j] == 'c') {
-                    this.lesCases[j][i] = new Case(this, new Cactus());
-                }
-                if (c[i][j] == 's') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                }
-            }
-        }
-    }
 
     public String openLab(String path) {
         String string = "";
@@ -209,19 +140,19 @@ public class Labyrinthe {
         for (int n = 0; n < s.length(); n++) {
             if (s.charAt(n) == 'x') {
                 this.lesCases[j][i] = new Case(this, new Rocher());
-            } else if (s.charAt(n) == 'M') {
+            } else if (s.charAt(n) == 'm') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
                 Mouton mouton = new Mouton(this);
                 this.ajouterAnimal(mouton, j, i);
                 this.setLesAnimaux(mouton);
-            } else if (s.charAt(n) == 'L') {
+            } else if (s.charAt(n) == 'l') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
                 Loup loup = new Loup(this);
                 this.ajouterAnimal(loup, j, i);
                 this.setLesAnimaux(loup);
             } else if (s.charAt(n) == 'h') {
                 this.lesCases[j][i] = new Case(this, new Herbe());
-            } else if (s.charAt(n) == 'm') {
+            } else if (s.charAt(n) == 'f') {
                 this.lesCases[j][i] = new Case(this, new Marguerite());
             } else if (s.charAt(n) == 'c') {
                 this.lesCases[j][i] = new Case(this, new Cactus());

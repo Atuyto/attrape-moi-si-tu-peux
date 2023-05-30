@@ -158,20 +158,15 @@ public class GameUI extends Stage{
             for (int j = 0; j < lab.getY(); j++) {
                 if (i == 0 || j == 0 || i == this.lab.getX() - 1 || j == this.lab.getY() - 1) {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
-                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
-                    this.caseFX[i][j].afficherAnimal();
-                    if (this.caseFX[i][j].checkSortie()) {
-                        this.nbsorti++;
-                        this.afficherTitle();
-                    }
-                } else {
+                }
+                else {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
-                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
-                    this.caseFX[i][j].afficherAnimal();
-                    if (this.caseFX[i][j].checkSortie()) {
-                        this.nbsorti++;
-                        this.afficherTitle();
-                    }
+                }
+                this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                this.caseFX[i][j].afficherAnimal();
+                if (this.caseFX[i][j].checkSortie()) {
+                    this.nbsorti++;
+                    this.afficherTitle();
                 }
                 y += this.caseFX[0][0].getScale();
             }

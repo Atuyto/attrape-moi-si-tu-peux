@@ -217,4 +217,16 @@ public class CaseFX {
     public int getScale() {
         return scale;
     }
+
+    @Override
+    public String toString() {
+        {
+            if (this.getLaCase().getAnimal() != null){
+                return this.getLaCase().getAnimal() instanceof Loup ? "l" : "m";
+            }
+            else {
+                return this.getLaCase().getContenu() instanceof Herbe ? "h" : this.getLaCase().getContenu()instanceof Cactus ? "c" : this.getLaCase().getContenu() instanceof Marguerite ? "f" : "x";
+            }
+        }
+    }
 }
