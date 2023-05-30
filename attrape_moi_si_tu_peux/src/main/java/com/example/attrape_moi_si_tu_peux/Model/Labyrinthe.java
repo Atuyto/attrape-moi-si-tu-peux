@@ -150,7 +150,7 @@ public class Labyrinthe {
     public void genererGrille(char[][] c){
         for(int i = 0; i<this.getX(); i++){
             for(int j = 0; j<this.getY(); j++){
-                if (c[i][j] == 'x') {
+                if (c[j][i] == 'x') {
                     this.lesCases[j][i] = new Case(this, new Rocher());
                 } else if (c[j][i]== 'm') {
                     this.lesCases[j][i] = new Case(this, new Herbe());
@@ -168,9 +168,9 @@ public class Labyrinthe {
                     this.lesCases[j][i] = new Case(this, new Marguerite());
                 } else if (c[j][i]== 'c') {
                     this.lesCases[j][i] = new Case(this, new Cactus());
-                } else if (c[i][j] == 's') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                    this.lesCases[j][i].setSortie(true);
+                } else if (c[j][i] == 's') {
+                    this.lesCases[i][j] = new Case(this, new Herbe());
+                    this.lesCases[i][j].setSortie(true);
                 }
             }
         }
