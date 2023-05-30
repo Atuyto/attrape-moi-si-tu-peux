@@ -153,21 +153,24 @@ public class GameUI extends Stage{
 
     public void afficherGrille() {
         int x = 0;
-        for (int i = 0; i < lab.getX(); i++) {
+        for (int i = 0; i < lab.getY(); i++) {
             int y = 0;
-            for (int j = 0; j < lab.getY(); j++) {
-                if (i == 0 || j == 0 || i == this.lab.getX() - 1 || j == this.lab.getY() - 1) {
+            for (int j = 0; j < lab.getX(); j++) {
+                if (i == 0 || j == 0 || i == this.lab.getY() - 1 || j == this.lab.getX() - 1) {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
+
                 }
                 else {
                     this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
                 }
-                this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
-                this.caseFX[i][j].afficherAnimal();
-                if (this.caseFX[i][j].checkSortie()) {
-                    this.nbsorti++;
+                if(this.lab.getLesCases()[i][j].getSortie()){
+                    this.caseFX[i][j].setSortie();
+                    this.nbsorti = 1;
                     this.afficherTitle();
                 }
+                this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                this.caseFX[i][j].afficherAnimal();
+
                 y += this.caseFX[0][0].getScale();
             }
             x += this.caseFX[0][0].getScale();
@@ -176,8 +179,8 @@ public class GameUI extends Stage{
 
     public void activerEdition(){
         this.setEdition();
-        for (int i = 1; i < lab.getX()-1 ; i++) {
-            for (int j = 1; j < lab.getY()-1; j++)  {
+        for (int i = 1; i < lab.getY()-1 ; i++) {
+            for (int j = 1; j < lab.getX()-1; j++)  {
                 CaseFX c = caseFX[i][j];
                 if(this.edition){
                     c.getGp().setOnMouseClicked(mouseEvent -> c.setElement());
@@ -190,8 +193,8 @@ public class GameUI extends Stage{
     }
 
     public void activerAddAnimal(){
-        for (int i = 1; i < lab.getX()-1 ; i++) {
-            for (int j = 1; j < lab.getY()-1; j++)  {
+        for (int i = 1; i < lab.getY()-1 ; i++) {
+            for (int j = 1; j < lab.getX()-1; j++)  {
                 CaseFX c = caseFX[i][j];
                 if(this.lab.getLesAnimaux().size() != 2 ){
                     c.getGp().setOnMouseClicked(mouseEvent -> c.setAnimaux());
@@ -257,8 +260,8 @@ public class GameUI extends Stage{
 
                 }
 
-                for(int i = 1; i<lab.getX()-1; i++){
-                    for(int j = 1; j<lab.getY()-1; j++){
+                for(int i = 1; i<lab.getY()-1; i++){
+                    for(int j = 1; j<lab.getX()-1; j++){
                         if(lab.getLesCases()[i][j].isEstVide()){
                             caseFX[i][j].repousser();
                         }

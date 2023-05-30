@@ -113,4 +113,8 @@ public class Case {
         this.tourPasse = tourPasse;
     }
 
+    public boolean getSortie(){
+        return this.sortie;
+    }
+
 }

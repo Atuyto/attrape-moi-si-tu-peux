@@ -188,15 +188,6 @@ public class CaseFX {
             }
         }
     }
-    public boolean checkSortie() {
-        if (this.border&&(!(this.laCase.getContenu() instanceof Rocher))) {
-            this.setSortie();
-            this.gp.setOnMouseClicked(null);
-            return true;
-        } else {
-            return false;
-        }
-    }
     public boolean getBorder(){
         return this.border;
     }

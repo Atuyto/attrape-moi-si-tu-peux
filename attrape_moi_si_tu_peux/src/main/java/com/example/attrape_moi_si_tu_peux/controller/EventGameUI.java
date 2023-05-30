@@ -101,7 +101,7 @@ public class EventGameUI implements EventHandler {
 
             if(fileSelected != null){
                 Labyrinthe lab = new Labyrinthe();
-                lab.genererGrilleSauve(lab.openLab(String.valueOf(fileSelected)));
+                lab.genererGrille(lab.openLab(String.valueOf(fileSelected)));
                 gameUI = new GameUI(lab);
                 Alert mesImport = new Alert(Alert.AlertType.INFORMATION,"Labyrinthe Chargé");
                 gameUI.setEventGameUI(this);

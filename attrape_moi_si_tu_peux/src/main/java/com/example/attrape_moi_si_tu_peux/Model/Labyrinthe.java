@@ -15,7 +15,7 @@ public class Labyrinthe {
         this.x              = 10;
         this.y              = 10;
         this.nb_tour        = 0;
-        this.lesCases       =  new  Case[this.x][this.y];
+        this.lesCases       =  new  Case[this.y][this.x];
         this.lesAnimaux     = new ArrayList<>();
         this.genererGrille();
 
@@ -24,15 +24,15 @@ public class Labyrinthe {
         this.x              = x;
         this.y              = y;
         this.nb_tour        = 0;
-        this.lesCases       =  new  Case[this.x][this.y];
+        this.lesCases       =  new  Case[this.y][this.x];
         this.lesAnimaux     = new ArrayList<>();
         this.genererGrille();
     }
 
     public void genererGrille() {
-        for(int i = 0 ; i< this.x ; i++) {
-            for(int j = 0 ; j<this.y ; j++) {
-                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1) {
+        for(int i = 0 ; i< this.y ; i++) {
+            for(int j = 0 ; j<this.x ; j++) {
+                if(i == 0 || j == 0 || i == this.y -1 || j == this.x -1) {
                     this.lesCases[i][j] = new Case(this, new Rocher());
                 }
                 else {
@@ -43,8 +43,8 @@ public class Labyrinthe {
     }
     public void genererGrilleAleatoire() {
         Random random = new Random();
-        for(int i = 1 ; i< this.x -1; i++) {
-            for(int j = 1 ; j<this.y -1; j++) {
+        for(int i = 1 ; i< this.y -1; i++) {
+            for(int j = 1 ; j<this.x -1; j++) {
                 int randomIndex = random.nextInt(6);
                 int nbVoisinRoche = 0;
                 if (this.lesCases[i+1][j].getContenu() instanceof Rocher){ nbVoisinRoche += 1;}
@@ -62,8 +62,8 @@ public class Labyrinthe {
 
 
     public void ajouterAnimal(Animal animal, int x, int y){
-        if (!(this.getLesCases()[x][y].getContenu() instanceof Rocher)) {
-            this.getLesCases()[x][y].setAnimal(animal);
+        if (!(this.getLesCases()[y][x].getContenu() instanceof Rocher)) {
+            this.getLesCases()[y][x].setAnimal(animal);
             animal.setLaCase(getLesCases()[x][y]);
         }
     }
@@ -71,32 +71,33 @@ public class Labyrinthe {
 
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for(int i = 0 ; i < this.x ; i++) {
-            for (int j = 0; j < this.y; j++) {
-                if (lesCases[i][j].getAnimal() instanceof Mouton) {
+        for(int i = 0 ; i < this. getY(); i++) {
+            for (int j = 0; j < this.getX(); j++) {
+                if (this.lesCases[i][j].getAnimal() instanceof Mouton) {
                     string.append("m");
-                } else if (lesCases[i][j].getAnimal() instanceof Loup) {
+                } else if (this.lesCases[j][i].getAnimal() instanceof Loup) {
                     string.append("l");
-                } else if (!(lesCases[i][j].getContenu() instanceof Rocher) && ((i==0) || (i==this.x-1) || (j == 0) || (j == this.y-1))) {
+                } else if (this.lesCases[j][i].getSortie()){
                     string.append("s");
-                } else if (lesCases[i][j].getContenu() instanceof Herbe) {
+                } else if (this.lesCases[j][i].getContenu() instanceof Herbe) {
                     string.append("h");
-                } else if (lesCases[i][j].getContenu() instanceof Rocher) {
+                } else if (this.lesCases[j][i].getContenu() instanceof Rocher) {
                     string.append("x");
-                } else if (lesCases[i][j].getContenu() instanceof Cactus) {
+                } else if (this.lesCases[j][i].getContenu() instanceof Cactus) {
                     string.append("c");
-                } else if (lesCases[i][j].getContenu() instanceof Marguerite) {
+                } else if (this.lesCases[j][i].getContenu() instanceof Marguerite) {
                     string.append("f");
                 }
             }
             string.append("\n");
         }
-        return string.toString();
+        return String.valueOf(string);
     }
 
     public void sauvegarderLabyrinthe() {
         try {
             FileWriter fw = new FileWriter("labyrinthe.txt");
+            System.out.println(toString());
             fw.write(this.toString());
             fw.close();}
         catch (IOException ex)
@@ -107,32 +108,75 @@ public class Labyrinthe {
 
 
 
-    public String openLab(String path) {
-        String string = "";
-        this.y = 0;
-        int x = 0;
-        try {
-            // Le fichier d'entrée
-            FileInputStream file = new FileInputStream(path);
-            Scanner scanner = new Scanner(file);
+    public char[][] openLab(String path) {
+        char[][] matrice = new char[0][];
+        BufferedReader br;
+        try (BufferedReader br1 = new BufferedReader(new FileReader(path))) {
+            String ligne;
+            int nombreLignes = 0;
+            int nombreColonnes = 0;
 
-            //renvoie true s'il y a une autre ligne à lire
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine()+"\n";
-                string += line;
-                x++;
-                if (this.y == 0) {
-                    this.y = line.length()-1;
-                }
+            // Compter le nombre de lignes et le nombre maximum de colonnes dans le fichier
+            while ((ligne = br1.readLine()) != null) {
+                nombreLignes++;
+                nombreColonnes = Math.max(nombreColonnes, ligne.length());
             }
-            scanner.close();
+
+            // Réinitialiser le lecteur de fichier
+            br1.close();
+            br = new BufferedReader(new FileReader(path));
+
+            // Créer une matrice avec les dimensions appropriées
+            matrice = new char[nombreLignes][nombreColonnes];
+            this.x = nombreColonnes;
+            this.y = nombreLignes;
+
+            int i = 0;
+            while ((ligne = br.readLine()) != null) {
+                char[] caracteres = ligne.toCharArray();
+                for(int j = 0; j < caracteres.length; j++) {
+                    matrice[i][j] = caracteres[j];
+                }
+
+                i++;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.x = x;
-        this.lesCases = new Case[this.x][this.y];
-        return string;
+        return matrice;
     }
+
+    public void genererGrille(char[][] c){
+        for(int i = 0; i<this.getX(); i++){
+            for(int j = 0; j<this.getY(); j++){
+                if (c[i][j] == 'x') {
+                    this.lesCases[j][i] = new Case(this, new Rocher());
+                } else if (c[j][i]== 'm') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    Mouton mouton = new Mouton(this);
+                    this.ajouterAnimal(mouton, j, i);
+                    this.setLesAnimaux(mouton);
+                } else if (c[j][i] == 'l') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    Loup loup = new Loup(this);
+                    this.ajouterAnimal(loup, j, i);
+                    this.setLesAnimaux(loup);
+                } else if (c[j][i]== 'h') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                } else if (c[j][i]== 'f') {
+                    this.lesCases[j][i] = new Case(this, new Marguerite());
+                } else if (c[j][i]== 'c') {
+                    this.lesCases[j][i] = new Case(this, new Cactus());
+                } else if (c[i][j] == 's') {
+                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    this.lesCases[j][i].setSortie(true);
+                }
+            }
+        }
+
+    }
+
     public void genererGrilleSauve(String s) {
 
         int i = 0;
