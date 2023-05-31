@@ -31,7 +31,8 @@ class AnimalTest {
     @Test
     void seDeplacerE() {
         laby.getLesCases()[1][1].setContenu(new Rocher());
-        laby.ajouterAnimal(m, 4, 1);
+        laby.ajouterAnimal(m, 1, 4);
+
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "E");
         assertTrue(laby.getLesCases()[1][6].getAnimal() == m);
@@ -101,17 +102,21 @@ class AnimalTest {
     void seDeplacerN9() {
 
         laby.getLesCases()[1][1].setContenu(new Rocher());
-        laby.ajouterAnimal(m, 1, 4);
+
+        laby.ajouterAnimal(m, 4, 1);
+
 
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "N");
+
         assertTrue(laby.getLesCases()[2][1].getAnimal() == m);
 
     }
     @Test
     void seDeplacerN10() {
-        laby.getLesCases()[1][5].setContenu(new Marguerite());
-        laby.ajouterAnimal(m, 1, 5);
+        laby.getLesCases()[5][1].setContenu(new Marguerite());
+        laby.ajouterAnimal(m, 5, 1);
+
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "N");
 
@@ -119,24 +124,24 @@ class AnimalTest {
     }
     @Test
     void seDeplacerN11() {
-        laby.getLesCases()[1][5].setContenu(new Cactus());
-        laby.ajouterAnimal(m, 1, 5);
+        laby.getLesCases()[5][1].setContenu(new Cactus());
+        laby.ajouterAnimal(m, 5, 1);
         m.manger();
         m.seDeplacer(1, "N");
         assertTrue(laby.getLesCases()[4][1].getAnimal() == m);
     }
     @Test
     void seDeplacerN12() {
-        laby.getLesCases()[1][5].setContenu(new Marguerite());
+        laby.getLesCases()[5][1].setContenu(new Marguerite());
         laby.getLesCases()[1][1].setContenu(new Rocher());
-        laby.ajouterAnimal(m, 1, 5);
+        laby.ajouterAnimal(m, 5, 1);
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "N");
         assertTrue(laby.getLesCases()[2][1].getAnimal() == m);
     }
     @Test
     void seDeplacerO13() {
-        laby.ajouterAnimal(m, 4, 1);
+        laby.ajouterAnimal(m, 1, 4);
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "O");
         assertTrue(laby.getLesCases()[1][2].getAnimal() == m);
@@ -144,25 +149,25 @@ class AnimalTest {
     }
     @Test
     void seDeplacerO14() {
-        laby.getLesCases()[5][1].setContenu(new Marguerite());
-        laby.ajouterAnimal(m, 5, 1);
+        laby.getLesCases()[1][5].setContenu(new Marguerite());
+        laby.ajouterAnimal(m, 1, 5);
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "O");
         assertTrue(laby.getLesCases()[1][1].getAnimal() == m);
     }
     @Test
     void seDeplacerO15() {
-        laby.getLesCases()[2][1].setContenu(new Cactus());
-        laby.ajouterAnimal(m, 2, 1);
+        laby.getLesCases()[1][2].setContenu(new Cactus());
+        laby.ajouterAnimal(m, 1, 2);
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "O");
         assertTrue(laby.getLesCases()[1][1].getAnimal() == m);
     }
     @Test
     void seDeplacerO16() {
-        laby.getLesCases()[5][1].setContenu(new Marguerite());
+        laby.getLesCases()[1][5].setContenu(new Marguerite());
         laby.getLesCases()[1][1].setContenu(new Rocher());
-        laby.ajouterAnimal(m, 5, 1);
+        laby.ajouterAnimal(m, 1, 5);
         m.manger();
         m.seDeplacer(m.getMouvementPossible(), "O");
         assertTrue(laby.getLesCases()[1][2].getAnimal() == m);
