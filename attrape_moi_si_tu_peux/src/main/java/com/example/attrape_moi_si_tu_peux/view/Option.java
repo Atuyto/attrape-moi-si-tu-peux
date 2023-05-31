@@ -2,14 +2,13 @@ package com.example.attrape_moi_si_tu_peux.view;
 
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -24,17 +23,21 @@ import java.util.function.BiPredicate;
 
 public class Option extends Stage {
     private EventGameUI eventGameUI;
+    private int xchoix;
+
+    private int ychoix;
     public void Option() {
 
-        ComboBox<Integer> cb        = new ComboBox<>();
-        ComboBox<Integer> cb1       = new ComboBox<>();
+        ChoiceBox<Integer> cb        = new ChoiceBox<>();
+        ChoiceBox<Integer> cb1       = new ChoiceBox<>();
         Group gp                    = new Group();
         CheckBox chb                = new CheckBox("Loup");
         CheckBox chb1               = new CheckBox("Mouton");
-        Text titleTop               = new Text("Veuillez choisir les dimensions du labyrinthe (en construction)");
+        Text titleTop               = new Text("Veuillez choisir les dimensions du labyrinthe");
         Text textRole               = new Text("Quels rôles voulez vous jouer ? (en construction)  ");
+        Button saveOption           = new Button("Sauvegarder option");
+        Button buttonImport           = new Button("Importer Labyrinthe");
         Text title                  = new Text("Option");
-        Button buttonimport         = new Button("Importer labyrinthe");
         Button buttonRetour         = new Button("Retour");
         BorderPane pane             = new BorderPane();
 
@@ -45,8 +48,9 @@ public class Option extends Stage {
         titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
         title.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
         textRole.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,20));
-        buttonimport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+        saveOption.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
         buttonRetour.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+        buttonImport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
 
         cb.getItems().addAll(10,11,12,13,14,15);
         cb1.getItems().addAll(10,11,12,13,14,15);
@@ -60,12 +64,18 @@ public class Option extends Stage {
 
         hBoxDimension.getChildren().addAll(cb, cb1);
         hBoxPos.getChildren().addAll(chb, chb1);
-        vBoxMain.getChildren().addAll(titleTop, hBoxDimension, textRole, hBoxPos);
+        vBoxMain.getChildren().addAll(titleTop, hBoxDimension, textRole, hBoxPos, saveOption, buttonImport);
         hBoxPos.setSpacing(400);
         hBoxDimension.setSpacing(400);
         gp.getChildren().add(vBoxMain);
 
-
+        saveOption.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                xchoix = cb.getValue();
+                ychoix = cb1.getValue();
+            }
+        });
         pane.setTop(title);
         pane.setCenter(gp);
         pane.setBottom(buttonRetour);
@@ -78,17 +88,25 @@ public class Option extends Stage {
 
 
         buttonRetour.setOnMouseClicked(eventGameUI);
+        buttonImport.setOnMouseClicked(eventGameUI);
 
 
         Scene scene = new Scene(pane, 1000, 800);
         this.setScene(scene);
         this.setTitle("Attrape moi si tu peux ");
 
-        }
+    }
 
     public void setEventGameUI(EventGameUI eventGameUI) {
         this.eventGameUI = eventGameUI;
         this.Option();
     }
-}
 
+    public int getXchoix() {
+        return xchoix;
+    }
+
+    public int getYchoix() {
+        return ychoix;
+    }
+}

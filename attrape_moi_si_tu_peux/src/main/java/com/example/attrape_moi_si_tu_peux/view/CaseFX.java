@@ -1,5 +1,5 @@
 package com.example.attrape_moi_si_tu_peux.view;
-import com.example.attrape_moi_si_tu_peux.*;
+import com.example.attrape_moi_si_tu_peux.Model.*;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,14 +73,22 @@ public class CaseFX {
         leCarre.setY(this.y);
         gp.getChildren().add(leCarre);
         leCarre.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 3;");
-
-
-        imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
-                this.laCase.getContenu() instanceof  Herbe ? this.lesImages[1]  :
-                        this.laCase.getContenu() instanceof  Cactus ? this.lesImages[2]  :
-                                this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3]  : null);
+        this.mettreAjour();
         gp.getChildren().add(imageView);
         gp.getChildren().add(imageViewAnim);
+
+
+
+    }
+
+    public void mettreAjour(){
+        if(this.getLaCase().getAnimal() != null){
+            this.afficherAnimal();
+        }
+        imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
+                this.laCase.getContenu() instanceof Herbe ? this.lesImages[1] :
+                        this.laCase.getContenu() instanceof Cactus ? this.lesImages[2] :
+                                this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3] : null);
 
     }
     public Group getGp() {

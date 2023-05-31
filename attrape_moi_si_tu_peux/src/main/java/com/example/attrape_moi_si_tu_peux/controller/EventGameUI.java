@@ -1,13 +1,17 @@
 package com.example.attrape_moi_si_tu_peux.controller;
 
-import com.example.attrape_moi_si_tu_peux.Animal;
+import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
 import com.example.attrape_moi_si_tu_peux.view.GameUI;
 import com.example.attrape_moi_si_tu_peux.view.Menu_demarrer;
 import com.example.attrape_moi_si_tu_peux.view.Option;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.Objects;
 
 public class EventGameUI implements EventHandler {
@@ -25,7 +29,11 @@ public class EventGameUI implements EventHandler {
     @Override
     public void handle(Event event) {
         if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Jouer"))){
-            gameUI = new GameUI();
+            if ( option.getXchoix() != 0 && option.getYchoix() != 0){
+                gameUI = new GameUI(option.getXchoix(), option.getYchoix());
+            }else {
+                gameUI = new GameUI();
+            }
             gameUI.setEventGameUI(this);
             gameUI.show();
             menu.close();
@@ -73,11 +81,42 @@ public class EventGameUI implements EventHandler {
             option.show();
             menu.close();
         }
+        if(Objects.equals(((Button) event.getSource()).getId(), "sauvegarder")){
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir l'emplacement de sauvegarde");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers texte", "*.txt"));
+            fileChooser.setInitialFileName("labConf.txt");
+
+            File selectedFile = fileChooser.showSaveDialog(stage);
+            this.gameUI.getLab().sauvegarderLabyrinthe(selectedFile);
+        }
+        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer Labyrinthe"))) {
+
+
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Ouvrir votre fichier labyrinthe");
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers texte (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            File fileSelected = fileChooser.showOpenDialog(stage);
+
+            if (fileSelected != null) {
+                Labyrinthe lab = new Labyrinthe(fileSelected);
+                gameUI = new GameUI(lab);
+                Alert mesImport = new Alert(Alert.AlertType.INFORMATION, "Labyrinthe Chargé");
+                gameUI.setEventGameUI(this);
+                this.gameUI.show();
+                menu.close();
+                option.close();
+                mesImport.show();
+
+            }
+        }
 
     }
-
-
-
     public GameUI getGameUI() {
         return gameUI;
     }

@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class Mouton extends Animal {
             this.setMouvementPossible(4);
         }
         if
-        (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un com.example.attrape_moi_si_tu_peux.Cactus
+        (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un com.example.attrape_moi_si_tu_peux.Model.Cactus
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
             this.getLaCase().setEstVide();

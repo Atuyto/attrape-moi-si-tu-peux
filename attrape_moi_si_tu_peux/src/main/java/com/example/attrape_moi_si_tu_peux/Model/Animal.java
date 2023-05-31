@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 public abstract class Animal {
     private int mouvementPossible;
@@ -21,7 +21,6 @@ public abstract class Animal {
         int i               = 0;
         while(i < nbdep){
             if (x + 1 > 0 || this.getLeLabyrinthe().getX()-1 < x + 1 || y + 1 > 0 || this.getLeLabyrinthe().getY()-1 < y + 1 ) {
-
                 if (orientation.equals("O")) {
                    int tmpy = y-1;
                     if (this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Mouton)) {

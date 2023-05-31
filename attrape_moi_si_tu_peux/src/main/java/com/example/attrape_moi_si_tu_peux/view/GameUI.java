@@ -1,6 +1,9 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
-import com.example.attrape_moi_si_tu_peux.*;
+import com.example.attrape_moi_si_tu_peux.Model.Animal;
+import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
+import com.example.attrape_moi_si_tu_peux.Model.Loup;
+import com.example.attrape_moi_si_tu_peux.Model.Mouton;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,11 +14,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -23,14 +25,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Arrays;
 import java.util.Random;
-
-import static javafx.scene.input.KeyCode.O;
 
 public class GameUI extends Stage{
 
     private EventGameUI eventGameUI;
+    private int x;
+    private int y;
     private boolean edition;
     private Labyrinthe lab;
     private CaseFX[][] caseFX;
@@ -43,31 +44,53 @@ public class GameUI extends Stage{
     private Scene sc;
 
     private int nbAnimaux;
+    private VBox vBox;
+
+    public GameUI(Labyrinthe lab) {
+        this.lab    = lab;
+        this.x = this.lab.getX();
+        this.y = this.lab.getY();
+    }
+
+    public GameUI(){
+        this.x = 10;
+        this.y = 10;
+        lab = new Labyrinthe(this.x, this.y);
+    }
+
+    public GameUI(int xchoix, int ychoix) {
+        this.x = xchoix;
+        this.y = ychoix;
+        this.lab = new Labyrinthe(this.x, this.y);
+    }
 
     public void GameUI(){
-        lab                     = new Labyrinthe(15, 15);
-        gpLab                   = new Group();
-        gpLeft                  = new Group();
-        gpRight                 = new Group();
-        caseFX                  = new CaseFX[lab.getX()][lab.getY()];
-        VBox vboxtext           = new VBox();
-        pane                    = new BorderPane();
-        VBox vboxButton         = new VBox();
-        edition                 = false;
-        nbsorti                 = 0;
-        nbAnimaux               = this.lab.getLesAnimaux().size();
+        this.gpLab                  = new Group();
+        this.gpLeft                 = new Group();
+        this.gpRight                = new Group();
+        this.caseFX                 = new CaseFX[this.x][this.y];
+        this.pane                   = new BorderPane();
+        this.edition                = false;
+        this.nbsorti                = 0;
+        this.nbAnimaux              = this.lab.getLesAnimaux().size();
+        this.vBox                   = new VBox();
+        this.sc                     = new Scene(pane, 1300,900);
 
-        Text herbeManger        = new Text("Herbe mangé");
-        Text cactusManger       = new Text("Cactus mangé");
-        Text margueriteManger   = new Text("Marguerite Mangé");
+        VBox vboxtext               = new VBox();
+        VBox vboxButton             = new VBox();
 
-        Button buttonAddAnimauw = new Button("Ajouter animaux");
-        Button buttonEditer     = new Button("Editer labyrinthe");
-        Button buttonSimu      = new Button("Démarrer Simulation");
-        Button buttonSave       = new Button("Sauvegarder labyrinthe");
-        Button buttonGenererLab = new Button("Génération aléatoire");
-        Button buttonRetour     = new Button("Retour");
-        sc                      = new Scene(pane, 1200,800);
+        Text herbeManger            = new Text("Herbe mangé");
+        Text cactusManger           = new Text("Cactus mangé");
+        Text margueriteManger       = new Text("Marguerite Mangé");
+
+        Button buttonAddAnimauw     = new Button("Ajouter animaux");
+        Button buttonEditer         = new Button("Editer labyrinthe");
+        Button buttonSimu           = new Button("Démarrer Simulation");
+        Button buttonSave           = new Button("Sauvegarder labyrinthe");
+        Button buttonGenererLab     = new Button("Génération aléatoire");
+        Button buttonRetour         = new Button("Retour");
+
+
 
 
         herbeManger.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -83,6 +106,7 @@ public class GameUI extends Stage{
 
         buttonEditer.setId("Edition");
         buttonAddAnimauw.setId("Edition animal");
+        buttonSave.setId("sauvegarder");
 
         vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
@@ -100,6 +124,7 @@ public class GameUI extends Stage{
         buttonAddAnimauw.setOnMouseClicked(eventGameUI);
         buttonGenererLab.setOnMouseClicked(eventGameUI);
         buttonSimu.setOnMouseClicked(eventGameUI);
+        buttonSave.setOnMouseClicked(eventGameUI);
 
 
         pane.setLeft(gpLeft);
@@ -119,6 +144,7 @@ public class GameUI extends Stage{
         this.setScene(sc);
 
         this.afficherGrille();
+        this.gpLab.getChildren().add(this.vBox);
 
     }
 
@@ -127,23 +153,23 @@ public class GameUI extends Stage{
         this.GameUI();}
 
     public void afficherGrille(){
-        int x = 0;
-        for (int i = 0 ; i < lab.getX() ; i++){
-            int y = 0;
-            for (int j = 0 ; j < lab.getY() ; j++){
-                if (i == 0 || j == 0 || i == this.lab.getX() -1 || j == this.lab.getY() -1){
-                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y, true);
-                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+        CaseFX caseFX;
+        // Parcourir le labyrinthe et dessiner les cellules correspondantes
+        for (int i = 0; i < this.x; i++) {
+            HBox hBox = new HBox();
+            for (int j = 0; j < this.y; j++) {
+                if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1){
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j],20,20, true);
                 }
                 else {
-                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], x, y);
-                    this.gpLab.getChildren().add(this.caseFX[i][j].getGp());
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], 20,20);
+                    }
+                hBox.getChildren().add(this.caseFX[i][j].getGp());
                 }
-                y += this.caseFX[0][0].getScale();
+            vBox.getChildren().add(hBox);
             }
-            x += this.caseFX[0][0].getScale();
         }
-    }
+
 
     public void activerEdition(){
         this.setEdition();
@@ -209,17 +235,14 @@ public class GameUI extends Stage{
 
                 }
                 lab.setNb_tour(1);
-                /*
-                for(int i = 0; i<lab.getX(); i++){
-                    for(int j = 0; j<lab.getY(); j++){
+
+                for(int i = 0; i<x; i++){
+                    for(int j = 0; j<y; j++){
                         if(lab.getLesCases()[i][j].isEstVide()){
                             caseFX[i][j].repousser();
                         }
                     }
                 }
-
-                 */
-
             }
         }));
 
@@ -245,7 +268,11 @@ public class GameUI extends Stage{
 
     public void genererLab(){
         this.lab.genererGrilleAleatoire();
-        this.afficherGrille();
+        for (int i = 1; i < lab.getX()-1 ; i++) {
+            for (int j = 1; j < lab.getY() - 1; j++) {
+                this.caseFX[i][j].mettreAjour();
+            }
+        }
     }
 
     public void setEdition() {

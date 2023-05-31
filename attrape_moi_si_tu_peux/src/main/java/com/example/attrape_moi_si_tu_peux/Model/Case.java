@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -63,10 +63,10 @@ public class Case {
     public String toString()
     {
         if (this.animal != null){
-            return this.animal instanceof Loup ? "L" : "M";
+            return this.animal instanceof Loup ? "l" : "m";
         }
         else {
-            return this.contenu instanceof Herbe ? "h" : this.contenu instanceof Cactus ? "c" : this.contenu instanceof Marguerite ? "m" : "x";
+            return this.contenu instanceof Herbe ? "h" : this.contenu instanceof Cactus ? "c" : this.contenu instanceof Marguerite ? "f" : "x";
         }
     }
 

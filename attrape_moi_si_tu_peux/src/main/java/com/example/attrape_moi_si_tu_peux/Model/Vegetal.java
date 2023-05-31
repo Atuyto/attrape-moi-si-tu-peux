@@ -1,4 +1,4 @@
-package com.example.attrape_moi_si_tu_peux;
+package com.example.attrape_moi_si_tu_peux.Model;
 
 public class Vegetal extends Element{
     private int bonusMalus;
