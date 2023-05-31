@@ -151,28 +151,27 @@ public class Labyrinthe {
         for(int i = 0; i<this.getX(); i++){
             for(int j = 0; j<this.getY(); j++){
                 if (c[j][i] == 'x') {
-                    this.lesCases[j][i] = new Case(this, new Rocher());
+                    this.lesCases[i][j] = new Case(this, new Rocher());
                 } else if (c[j][i]== 'm') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    //this.lesCases[j][i] = new Case(this, new Herbe());
                     Mouton mouton = new Mouton(this);
                     this.ajouterAnimal(mouton, j, i);
                     this.setLesAnimaux(mouton);
                 } else if (c[j][i] == 'l') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
+                    //this.lesCases[j][i] = new Case(this, new Herbe());
                     Loup loup = new Loup(this);
                     this.ajouterAnimal(loup, j, i);
                     this.setLesAnimaux(loup);
-                } else if (c[j][i]== 'h') {
-                    this.lesCases[j][i] = new Case(this, new Herbe());
-                } else if (c[j][i]== 'f') {
-                    this.lesCases[j][i] = new Case(this, new Marguerite());
+                }else if (c[j][i]== 'f') {
+                    this.lesCases[i][j] = new Case(this, new Marguerite());
                 } else if (c[j][i]== 'c') {
-                    this.lesCases[j][i] = new Case(this, new Cactus());
+                    this.lesCases[i][j] = new Case(this, new Cactus());
                 } else if (c[j][i] == 's') {
                     this.lesCases[i][j] = new Case(this, new Herbe());
                     this.lesCases[i][j].setSortie(true);
                 }
             }
+
         }
 
     }
