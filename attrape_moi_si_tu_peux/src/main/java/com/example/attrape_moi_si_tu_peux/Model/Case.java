@@ -41,22 +41,20 @@ public class Case {
 
 
     public Element regeneration() {
-        System.out.println(tourPasse);
         if ( (leLabyrinthe.getNb_tour() == this.tourPasse + 2)|| (leLabyrinthe.getNb_tour()  == 0)) {
-        ArrayList<Integer> givenList = new ArrayList(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
+        ArrayList<Integer> givenList = new ArrayList<>(); // je fais une liste de int dans lequel il y a 100 élémenet je donne 1 l'herbe, 2 le catus et 3 la marguerite
         for(int i = 1 ; i< 101 ; i++)
         {
             if (i < 50) givenList.add(1);
             if (i < 75 && i > 50) givenList.add((2));
             if (i< 100 && i > 75) givenList.add(3);
         }
-        if(leLabyrinthe.getNb_tour() == 0 || leLabyrinthe.getNb_tour() ==  this.tourPasse + 2) {
-            Random rand = new Random();
-            int randomElement = givenList.get(rand.nextInt(givenList.size()));
-            this.contenu = randomElement == 1 ? new Herbe() : randomElement == 2 ? new Marguerite() : new Cactus();
+        Random rand = new Random();
+        int randomElement = givenList.get(rand.nextInt(givenList.size()));
+        this.contenu = randomElement == 1 ? new Herbe() : randomElement == 2 ? new Marguerite() : new Cactus();
+        this.tourPasse = 0;
         }
 
-        }
         return this.getContenu();
     }
 
@@ -101,6 +99,10 @@ public class Case {
         return tourPasse;
     }
 
+    public Labyrinthe getLeLabyrinthe() {
+        return leLabyrinthe;
+    }
+
     public Animal getAnimal(){return animal;}
 
     public Element getContenu() {
@@ -111,7 +113,8 @@ public class Case {
         this.tourPasse = tourPasse;
     }
 
-    public Labyrinthe getLeLabyrinthe() {
-        return leLabyrinthe;
+    public boolean getSortie(){
+        return this.sortie;
     }
+
 }

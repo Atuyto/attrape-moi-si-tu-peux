@@ -98,8 +98,8 @@ public class CaseFX {
     public void setElement(){
         int index = imageView.getImage().getUrl().equals(this.lesImages[0].getUrl()) ? 0 :
                 imageView.getImage().getUrl().equals(this.lesImages[1].getUrl()) ? 1 :
-                imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
-                imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
+                        imageView.getImage().getUrl().equals(this.lesImages[2].getUrl()) ?  2 :
+                                imageView.getImage().getUrl().equals(this.lesImages[3].getUrl()) ? 3 : 0 ;
         if(index == 3){index =0;} else index +=1;
         this.imageView.setImage(this.lesImages[index]);
         this.laCase.setContenu(index == 0 ? new Rocher() : index == 1 ? new Herbe() : index == 2 ? new Cactus() : new Marguerite());
@@ -128,7 +128,7 @@ public class CaseFX {
     public void deleteAnimal(){
         this.imageViewAnim.setImage(null);
     }
-    public void afficherAnimal(){
+    public void afficherAnimal() {
         if (this.laCase.getAnimal() instanceof Loup) {
             this.imageViewAnim.setImage(this.lesAnimaux[0]);
 
@@ -138,7 +138,6 @@ public class CaseFX {
             this.imageViewAnim.setImage(this.lesAnimaux[1]);
 
         }
-
     }
 
     public void setAnimaux() {
@@ -174,9 +173,9 @@ public class CaseFX {
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
                 }
-                }
             }
         }
+    }
 
 
     public void sortiClick(){
@@ -197,7 +196,6 @@ public class CaseFX {
             }
         }
     }
-
     public boolean getBorder(){
         return this.border;
     }
@@ -215,9 +213,19 @@ public class CaseFX {
         return laCase;
     }
 
-
-
     public int getScale() {
         return scale;
+    }
+
+    @Override
+    public String toString() {
+        {
+            if (this.getLaCase().getAnimal() != null){
+                return this.getLaCase().getAnimal() instanceof Loup ? "l" : "m";
+            }
+            else {
+                return this.getLaCase().getContenu() instanceof Herbe ? "h" : this.getLaCase().getContenu()instanceof Cactus ? "c" : this.getLaCase().getContenu() instanceof Marguerite ? "f" : "x";
+            }
+        }
     }
 }
