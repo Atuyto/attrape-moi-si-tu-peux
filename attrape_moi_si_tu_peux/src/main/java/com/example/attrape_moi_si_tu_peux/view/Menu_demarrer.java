@@ -41,6 +41,10 @@ public class Menu_demarrer {
         buttonOption.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
         buttonQuit.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
+        buttonPlay.setId("bJouer");
+        buttonOption.setId("bOption");
+        buttonQuit.setId("bQuit");
+
         vBox.getChildren().addAll(buttonPlay, buttonOption, buttonQuit);
         pane.setCenter(vBox);
 

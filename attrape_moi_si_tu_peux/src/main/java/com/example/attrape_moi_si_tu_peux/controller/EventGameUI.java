@@ -28,103 +28,115 @@ public class EventGameUI implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Jouer"))){
-            if ( option.getXchoix() != 0 && option.getYchoix() != 0){
-                gameUI = new GameUI(option.getXchoix(), option.getYchoix());
-            }else {
-                gameUI = new GameUI();
-            }
-            gameUI.setEventGameUI(this);
-            gameUI.show();
-            menu.close();
-        }
-
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Retour"))){
-            Button button = (Button) event.getSource();
-            if(button.getScene().getWindow() instanceof Option){
-                option.close();
-            }
-            if(button.getScene().getWindow() instanceof GameUI){
-                gameUI.close();
-            }
-
-            menu.open();
-        }
-        if(Objects.equals(((Button) event.getSource()).getId(), "Edition")){
-            if (gameUI.getEdition()) {
-                ((Button) event.getSource()).setText("Editer labyrinthe");
-                gameUI.activerEdition();
-            } else {
-                gameUI.activerEdition();
-                ((Button) event.getSource()).setText("Arreter edition");
-            }
-        }
-        if(Objects.equals(((Button) event.getSource()).getId(), "Edition animal")){
-            if (gameUI.getLab().getLesAnimaux().size() != 2) {
-                ((Button) event.getSource()).setText("Enregistrer emplacement");
-                gameUI.activerAddAnimal();
-            }
-            else {
-                gameUI.activerAddAnimal();
-                ((Button) event.getSource()).setText("Ajouter animaux");
-            }
-        }
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Génération aléatoire"))){
-            this.gameUI.getLab().getLesAnimaux().clear();
-            this.gameUI.genererLab();
-        }
-
-        if(Objects.equals(((Button) event.getSource()).getId(), "Simulation")){
+        if(event.getSource() instanceof Button){
             Button b = (Button) event.getSource();
-            if (b.getText().equals("Pause")){
-                b.setText("Reprendre simulation");
-                gameUI.pause();
-            }else{
-                b.setText("Pause");
-                this.gameUI.simulation();
-            }
 
-        }
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Options"))){
-            option.show();
-            menu.close();
-        }
-        if(Objects.equals(((Button) event.getSource()).getId(), "sauvegarder")){
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir l'emplacement de sauvegarde");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers texte", "*.txt"));
-            fileChooser.setInitialFileName("labConf.txt");
-
-            File selectedFile = fileChooser.showSaveDialog(stage);
-            this.gameUI.getLab().sauvegarderLabyrinthe(selectedFile);
-        }
-        if((event.getSource() instanceof Button)&&(event.getSource().toString().contains("Importer Labyrinthe"))) {
-
-
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Ouvrir votre fichier labyrinthe");
-
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers texte (*.txt)", "*.txt");
-            fileChooser.getExtensionFilters().add(extFilter);
-
-            File fileSelected = fileChooser.showOpenDialog(stage);
-
-            if (fileSelected != null) {
-                Labyrinthe lab = new Labyrinthe(fileSelected);
-                gameUI = new GameUI(lab);
-                Alert mesImport = new Alert(Alert.AlertType.INFORMATION, "Labyrinthe Chargé");
+            // Evenement de l'interface Option
+            if(Objects.equals(((Button) event.getSource()).getId(), "bJouer")){
+                if ( option.getXchoix() != 0 && option.getYchoix() != 0){
+                    gameUI = new GameUI(option.getXchoix(), option.getYchoix());
+                }else {
+                    gameUI = new GameUI();
+                }
                 gameUI.setEventGameUI(this);
-                this.gameUI.show();
+                gameUI.show();
                 menu.close();
-                option.close();
-                mesImport.show();
-
             }
-        }
 
+            if(Objects.equals(((Button) event.getSource()).getId(), "bImport")) {
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Ouvrir votre fichier labyrinthe");
+
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers texte (*.txt)", "*.txt");
+                fileChooser.getExtensionFilters().add(extFilter);
+
+                File fileSelected = fileChooser.showOpenDialog(stage);
+
+                if (fileSelected != null) {
+                    Labyrinthe lab = new Labyrinthe(fileSelected);
+                    gameUI = new GameUI(lab);
+                    Alert mesImport = new Alert(Alert.AlertType.INFORMATION, "Labyrinthe Chargé");
+                    gameUI.setEventGameUI(this);
+                    this.gameUI.show();
+                    menu.close();
+                    option.close();
+                    mesImport.show();
+
+                }
+            }
+
+            // Evenement de l'interface jeux
+            if (Objects.equals(((Button) event.getSource()).getId(), "bSimulation")) {
+                if (b.getText().equals("Pause")) {
+                    b.setText("Reprendre simulation");
+                    gameUI.pause();
+                    gameUI.setRunning(false);
+
+                }
+                else {
+                    b.setText("Pause");
+                    this.gameUI.simulation();
+                    gameUI.setRunning(true);
+
+                }
+            }
+            if(!gameUI.isRunning()) {
+                if (Objects.equals(((Button) event.getSource()).getId(), "bEdition")) {
+                    if (gameUI.getEdition()) {
+                        ((Button) event.getSource()).setText("Editer labyrinthe");
+                        gameUI.activerEdition();
+                    } else {
+                        gameUI.activerEdition();
+                        ((Button) event.getSource()).setText("Arreter edition");
+                    }
+                }
+                if (Objects.equals(((Button) event.getSource()).getId(), "bEditionAnimal")) {
+                    if (gameUI.getLab().getLesAnimaux().size() != 2) {
+                        ((Button) event.getSource()).setText("Enregistrer emplacement");
+                        gameUI.activerAddAnimal();
+                    } else {
+                        gameUI.activerAddAnimal();
+                        ((Button) event.getSource()).setText("Ajouter animaux");
+                    }
+                }
+                if (Objects.equals(((Button) event.getSource()).getId(), "bGeneLab")) {
+                    this.gameUI.getLab().getLesAnimaux().clear();
+                    this.gameUI.genererLab();
+                }
+                if (Objects.equals(((Button) event.getSource()).getId(), "bSauvegarder")) {
+                    Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Choisir l'emplacement de sauvegarde");
+                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers texte", "*.txt"));
+                    fileChooser.setInitialFileName("labConf.txt");
+
+                    File selectedFile = fileChooser.showSaveDialog(stage);
+                    this.gameUI.getLab().sauvegarderLabyrinthe(selectedFile);
+                }
+            }
+
+            // Evenement du Menu démarer
+            if(Objects.equals(((Button) event.getSource()).getId(), "bOption")){
+                option.show();
+                menu.close();
+            }
+
+            // Autres Evenement
+            if(Objects.equals(((Button) event.getSource()).getId(), "bRetour")){
+                if(b.getScene().getWindow() instanceof Option){
+                    option.close();
+                }
+                if(b.getScene().getWindow() instanceof GameUI){
+                    gameUI.close();
+                }
+                menu.open();
+            }
+
+        }
     }
+
+
     public GameUI getGameUI() {
         return gameUI;
     }
