@@ -45,7 +45,7 @@ public class GameUI extends Stage{
 
     private int nbAnimaux;
     private VBox vBox;
-
+    private Timeline boucle;
     public GameUI(Labyrinthe lab) {
         this.lab    = lab;
         this.x = this.lab.getX();
@@ -107,6 +107,7 @@ public class GameUI extends Stage{
         buttonEditer.setId("Edition");
         buttonAddAnimauw.setId("Edition animal");
         buttonSave.setId("sauvegarder");
+        buttonSimu.setId("Simulation");
 
         vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
@@ -202,7 +203,7 @@ public class GameUI extends Stage{
 
     public void simulation(){
 
-        Timeline boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+        boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
 
@@ -234,19 +235,27 @@ public class GameUI extends Stage{
                     caseFX[newPosM[0]][newPosM[1]].manger();
 
                 }
-                lab.setNb_tour(1);
+
 
                 for(int i = 0; i<x; i++){
                     for(int j = 0; j<y; j++){
-                        if(lab.getLesCases()[i][j].isEstVide()){
+                        if(lab.getLesCases()[i][j].getContenu() == null){
                             caseFX[i][j].repousser();
                         }
                     }
                 }
+                lab.setNb_tour(1);
             }
         }));
 
         boucle.setCycleCount(Timeline.INDEFINITE);
+        boucle.play();
+    }
+
+    public void pause(){
+        boucle.stop();
+    }
+    public void relancer(){
         boucle.play();
     }
 
