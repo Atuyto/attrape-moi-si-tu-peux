@@ -52,6 +52,10 @@ public class Option extends Stage {
         buttonRetour.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
         buttonImport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
 
+        buttonRetour.setId("bRetour");
+        buttonImport.setId("bImport");
+        saveOption.setId("bSaveOption");
+
         cb.getItems().addAll(10,11,12,13,14,15);
         cb1.getItems().addAll(10,11,12,13,14,15);
 

@@ -21,7 +21,6 @@ public class Mouton extends Animal {
         if (this.getLaCase().getContenu() instanceof Herbe) { // On vérifie si le contenu de la case est une herbe
             this.nbHerbe += 1;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(tourPasse);  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(2);
         }
@@ -29,7 +28,6 @@ public class Mouton extends Animal {
         (this.getLaCase().getContenu() instanceof Marguerite) { // On vérifie si le contenu de la case est une marguerite
             this.nbMargurite += 1;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(tourPasse); // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(4);
         }
@@ -37,7 +35,6 @@ public class Mouton extends Animal {
         (this.getLaCase().getContenu() instanceof Cactus) { // On vérifie si le contenu de la case est un com.example.attrape_moi_si_tu_peux.Model.Cactus
             this.nbCactus += 1;
             this.getLaCase().setContenu(null);
-            this.getLaCase().setEstVide();
             this.getLaCase().setTourPasse(tourPasse);  // On commence le compteur pour savoir dans combien de temps le végétal va pouvoir repousser
             this.setMouvementPossible(1);
         }

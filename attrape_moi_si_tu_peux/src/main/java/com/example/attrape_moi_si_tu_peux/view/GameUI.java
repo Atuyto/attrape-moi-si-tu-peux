@@ -45,23 +45,28 @@ public class GameUI extends Stage{
 
     private int nbAnimaux;
     private VBox vBox;
+    private Timeline boucle;
 
+    private boolean running;
     public GameUI(Labyrinthe lab) {
         this.lab    = lab;
         this.x = this.lab.getX();
         this.y = this.lab.getY();
+        this.running = false;
     }
 
     public GameUI(){
         this.x = 10;
         this.y = 10;
         lab = new Labyrinthe(this.x, this.y);
+        this.running = false;
     }
 
     public GameUI(int xchoix, int ychoix) {
         this.x = xchoix;
         this.y = ychoix;
         this.lab = new Labyrinthe(this.x, this.y);
+        this.running = false;
     }
 
     public void GameUI(){
@@ -104,11 +109,14 @@ public class GameUI extends Stage{
         buttonSave.setFont(Font.font("Verdana", 20 ));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
-        buttonEditer.setId("Edition");
-        buttonAddAnimauw.setId("Edition animal");
-        buttonSave.setId("sauvegarder");
+        buttonEditer.setId("bEdition");
+        buttonAddAnimauw.setId("bEditionAnimal");
+        buttonSave.setId("bSauvegarder");
+        buttonSimu.setId("bSimulation");
+        buttonRetour.setId("bRetour");
+        buttonGenererLab.setId("bGeneLab");
 
-        vboxButton.getChildren().addAll(buttonAddAnimauw,buttonEditer, buttonGenererLab,buttonSimu,buttonSave);
+        vboxButton.getChildren().addAll(buttonGenererLab, buttonAddAnimauw,buttonEditer,buttonSimu,buttonSave);
         vboxButton.setSpacing(15);
         vboxtext.getChildren().addAll(herbeManger, cactusManger, margueriteManger);
         vboxtext.setSpacing(25);
@@ -125,6 +133,7 @@ public class GameUI extends Stage{
         buttonGenererLab.setOnMouseClicked(eventGameUI);
         buttonSimu.setOnMouseClicked(eventGameUI);
         buttonSave.setOnMouseClicked(eventGameUI);
+
 
 
         pane.setLeft(gpLeft);
@@ -171,6 +180,8 @@ public class GameUI extends Stage{
         }
 
 
+
+
     public void activerEdition(){
         this.setEdition();
         for (int i = 1; i < lab.getX()-1 ; i++) {
@@ -202,10 +213,9 @@ public class GameUI extends Stage{
 
     public void simulation(){
 
-        Timeline boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+        this.boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
                 String[] orient = new String[]{"N", "E", "S", "O"};
                 Random random = new Random();
                 int[] loup = new int[2];
@@ -220,7 +230,6 @@ public class GameUI extends Stage{
                         loup[1] = lab.getPosition(a)[1];
                     }
                 }
-
                 if (lab.getNb_tour() % 2 == 0) {
                     String choice = orient[random.nextInt(orient.length)];
                     int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
@@ -234,20 +243,30 @@ public class GameUI extends Stage{
                     caseFX[newPosM[0]][newPosM[1]].manger();
 
                 }
-                lab.setNb_tour(1);
-
                 for(int i = 0; i<x; i++){
                     for(int j = 0; j<y; j++){
-                        if(lab.getLesCases()[i][j].isEstVide()){
+                        if(lab.getLesCases()[i][j].getContenu() == null){
                             caseFX[i][j].repousser();
                         }
                     }
                 }
+                lab.setNb_tour(1);
             }
         }));
+        this.boucle.setCycleCount(Timeline.INDEFINITE);
+        this.boucle.play();
+    }
 
-        boucle.setCycleCount(Timeline.INDEFINITE);
-        boucle.play();
+    public void pause(){
+        this.boucle.pause();
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     public void messageSetSortie(){
