@@ -54,6 +54,7 @@ public class Option extends Stage {
 
         buttonRetour.setId("bRetour");
         buttonImport.setId("bImport");
+        saveOption.setId("bSaveOption");
 
         cb.getItems().addAll(10,11,12,13,14,15);
         cb1.getItems().addAll(10,11,12,13,14,15);

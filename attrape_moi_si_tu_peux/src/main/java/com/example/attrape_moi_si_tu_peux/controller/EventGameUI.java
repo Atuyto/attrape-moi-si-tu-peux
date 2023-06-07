@@ -42,7 +42,6 @@ public class EventGameUI implements EventHandler {
                 gameUI.show();
                 menu.close();
             }
-
             if(Objects.equals(((Button) event.getSource()).getId(), "bImport")) {
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 FileChooser fileChooser = new FileChooser();
@@ -66,6 +65,26 @@ public class EventGameUI implements EventHandler {
                 }
             }
 
+            // Evenement du Menu démarer
+            if(Objects.equals(((Button) event.getSource()).getId(), "bOption")){
+                option.show();
+                menu.close();
+            }
+
+
+            // Autres Evenement
+            if(Objects.equals(((Button) event.getSource()).getId(), "bRetour")){
+                if(b.getScene().getWindow() instanceof Option){
+                    option.close();
+                }
+                if(b.getScene().getWindow() instanceof GameUI){
+                    gameUI.close();
+                }
+                menu.open();
+            }
+
+
+
             // Evenement de l'interface jeux
             if (Objects.equals(((Button) event.getSource()).getId(), "bSimulation")) {
                 if (b.getText().equals("Pause")) {
@@ -81,8 +100,11 @@ public class EventGameUI implements EventHandler {
 
                 }
             }
-            if(!gameUI.isRunning()) {
-                if (Objects.equals(((Button) event.getSource()).getId(), "bEdition")) {
+
+
+
+            // Evenement de la fenetre de jeux
+                if (Objects.equals(((Button) event.getSource()).getId(), "bEdition") && !gameUI.isRunning()) {
                     if (gameUI.getEdition()) {
                         ((Button) event.getSource()).setText("Editer labyrinthe");
                         gameUI.activerEdition();
@@ -91,7 +113,7 @@ public class EventGameUI implements EventHandler {
                         ((Button) event.getSource()).setText("Arreter edition");
                     }
                 }
-                if (Objects.equals(((Button) event.getSource()).getId(), "bEditionAnimal")) {
+                if (Objects.equals(((Button) event.getSource()).getId(), "bEditionAnimal") && !gameUI.isRunning()) {
                     if (gameUI.getLab().getLesAnimaux().size() != 2) {
                         ((Button) event.getSource()).setText("Enregistrer emplacement");
                         gameUI.activerAddAnimal();
@@ -104,7 +126,7 @@ public class EventGameUI implements EventHandler {
                     this.gameUI.getLab().getLesAnimaux().clear();
                     this.gameUI.genererLab();
                 }
-                if (Objects.equals(((Button) event.getSource()).getId(), "bSauvegarder")) {
+                if (Objects.equals(((Button) event.getSource()).getId(), "bSauvegarder") && !gameUI.isRunning()) {
                     Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                     FileChooser fileChooser = new FileChooser();
                     fileChooser.setTitle("Choisir l'emplacement de sauvegarde");
@@ -115,26 +137,7 @@ public class EventGameUI implements EventHandler {
                     this.gameUI.getLab().sauvegarderLabyrinthe(selectedFile);
                 }
             }
-
-            // Evenement du Menu démarer
-            if(Objects.equals(((Button) event.getSource()).getId(), "bOption")){
-                option.show();
-                menu.close();
-            }
-
-            // Autres Evenement
-            if(Objects.equals(((Button) event.getSource()).getId(), "bRetour")){
-                if(b.getScene().getWindow() instanceof Option){
-                    option.close();
-                }
-                if(b.getScene().getWindow() instanceof GameUI){
-                    gameUI.close();
-                }
-                menu.open();
-            }
-
         }
-    }
 
 
     public GameUI getGameUI() {
