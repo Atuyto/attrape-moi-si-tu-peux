@@ -219,22 +219,33 @@ public class GameUI extends Stage{
                 String[] orient = new String[]{"N", "E", "S", "O"};
                 Random random = new Random();
                 int[] loup = new int[2];
+                Loup l = new Loup(lab);
+                Mouton m = new Mouton(lab);
                 int[] mouton = new int[2];
                 for (Animal a : lab.getLesAnimaux()) {
                     if (a instanceof Mouton) {
                         mouton[0] = lab.getPosition(a)[0];
                         mouton[1] = lab.getPosition(a)[1];
+                        m = ((Mouton)a);
                     }
                     if (a instanceof Loup) {
                         loup[0] = lab.getPosition(a)[0];
                         loup[1] = lab.getPosition(a)[1];
+                        l = ((Loup)a);
                     }
                 }
                 if (lab.getNb_tour() % 2 == 0) {
-                    String choice = orient[random.nextInt(orient.length)];
-                    int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                    caseFX[loup[0]][loup[1]].deleteAnimal();
-                    caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                    String choice = l.reperer();
+                    if (l.getEnChasse()) {
+                        int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
+                        caseFX[loup[0]][loup[1]].deleteAnimal();
+                        caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                    }else {
+                        choice = orient[random.nextInt(orient.length)];
+                        int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
+                        caseFX[loup[0]][loup[1]].deleteAnimal();
+                        caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                    }
                 } else {
                     String choice = orient[random.nextInt(orient.length)];
                     int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);

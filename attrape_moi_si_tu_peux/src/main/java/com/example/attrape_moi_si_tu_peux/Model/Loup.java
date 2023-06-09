@@ -68,6 +68,7 @@ public class Loup extends Animal {
                 }
             }
         }
+        this.enChasse = false;
         return "";
     }
 
@@ -92,5 +93,8 @@ public class Loup extends Animal {
             this.getLaCase().setAnimal(null);
         }
         System.out.println("Gagner");
+     }
+     public boolean getEnChasse(){
+        return this.enChasse;
      }
 }

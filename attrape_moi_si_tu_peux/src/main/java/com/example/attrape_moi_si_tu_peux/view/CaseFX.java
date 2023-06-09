@@ -49,9 +49,10 @@ public class CaseFX {
         this.lesImages[1]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Herbe.png").toExternalForm());
         this.lesImages[2]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Cactus.png").toExternalForm());
         this.lesImages[3]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Marguerite.png").toExternalForm());
-        this.lesAnimaux     = new Image[2];
+        this.lesAnimaux     = new Image[3];
         this.lesAnimaux[0]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Loup.png").toExternalForm());
         this.lesAnimaux[1]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Mouton.png").toExternalForm());
+        this.lesAnimaux[2]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Loup_enChasse.png").toExternalForm());
         this.imageViewAnim  = new ImageView();
         this.imageView      = new ImageView();
         this.sortie         = false;
@@ -130,7 +131,11 @@ public class CaseFX {
     }
     public void afficherAnimal() {
         if (this.laCase.getAnimal() instanceof Loup) {
-            this.imageViewAnim.setImage(this.lesAnimaux[0]);
+            if (((Loup) this.laCase.getAnimal()).getEnChasse()) {
+                this.imageViewAnim.setImage(this.lesAnimaux[2]);
+            } else {
+                this.imageViewAnim.setImage(this.lesAnimaux[0]);
+            }
 
         }
 
