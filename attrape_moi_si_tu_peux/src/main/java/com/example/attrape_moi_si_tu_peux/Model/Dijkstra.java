@@ -47,6 +47,57 @@ public class Dijkstra {
         return list;
     }
 
+    public static ArrayList<ArrayList<Integer>> dj(Labyrinthe maze, ArrayList<Integer> start) {
+        int rows = maze.getX();
+        int cols = maze.getY();
+
+        ArrayList<ArrayList<Integer>> distances = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            ArrayList<Integer> row = new ArrayList<>();
+            for (int j = 0; j < cols; j++) {
+                row.add(Integer.MAX_VALUE);
+            }
+            distances.add(row);
+        }
+        distances.get(start.get(0)).set(start.get(1), 0);
+
+        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        queue.add(new int[]{0, start.get(0), start.get(1)});
+
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int currentDistance = current[0];
+            int x = current[1];
+            int y = current[2];
+
+            if (currentDistance > distances.get(x).get(y)) {
+                continue;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+
+                if (isValidCell(maze, nx, ny)) {
+                    int weight = 1;
+                    int newDistance = distances.get(x).get(y) + weight;
+
+                    if (newDistance < distances.get(nx).get(ny)) {
+                        distances.get(nx).set(ny, newDistance);
+                        queue.add(new int[]{newDistance, nx, ny});
+                    }
+                }
+            }
+        } return distances;
+    }
+    private static boolean isValidCell(Labyrinthe maze, int x, int y) {
+        int rows = maze.getX();
+        int cols = maze.getY();
+        return x >= 0 && x < rows && y >= 0 && y < cols;
+    }
 
 
     public void getListeCoordonnees () {
@@ -82,6 +133,11 @@ public class Dijkstra {
         Dijkstra dijkstra;
         dijkstra = new Dijkstra(lab,lab.getLesCases()[0][0]);
         dijkstra.getListeCoordonnees();
+        ArrayList<Integer> l = new ArrayList<>();
+        l.add(0);
+        l.add(0);
+
+        System.out.println(Dijkstra.dj(lab,l));
 
     }
 }
