@@ -74,25 +74,7 @@ public class Loup extends Animal {
 
     @Override
     public void manger() {
-        Case[][] c = this.getLeLabyrinthe().getLesCases();
-        int position[] = this.getLeLabyrinthe().getPosition(this);
-        if (c[position[0] - 1][position[1]].getAnimal() instanceof Mouton) { // On vérifie si le contenu de la case est une herbe
-            c[position[0] - 1][position[1]].setAnimal(this);
-            this.getLaCase().setAnimal(null);
-
-        } else if (c[position[0] + 1][position[1]].getAnimal() instanceof Mouton) {
-            c[position[0] + 1][position[1]].setAnimal(this);
-            this.getLaCase().setAnimal(null);
-
-        } else if (c[position[0]][position[1] - 1].getAnimal() instanceof Mouton) {
-            c[position[0]][position[1] - 1].setAnimal(this);
-            this.getLaCase().setAnimal(null);
-
-        } else if (c[position[0]][position[1] + 1].getAnimal() instanceof Mouton) {
-            c[position[0]][position[1] + 1].setAnimal(this);
-            this.getLaCase().setAnimal(null);
-        }
-        System.out.println("Gagner");
+        this.getLeLabyrinthe().getLesAnimaux().remove(0);
      }
      public boolean getEnChasse(){
         return this.enChasse;

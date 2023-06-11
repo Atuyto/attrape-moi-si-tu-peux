@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameUI extends Stage{
@@ -212,56 +214,48 @@ public class GameUI extends Stage{
     }
 
     public void simulation(){
-
         this.boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String[] orient = new String[]{"N", "E", "S", "O"};
                 Random random = new Random();
-                int[] loup = new int[2];
-                Loup l = new Loup(lab);
-                Mouton m = new Mouton(lab);
-                int[] mouton = new int[2];
-                for (Animal a : lab.getLesAnimaux()) {
-                    if (a instanceof Mouton) {
-                        mouton[0] = lab.getPosition(a)[0];
-                        mouton[1] = lab.getPosition(a)[1];
-                        m = ((Mouton)a);
-                    }
-                    if (a instanceof Loup) {
-                        loup[0] = lab.getPosition(a)[0];
-                        loup[1] = lab.getPosition(a)[1];
-                        l = ((Loup)a);
-                    }
-                }
+                Loup l = (Loup) lab.getLesAnimaux().get(1);
+                Mouton m = (Mouton) lab.getLesAnimaux().get(0);
+
+                String choice = orient[random.nextInt(orient.length)];
                 if (lab.getNb_tour() % 2 == 0) {
-                    String choice = l.reperer();
-                    if (l.getEnChasse()) {
-                        int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                        caseFX[loup[0]][loup[1]].deleteAnimal();
-                        caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
-                    }else {
-                        choice = orient[random.nextInt(orient.length)];
-                        int[] newPosL = caseFX[loup[0]][loup[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                        caseFX[loup[0]][loup[1]].deleteAnimal();
-                        caseFX[newPosL[0]][newPosL[1]].afficherAnimal();
+                        int[] oldPos = lab.getPosition(l);
+                        l.seDeplacer(l.getMouvementPossible(),choice);
+                        caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                        caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
                     }
-                } else {
-                    String choice = orient[random.nextInt(orient.length)];
-                    int[] newPosM = caseFX[mouton[0]][mouton[1]].getLaCase().getAnimal().seDeplacer(lab.getLesCases()[mouton[0]][mouton[1]].getAnimal().getMouvementPossible(), choice);
-                    caseFX[mouton[0]][mouton[1]].deleteAnimal();
-                    caseFX[newPosM[0]][newPosM[1]].afficherAnimal();
-                    caseFX[newPosM[0]][newPosM[1]].manger();
+                else {
+                    int[] oldPos = lab.getPosition(m);
+                    m.seDeplacer(m.getMouvementPossible(),choice);
+                    m.manger();
+
+                    caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                    caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
+                    caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
 
                 }
-                for(int i = 0; i<x; i++){
-                    for(int j = 0; j<y; j++){
-                        if(lab.getLesCases()[i][j].getContenu() == null){
+
+                if(!lab.getLesAnimaux().contains(m)){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Le loup à gagner en  ".concat(String.valueOf(lab.getNb_tour())).concat(lab.getNb_tour() > 1 ?  " tours" : "tour").concat(" !"));
+                    alert.setHeaderText("Victoire !!");
+                    alert.show();
+                    boucle.stop();
+                }
+                for(int i = 0; i<x; i++) {
+                    for (int j = 0; j < y; j++) {
+                        if (lab.getLesCases()[i][j].getContenu() == null) {
                             caseFX[i][j].repousser();
                         }
                     }
                 }
                 lab.setNb_tour(1);
+
             }
         }));
         this.boucle.setCycleCount(Timeline.INDEFINITE);

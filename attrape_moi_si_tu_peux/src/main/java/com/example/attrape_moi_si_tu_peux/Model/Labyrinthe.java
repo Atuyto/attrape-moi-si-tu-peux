@@ -79,7 +79,6 @@ public class Labyrinthe {
                         cellValue = this.lesCases[i][j].toString();
                         fileWriter.write(cellValue);
                     }
-
                 }
                 fileWriter.write(System.lineSeparator()); // Aller à la ligne après chaque ligne de cellules
             }
@@ -149,7 +148,6 @@ public class Labyrinthe {
                     System.out.println("Le fichier ne contient pas suffisamment de lignes pour le labyrinthe.");
                 } else {
                     System.out.println("Le labyrinthe a été importé avec succès depuis le fichier " + path.getAbsolutePath());
-                    // Faites quelque chose avec le labyrinthe importé...
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Le fichier spécifié est introuvable : " + e.getMessage());
