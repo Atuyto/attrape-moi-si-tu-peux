@@ -28,56 +28,24 @@ public class Dijkstra {
         return new int[]{x,y};
     }
 
-    public int[][] voisins(int[][] tableauCoordonnees, int[] point) {
-        int[][] voisinsExplorer = new int[lab.getX()][lab.getY()];
-        int[][] voisins = new int[lab.getX() * lab.getY()][2];
-        int count = 0;
+    public int[][] initPoids() {
+        int[][] poidsLab = new int[lab.getX()][lab.getY()];
+        int maxPoids = lab.getX() * lab.getY(); // Maximum poids pour les cases inaccessibles
 
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-
-        int x = point[0];
-        int y = point[1];
-
-        for (int i = 0; i < 4; i++) {
-            int nextX = x + dx[i];
-            int nextY = y + dy[i];
-
-            if (nextX >= 0 && nextX < lab.getX() && nextY >= 0 && nextY < lab.getY()) {
-                if (lab.getLesCases()[nextX][nextY].isAccessible() && voisinsExplorer[nextX][nextY] == 0) {
-                    voisins[count][0] = nextX;
-                    voisins[count][1] = nextY;
-                    voisinsExplorer[nextX][nextY] = 1;
-                    count++;
+        for (int i = 0; i < lab.getX(); i++) {
+            for (int j = 0; j < lab.getY(); j++) {
+                if (!lab.getLesCases()[i][j].isAccessible()) {
+                    poidsLab[i][j] = maxPoids;
+                } else {
+                    poidsLab[i][j] = -1;
                 }
             }
         }
 
-        // Réduire la taille du tableau de voisins pour éliminer les cases inutilisées
-        int[][] trimmedVoisins = new int[count][2];
-        System.arraycopy(voisins, 0, trimmedVoisins, 0, count);
+        int[] sortie = getSortie();
+        poidsLab[sortie[0]][sortie[1]] = 0;
 
-        return trimmedVoisins;
-    }
-
-
-    public int[][] initPoids(){
-        int[][] poidLab;
-        poidLab = new int[lab.getX()][lab.getY()];
-        for(int i = 0; i < lab.getX(); i++){
-            for(int j = 0;j<lab.getY() ; j++){
-                if(lab.getLesCases()[i][j].getContenu() instanceof Rocher){
-                    poidLab[i][j] = lab.getX()* lab.getY();
-                }
-                else {
-                    poidLab[i][j] = -1;
-                }
-            }
-        }
-        int[] sorti = getSortie();
-        poidLab[sorti[0]][sorti[1]] = 0;
-
-        return poidLab;
+        return poidsLab;
     }
 
     public int[][] setWeight(int[] sorti, int[][] poids){
@@ -110,28 +78,32 @@ public class Dijkstra {
         }
         return poids;
     }
-    public List<int[]> retrouverChemin(int[][] poids, int[] depart, int[] arriver) {
+
+    public List<int[]> retrouverChemin(int[][] poids, int[] coordDepart, int[] coordArrivee) {
         List<int[]> chemin = new ArrayList<>();
-        int[] courante = depart;
+        int[] courante = coordDepart;
         chemin.add(courante);
 
-        while (!(courante[0]== arriver[0] && courante[1] == arriver[1])) {
+        while (!(courante[0] == coordArrivee[0] && courante[1] == coordArrivee[1])) {
             int x = courante[0];
             int y = courante[1];
             int poidsCourant = poids[x][y];
             int[] prochaineCase = null;
 
-            int[][] voisins = voisins(poids, new int[]{x, y});
+            int[] dx = {-1, 1, 0, 0};
+            int[] dy = {0, 0, -1, 1};
 
-            for (int i = 0; i < voisins.length; i++) {
-                int nextX = voisins[i][0];
-                int nextY = voisins[i][1];
-                int voisin = poids[nextX][nextY];
-                int poidsVoisin = poids[nextX][nextY];
+            for (int i = 0; i < 4; i++) {
+                int nextX = x + dx[i];
+                int nextY = y + dy[i];
 
-                if (poidsVoisin == poidsCourant - 1) {
-                    prochaineCase = new int[]{voisin};
-                    break;
+                if (nextX >= 0 && nextX < lab.getX() && nextY >= 0 && nextY < lab.getY()) {
+                    int poidsVoisin = poids[nextX][nextY];
+
+                    if (lab.getLesCases()[nextX][nextY].isAccessible() && poidsVoisin == poidsCourant - 1) {
+                        prochaineCase = new int[]{nextX, nextY};
+                        break;
+                    }
                 }
             }
 
@@ -142,15 +114,19 @@ public class Dijkstra {
                 break;
             }
         }
-
+        chemin.add(getSortie());
         return chemin;
     }
+
+
+
+
 
 
     public static void main(String[] args) {
         Labyrinthe lab = new Labyrinthe();
         lab.genererGrilleAleatoire();
-        lab.getLesCases()[5][0].setSortie(true);
+        lab.getLesCases()[0][2].setSortie(true);
         Dijkstra dijkstra = new Dijkstra(lab, lab.getLesCases()[5][0]);
         int[][] dj = dijkstra.initPoids();
         int[][] poids = dijkstra.setWeight(dijkstra.getSortie(), dj );
@@ -161,12 +137,12 @@ public class Dijkstra {
             }
             System.out.println();
         }
-        //System.out.println(Arrays.deepToString(dijkstra.voisins(poids, new int[]{5, 2})));
-        List<int[]> chemin = dijkstra.retrouverChemin(poids, new int[]{1, 9},  new int[]{5, 0} );
+        List<int[]> chemin = dijkstra.retrouverChemin(poids, new int[]{4, 6}, new int[]{0, 2});
 
-        for(int i = 0 ; i < chemin.size(); i++){
-            System.out.println(Arrays.toString(chemin.get(i)));
+        for (int[] point : chemin) {
+            System.out.println(Arrays.toString(point));
         }
+
     }
 
 }
