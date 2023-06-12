@@ -56,7 +56,6 @@ public class Mouton extends Animal {
     public int getNbCactus() {
         return nbCactus;
     }
-
     public String reperer() {
         Case[][] C      = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
         boolean a       = false;

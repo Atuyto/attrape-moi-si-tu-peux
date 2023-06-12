@@ -219,7 +219,7 @@ public class GameUI extends Stage{
         List<String> orient = new ArrayList<>();
         orient.add("N");orient.add("S");orient.add("O");orient.add("E");
         final boolean[] bouger = {false};
-        this.boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>(){
+        this.boucle = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
 
@@ -229,8 +229,13 @@ public class GameUI extends Stage{
 
                 String choice = orient.get(random.nextInt(orient.size()));
                 if (lab.getNb_tour() % 2 == 0) {
-                        int[] oldPos = lab.getPosition(l);
-                        l.seDeplacer(l.getMouvementPossible(),choice);
+                    int[] oldPos = lab.getPosition(l);
+                    if ((l.reperer() != ""||l.getEnChasse())) {
+                        l.seDeplacer(l.getMouvementPossible(), l.reperer());
+                        caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                        caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
+                    } else {
+                        l.seDeplacer(l.getMouvementPossible(), choice);
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
                         if(oldPos[0] == lab.getPosition(l)[0] && oldPos[1] == lab.getPosition(l)[1]){
@@ -239,7 +244,7 @@ public class GameUI extends Stage{
                         }
                         else bouger[0] = true;
                     }
-                else {
+                } else {
                     int[] oldPos = lab.getPosition(m);
                     m.seDeplacer(m.getMouvementPossible(),choice);
                     m.manger();
@@ -254,7 +259,6 @@ public class GameUI extends Stage{
                     else bouger[0] = true;
 
                 }
-
                 if(!lab.getLesAnimaux().contains(m)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Le loup à gagner en  ".concat(String.valueOf(lab.getNb_tour())).concat(lab.getNb_tour() > 1 ?  " tours" : "tour").concat(" !"));
@@ -303,7 +307,7 @@ public class GameUI extends Stage{
     }
 
     public void afficherTitle(){
-        Text titleTop = new Text("Attrrape moi si tu peux !! ");
+        Text titleTop = new Text("Attrape moi si tu peux !! ");
         titleTop.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         BorderPane.setAlignment(titleTop, Pos.CENTER);
         this.pane.setTop(titleTop);

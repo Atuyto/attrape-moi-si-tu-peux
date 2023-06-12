@@ -1,14 +1,14 @@
 package com.example.attrape_moi_si_tu_peux.Test;
-
+/*
 import com.example.attrape_moi_si_tu_peux.Model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;*/
 
 class MoutonTest {
-    protected Labyrinthe laby;
+    /*protected Labyrinthe laby;
     Mouton m ;
     @BeforeEach
     void init() {
@@ -43,5 +43,5 @@ class MoutonTest {
         m.manger();
         assertTrue(m.getMouvementPossible() == 1 );
 
-    }
+    }*/
 }

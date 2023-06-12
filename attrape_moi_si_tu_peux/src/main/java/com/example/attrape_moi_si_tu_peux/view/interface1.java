@@ -34,7 +34,7 @@ public class interface1 extends Application {
 
 
 
-        stage.setTitle("Atrape moi si tu peux !");
+        stage.setTitle("Attrape moi si tu peux !");
         stage.show();
 
     }

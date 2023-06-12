@@ -11,7 +11,6 @@ public class Loup extends Animal {
 
     }
 
-
     public String reperer() {
         Case[][] C = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
         boolean a = false;

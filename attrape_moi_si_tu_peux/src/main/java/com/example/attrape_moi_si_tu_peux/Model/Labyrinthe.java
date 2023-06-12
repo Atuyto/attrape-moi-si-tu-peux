@@ -194,6 +194,12 @@ public class Labyrinthe {
         else {
             this.lesAnimaux.add(animal);
             };
+        if (this.lesAnimaux.get(0) instanceof Loup) {
+            ArrayList<Animal> list = new ArrayList<>();
+            list.add(this.lesAnimaux.get(1));
+            list.add(this.lesAnimaux.get(0));
+            this.lesAnimaux = list;
+        }
             return true;
         }
 

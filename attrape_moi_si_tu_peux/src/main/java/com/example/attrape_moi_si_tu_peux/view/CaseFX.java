@@ -44,11 +44,12 @@ public class CaseFX {
         }
     }
     public void creerCase(){
-        this.lesImages      = new Image[4];
+        this.lesImages      = new Image[5];
         this.lesImages[0]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Rocher.png").toExternalForm());
         this.lesImages[1]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Herbe.png").toExternalForm());
         this.lesImages[2]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Cactus.png").toExternalForm());
         this.lesImages[3]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Marguerite.png").toExternalForm());
+        this.lesImages[4]   = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/dirt.png").toExternalForm());
         this.lesAnimaux     = new Image[3];
         this.lesAnimaux[0]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Loup.png").toExternalForm());
         this.lesAnimaux[1]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Mouton.png").toExternalForm());
@@ -89,7 +90,8 @@ public class CaseFX {
         imageView.setImage(this.laCase.getContenu() instanceof Rocher ? this.lesImages[0] :
                 this.laCase.getContenu() instanceof Herbe ? this.lesImages[1] :
                         this.laCase.getContenu() instanceof Cactus ? this.lesImages[2] :
-                                this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3] : null);
+                                this.laCase.getContenu() instanceof Marguerite ? this.lesImages[3] :
+                                        this.lesImages[4]);
 
     }
     public Group getGp() {
@@ -108,7 +110,7 @@ public class CaseFX {
 
     public void manger(){
         this.laCase.getAnimal().manger();
-        this.imageView.setImage(null);
+        this.imageView.setImage(this.lesImages[4]);
     }
 
     public void repousser(){
@@ -137,9 +139,7 @@ public class CaseFX {
                 this.imageViewAnim.setImage(this.lesAnimaux[0]);
             }
 
-        }
-
-        if (this.laCase.getAnimal() instanceof Mouton) {
+        } else if (this.laCase.getAnimal() instanceof Mouton) {
             this.imageViewAnim.setImage(this.lesAnimaux[1]);
 
         }
@@ -154,6 +154,7 @@ public class CaseFX {
                 int lastIndex = this.laCase.getLeLabyrinthe().getLesAnimaux().indexOf(this.getLaCase().getAnimal());
                 this.getLaCase().getLeLabyrinthe().getLesAnimaux().remove(lastIndex);
                 this.laCase.setAnimal(null);
+                this.gameUI.setNbAnimaux(-1);
             }
         }
         else if( ! (this.laCase.getContenu() instanceof Rocher)){
@@ -162,7 +163,7 @@ public class CaseFX {
                 this.imageViewAnim.setImage(this.lesAnimaux[1]);
                 this.laCase.setAnimal(animal);
                 this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
-
+                this.gameUI.setNbAnimaux(1);
             }
             if (nbAnimaux == 1) {
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Mouton) {
@@ -170,13 +171,14 @@ public class CaseFX {
                     this.imageViewAnim.setImage(this.lesAnimaux[0]);
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
-
+                    this.gameUI.setNbAnimaux(1);
                 }
                 if (this.laCase.getLeLabyrinthe().getLesAnimaux().get(0) instanceof Loup) {
                     animal = new Mouton(this.laCase.getLeLabyrinthe());
                     this.imageViewAnim.setImage(this.lesAnimaux[1]);
                     this.laCase.setAnimal(animal);
                     this.getLaCase().getLeLabyrinthe().setLesAnimaux(animal);
+                    this.gameUI.setNbAnimaux(1);
                 }
             }
         }

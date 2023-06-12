@@ -94,9 +94,20 @@ public class EventGameUI implements EventHandler {
 
                 }
                 else {
-                    b.setText("Pause");
-                    this.gameUI.simulation();
-                    gameUI.setRunning(true);
+                    if (this.gameUI.getNbsorti() >= 1) {
+                        System.out.println(this.gameUI.getNbAnimaux());
+                        if (this.gameUI.getNbAnimaux() == 2) {
+                            b.setText("Pause");
+                            this.gameUI.simulation();
+                            gameUI.setRunning(true);
+                        } else {
+                            Alert alrt = new Alert(Alert.AlertType.ERROR, "Veuillez positionnez tous les animaux ! !");
+                            alrt.show();
+                        }
+                    } else {
+                        Alert alrt = new Alert(Alert.AlertType.ERROR, "Veuillez sélectionner une case de sortie !");
+                        alrt.show();
+                    }
 
                 }
             }
