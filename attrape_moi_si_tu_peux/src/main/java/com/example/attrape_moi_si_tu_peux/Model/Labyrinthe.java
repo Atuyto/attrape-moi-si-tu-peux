@@ -163,7 +163,6 @@ public class Labyrinthe {
     }
 
     public Case[][] getLesCases() {return this.lesCases;}
-
     public int[] getPosition(Animal animal) {
         int[] p = new int[2];
         for(int i = 0 ; i< this.x ; i++) {
@@ -176,6 +175,7 @@ public class Labyrinthe {
         }
         return p;
     }
+
 
     public int getX() {
         return this.x;
