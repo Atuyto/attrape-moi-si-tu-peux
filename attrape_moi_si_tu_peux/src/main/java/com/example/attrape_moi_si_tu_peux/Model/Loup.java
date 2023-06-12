@@ -76,7 +76,7 @@ public class Loup extends Animal {
     public void manger() {
         this.getLeLabyrinthe().getLesAnimaux().remove(0);
      }
-     
+
      public boolean getEnChasse(){
         return this.enChasse;
      }
