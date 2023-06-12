@@ -5,13 +5,8 @@ import java.util.*;
 public class Dijkstra {
 
     private Labyrinthe lab;
-    private Case depart;
-
-    private Case sortie;
-
-    public Dijkstra(Labyrinthe labyrinthe, Case depart) {
+    public Dijkstra(Labyrinthe labyrinthe) {
         this.lab = labyrinthe;
-        this.depart = depart;
     }
     public int[] getSortie(){
         int x = 0;
@@ -126,8 +121,8 @@ public class Dijkstra {
     public static void main(String[] args) {
         Labyrinthe lab = new Labyrinthe();
         lab.genererGrilleAleatoire();
-        lab.getLesCases()[0][2].setSortie(true);
-        Dijkstra dijkstra = new Dijkstra(lab, lab.getLesCases()[5][0]);
+        lab.getLesCases()[0][5].setSortie(true);
+        Dijkstra dijkstra = new Dijkstra(lab);
         int[][] dj = dijkstra.initPoids();
         int[][] poids = dijkstra.setWeight(dijkstra.getSortie(), dj );
 
@@ -137,7 +132,7 @@ public class Dijkstra {
             }
             System.out.println();
         }
-        List<int[]> chemin = dijkstra.retrouverChemin(poids, new int[]{4, 6}, new int[]{0, 2});
+        List<int[]> chemin = dijkstra.retrouverChemin(poids, new int[]{8, 8}, dijkstra.getSortie());
 
         for (int[] point : chemin) {
             System.out.println(Arrays.toString(point));
