@@ -26,7 +26,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class GameUI extends Stage{
@@ -214,20 +216,28 @@ public class GameUI extends Stage{
     }
 
     public void simulation(){
-        this.boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+        List<String> orient = new ArrayList<>();
+        orient.add("N");orient.add("S");orient.add("O");orient.add("E");
+        final boolean[] bouger = {false};
+        this.boucle = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
-                String[] orient = new String[]{"N", "E", "S", "O"};
+
                 Random random = new Random();
                 Loup l = (Loup) lab.getLesAnimaux().get(1);
                 Mouton m = (Mouton) lab.getLesAnimaux().get(0);
 
-                String choice = orient[random.nextInt(orient.length)];
+                String choice = orient.get(random.nextInt(orient.size()));
                 if (lab.getNb_tour() % 2 == 0) {
                         int[] oldPos = lab.getPosition(l);
                         l.seDeplacer(l.getMouvementPossible(),choice);
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
+                        if(oldPos[0] == lab.getPosition(l)[0] && oldPos[1] == lab.getPosition(l)[1]){
+                            bouger[0] = false;
+                            orient.remove(orient.indexOf(choice));
+                        }
+                        else bouger[0] = true;
                     }
                 else {
                     int[] oldPos = lab.getPosition(m);
@@ -237,6 +247,11 @@ public class GameUI extends Stage{
                     caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                     caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                     caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
+                    if(oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]){
+                        bouger[0] = false;
+                        orient.remove(orient.indexOf(choice));
+                    }
+                    else bouger[0] = true;
 
                 }
 
@@ -254,7 +269,11 @@ public class GameUI extends Stage{
                         }
                     }
                 }
-                lab.setNb_tour(1);
+                if(bouger[0]){
+                    lab.setNb_tour(1);
+                    orient.add("N");orient.add("S");orient.add("O");orient.add("E");
+                }
+
 
             }
         }));
