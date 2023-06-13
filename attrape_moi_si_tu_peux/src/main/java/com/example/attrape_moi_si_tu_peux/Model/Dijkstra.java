@@ -29,8 +29,8 @@ public class Dijkstra {
 
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (!lab.getLesCases()[i][j].isAccessible()) {
-                    poidsLab[i][j] = maxPoids;
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || lab.getLesCases()[i][j].getAnimal() != null && lab.getLesCases()[i][j].getAnimal() instanceof Loup ) {
+                    poidsLab[i][j] = lab.getX() * lab.getY();
                 } else {
                     poidsLab[i][j] = -1;
                 }

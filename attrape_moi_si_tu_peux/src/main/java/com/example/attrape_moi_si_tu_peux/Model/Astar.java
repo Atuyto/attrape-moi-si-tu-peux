@@ -22,7 +22,7 @@ public class Astar {
 
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher) {
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || lab.getLesCases()[i][j].getAnimal() != null && lab.getLesCases()[i][j].getAnimal() instanceof Loup ) {
                     poidsLab[i][j] = lab.getX() * lab.getY();
                 } else {
                     poidsLab[i][j] = -1;
@@ -65,9 +65,6 @@ public class Astar {
         return poids;
     }
 
-    private int estimerDistance(int[] coord) {
-        return Math.abs(coord[0] - arrivee[0]) + Math.abs(coord[1] - arrivee[1]);
-    }
 
 
     public List<int[]> retrouverChemin(int[][] poids, int[] coordDepart, int[] coordArrivee) {
