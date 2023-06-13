@@ -244,14 +244,14 @@ public class GameUI extends Stage{
                     }
 
                    else {
-
                         l.seDeplacer(l.getMouvementPossible(), choice);
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
                         if (oldPos[0] == lab.getPosition(l)[0] && oldPos[1] == lab.getPosition(l)[1]) {
                             bouger[0] = false;
                             orient.remove(choice);
-                        } else bouger[0] = true;
+                        }
+                        else bouger[0] = true;
                     }
                 } else {
                     if (!m.isEnFuite()) {
