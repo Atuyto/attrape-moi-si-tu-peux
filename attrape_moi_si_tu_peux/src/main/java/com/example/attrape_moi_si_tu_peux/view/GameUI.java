@@ -1,9 +1,6 @@
 package com.example.attrape_moi_si_tu_peux.view;
 
-import com.example.attrape_moi_si_tu_peux.Model.Animal;
-import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
-import com.example.attrape_moi_si_tu_peux.Model.Loup;
-import com.example.attrape_moi_si_tu_peux.Model.Mouton;
+import com.example.attrape_moi_si_tu_peux.Model.*;
 import com.example.attrape_moi_si_tu_peux.controller.EventGameUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -52,6 +49,10 @@ public class GameUI extends Stage{
     private Timeline boucle;
 
     private boolean running;
+
+    private Text herbeManger;
+    private Text cactusManger;
+    private Text margueriteManger;
     public GameUI(Labyrinthe lab) {
         this.lab    = lab;
         this.x = this.lab.getX();
@@ -88,9 +89,9 @@ public class GameUI extends Stage{
         VBox vboxtext               = new VBox();
         VBox vboxButton             = new VBox();
 
-        Text herbeManger            = new Text("Herbe mangé");
-        Text cactusManger           = new Text("Cactus mangé");
-        Text margueriteManger       = new Text("Marguerite Mangé");
+        herbeManger            = new Text("Herbe mangé");
+        cactusManger           = new Text("Cactus mangé");
+        margueriteManger       = new Text("Marguerite Mangé");
 
         Button buttonAddAnimauw     = new Button("Ajouter animaux");
         Button buttonEditer         = new Button("Editer labyrinthe");
@@ -219,6 +220,9 @@ public class GameUI extends Stage{
         List<String> orient = new ArrayList<>();
         orient.add("N");orient.add("S");orient.add("O");orient.add("E");
         final boolean[] bouger = {false};
+
+        Dijkstra dijkstra = new Dijkstra(lab);
+        int[][] poids = dijkstra.initPoids();
         this.boucle = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -226,6 +230,10 @@ public class GameUI extends Stage{
                 Random random = new Random();
                 Loup l = (Loup) lab.getLesAnimaux().get(1);
                 Mouton m = (Mouton) lab.getLesAnimaux().get(0);
+
+                margueriteManger.setText(" Marguerite Mangé " + m.getNbMargurite());
+                herbeManger.setText("Herbe mangé " + m.getNbHerbe());
+                cactusManger.setText("Cactus mangé " + m.getNbCactus());
 
                 String choice = orient.get(random.nextInt(orient.size()));
                 if (lab.getNb_tour() % 2 == 0) {
@@ -245,18 +253,28 @@ public class GameUI extends Stage{
                         else bouger[0] = true;
                     }
                 } else {
-                    int[] oldPos = lab.getPosition(m);
-                    m.seDeplacer(m.getMouvementPossible(),choice);
-                    m.manger();
+                    if(m.reperer() != ""){
+                        int[] oldPos = lab.getPosition(m);
+                        m.seDeplacer(m.getMouvementPossible(),choice);
+                        m.manger();
 
-                    caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
-                    caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
-                    caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
-                    if(oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]){
-                        bouger[0] = false;
-                        orient.remove(orient.indexOf(choice));
+                        caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                        caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
+                        caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
+                        if(oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]){
+                            bouger[0] = false;
+                            orient.remove(orient.indexOf(choice));
+                        }
+                        else bouger[0] = true;
                     }
-                    else bouger[0] = true;
+                    else {
+
+                        List<int[]> chemin =dijkstra.retrouverChemin(poids, lab.getPosition(m), dijkstra.getSortie());
+                        for (int[] point : chemin) {
+                            System.out.println(Arrays.toString(point));
+                        }
+                    }
+
 
                 }
                 if(!lab.getLesAnimaux().contains(m)){
