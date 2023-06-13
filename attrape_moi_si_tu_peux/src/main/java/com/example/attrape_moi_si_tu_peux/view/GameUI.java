@@ -87,9 +87,9 @@ public class GameUI extends Stage{
         VBox vboxtext               = new VBox();
         VBox vboxButton             = new VBox();
 
-        herbeManger            = new Text("Herbe mangé");
-        cactusManger           = new Text("Cactus mangé");
-        margueriteManger       = new Text("Marguerite Mangé");
+        herbeManger            = new Text("Herbe mangé " + 0);
+        cactusManger           = new Text("Cactus mangé "+ 0);
+        margueriteManger       = new Text("Marguerite Mangé " + 0);
 
         Button buttonAddAnimauw     = new Button("Ajouter animaux");
         Button buttonEditer         = new Button("Editer labyrinthe");
@@ -256,13 +256,8 @@ public class GameUI extends Stage{
                 } else {
                     int[] oldPos = lab.getPosition(m);
                     if (!m.isEnFuite()) {
-                        m.seDeplacer(m.getMouvementPossible(), choice);
-                        m.manger();
-                        caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
-                        caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
-                        caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
+
                         if (m.reperer()){
-                            System.out.println("reperer");
                             m.setEnFuite(true);
                             Astar astar = new Astar(lab, lab.getPosition(m));
                             int[][] dj = astar.initPoids();
@@ -273,10 +268,13 @@ public class GameUI extends Stage{
                                 fileChemin.offer(point);
                             }
                         }
-                        if (oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]) {
-                            bouger[0] = false;
-                            orient.remove(choice);
-                        } else bouger[0] = true;
+                        else {
+                            m.seDeplacer(m.getMouvementPossible(), choice);
+                            m.manger();
+                            caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                            caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
+                            caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
+                        }
                     }
                     if(m.isEnFuite()) {
                         if (!fileChemin.isEmpty()) {
@@ -285,8 +283,6 @@ public class GameUI extends Stage{
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
                             bouger[0] = true;
-
-
                         }
                         else {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -296,6 +292,11 @@ public class GameUI extends Stage{
                             boucle.stop();
                         }
                     }
+
+                    if (oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]) {
+                        bouger[0] = false;
+                        orient.remove(choice);
+                    } else bouger[0] = true;
                 }
                 if(!lab.getLesAnimaux().contains(m)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -315,8 +316,6 @@ public class GameUI extends Stage{
                     lab.setNb_tour(1);
                     orient.add("N");orient.add("S");orient.add("O");orient.add("E");
                 }
-
-
             }
         }));
         this.boucle.setCycleCount(Timeline.INDEFINITE);
