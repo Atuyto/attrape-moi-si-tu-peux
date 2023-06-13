@@ -176,6 +176,21 @@ public class Labyrinthe {
         return p;
     }
 
+    public int[] getSortie(){
+        int x = 0;
+        int y = 0;
+        for(int i = 0 ; i< getX() ; i++){
+            for (int j = 0; j<getY(); j++){
+                if(this.getLesCases()[i][j].getSortie()){
+                    x= i;
+                    y =j;
+                    break;
+                }
+            }
+        }
+        return new int[]{x,y};
+    }
+
 
     public int getX() {
         return this.x;

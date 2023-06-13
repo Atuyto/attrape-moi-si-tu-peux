@@ -23,10 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GameUI extends Stage{
 
@@ -220,9 +217,8 @@ public class GameUI extends Stage{
         List<String> orient = new ArrayList<>();
         orient.add("N");orient.add("S");orient.add("O");orient.add("E");
         final boolean[] bouger = {false};
+        final Queue<int[]>[] chemin = new Queue[]{new ArrayDeque<>()};
 
-        Dijkstra dijkstra = new Dijkstra(lab);
-        int[][] poids = dijkstra.initPoids();
         this.boucle = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -234,6 +230,8 @@ public class GameUI extends Stage{
                 margueriteManger.setText(" Marguerite Mangé " + m.getNbMargurite());
                 herbeManger.setText("Herbe mangé " + m.getNbHerbe());
                 cactusManger.setText("Cactus mangé " + m.getNbCactus());
+
+
 
                 String choice = orient.get(random.nextInt(orient.size()));
                 if (lab.getNb_tour() % 2 == 0) {
@@ -253,7 +251,7 @@ public class GameUI extends Stage{
                         else bouger[0] = true;
                     }
                 } else {
-                    if(m.reperer() != ""){
+                    if(m.reperer() != null){
                         int[] oldPos = lab.getPosition(m);
                         m.seDeplacer(m.getMouvementPossible(),choice);
                         m.manger();
@@ -267,11 +265,35 @@ public class GameUI extends Stage{
                         }
                         else bouger[0] = true;
                     }
-                    else {
+                    int[] oldPos = lab.getPosition(m);
+                    if(!m.isEnFuite()){
+                        m.fuit(lab.getPosition(m),oldPos);
+                        Astar astar = new Astar(lab, lab.getPosition(m));
+                        int[][] dj = astar.initPoids();
+                        int[][] poids = astar.setWeight(lab.getSortie(), dj);
+                        chemin[0] = (Queue<int[]>) astar.retrouverChemin(poids, lab.getPosition(m), lab.getSortie());
 
-                        List<int[]> chemin =dijkstra.retrouverChemin(poids, lab.getPosition(m), dijkstra.getSortie());
-                        for (int[] point : chemin) {
+                        for(int i = 0; i < lab.getX(); i++) {
+                            for (int j = 0; j < lab.getY(); j++) {
+                                System.out.print(poids[i][j] +"\t");
+                            }
+                            System.out.println();
+                        }
+
+                        for (int[] point : chemin[0]) {
                             System.out.println(Arrays.toString(point));
+                        }
+                    }
+                    else {
+                        if(chemin[0] != null){
+                            //m.fuit(,oldPos);
+                            caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
+                            caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
+                            caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
+                            System.out.println(Arrays.toString(chemin[0].poll()));
+                        }
+
+
                         }
                     }
 
@@ -298,7 +320,7 @@ public class GameUI extends Stage{
 
 
             }
-        }));
+        }, new javafx.animation.KeyValue[]{}));
         this.boucle.setCycleCount(Timeline.INDEFINITE);
         this.boucle.play();
     }

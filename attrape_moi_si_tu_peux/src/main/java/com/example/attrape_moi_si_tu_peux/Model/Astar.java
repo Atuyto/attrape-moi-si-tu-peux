@@ -10,14 +10,14 @@ public class Astar {
     private int[] arrivee;
     private int[][] poids;
 
-    public Astar(Labyrinthe labyrinthe, int[] depart, int[] arrivee) {
+    public Astar(Labyrinthe labyrinthe, int[] depart) {
         this.lab = labyrinthe;
         this.depart = depart;
-        this.arrivee = arrivee;
+        this.arrivee = lab.getSortie();
         this.poids = initPoids();
     }
 
-    private int[][] initPoids() {
+    public int[][] initPoids() {
         int[][] poidsLab = new int[lab.getX()][lab.getY()];
 
         for (int i = 0; i < lab.getX(); i++) {
@@ -115,48 +115,4 @@ public class Astar {
         return chemin;
     }
 
-
-
-    public int[] getSortie(){
-        int x = 0;
-        int y = 0;
-        for(int i = 0 ; i< lab.getX() ; i++){
-            for (int j = 0; j<lab.getY(); j++){
-                if(this.lab.getLesCases()[i][j].getSortie()){
-                    x= i;
-                    y =j;
-                    break;
-                }
-            }
-        }
-        return new int[]{x,y};
-    }
-
-    public static void main(String[] args) {
-        Labyrinthe lab = new Labyrinthe();
-        lab.genererGrilleAleatoire();
-        lab.getLesCases()[5][0].setSortie(true);
-
-        int[] depart = {1, 8};
-        int[] arrivee = {5, 0};
-
-
-
-
-        Astar astar = new Astar(lab, depart, arrivee);
-        int[][] dj = astar.initPoids();
-        int[][] poids = astar.setWeight(astar.getSortie(), dj );
-
-        for(int i = 0; i < lab.getX(); i++) {
-            for (int j = 0; j < lab.getY(); j++) {
-                System.out.print(poids[i][j] +"\t");
-            }
-            System.out.println();
-        }
-        List<int[]> chemin = astar.retrouverChemin(poids, depart, arrivee);
-
-        for (int[] coord : chemin) {
-            System.out.println(Arrays.toString(coord));
-        }
-    }
 }
