@@ -56,21 +56,52 @@ public class Mouton extends Animal {
     public int getNbCactus() {
         return nbCactus;
     }
-    public boolean reperer(int[] positionLoup, int[] positionMouton) {
-        int distance = calculerDistance(positionLoup, positionMouton);
-        return distance <= 5;
-    }
-
-    public int calculerDistance(int[] position1, int[] position2) {
-        int x1 = position1[0];
-        int y1 = position1[1];
-        int x2 = position2[0];
-        int y2 = position2[1];
-
-        int distanceX = Math.abs(x2 - x1);
-        int distanceY = Math.abs(y2 - y1);
-
-        return distanceX + distanceY;
+    public boolean reperer() {
+        Case[][] C      = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
+        boolean a       = false;
+        boolean b       = false;
+        ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
+        int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du mouton */
+        for (int i = 0; i < 6; i++) {
+            if (position[1] + i < (this.getLeLabyrinthe().getY()) - 1) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && !a) {
+                    c.add(C[position[0]][position[1] + i]);
+                } else {
+                    a = true;/* permettra de bloquer la vue après avoir vu le rocher*/
+                }
+            }
+            if (position[0] + i < (this.getLeLabyrinthe().getX()) - 1) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0] + i][position[1]].getContenu() instanceof Rocher) && !b) {
+                    c.add(C[position[0] + i][position[1]]);
+                } else {
+                    b = true;
+                }
+            }
+        }
+        a = false;
+        b = false; /*réinitialisation des compteurs*/
+        for (int j = 0; j < 6; j++) {
+            if (position[1] - j > 0) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0]][position[1] - j].getContenu() instanceof Rocher) && !a) {
+                    c.add(C[position[0]][position[1] - j]);
+                } else {
+                    a = true;/* permettra de bloquer la vue après avoir vu le rocher */
+                }
+            }
+            if (position[0] - j > 0) /*Condition d'accession aux tests sur tableau */ {
+                if (!(C[position[0] - j][position[1]].getContenu() instanceof Rocher) && !b) {
+                    c.add(C[position[0] - j][position[1]]);
+                } else {
+                    b = true;
+                }
+            }
+        }
+        for (Case k : c) {
+            if (k.getAnimal() instanceof Loup) { /* Contrôle des cases éloignées maximum de 5 */
+                return true ;
+            }
+        }
+        return false;
     }
 
     public void fuit(int[] nextCase, int[] oldCase){

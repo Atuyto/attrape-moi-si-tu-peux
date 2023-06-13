@@ -261,7 +261,7 @@ public class GameUI extends Stage{
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
-                        if (m.reperer(lab.getPosition(m), lab.getPosition(l))) {
+                        if (m.reperer()){
                             System.out.println("reperer");
                             m.setEnFuite(true);
                             Astar astar = new Astar(lab, lab.getPosition(m));
