@@ -254,15 +254,14 @@ public class GameUI extends Stage{
                         else bouger[0] = true;
                     }
                 } else {
+                    int[] oldPos = lab.getPosition(m);
                     if (!m.isEnFuite()) {
-                        int[] oldPos = lab.getPosition(m);
                         m.seDeplacer(m.getMouvementPossible(), choice);
                         m.manger();
-
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
-                        if (m.reperer() != "") {
+                        if (m.reperer(lab.getPosition(m), lab.getPosition(l))) {
                             System.out.println("reperer");
                             m.setEnFuite(true);
                             Astar astar = new Astar(lab, lab.getPosition(m));
@@ -273,23 +272,21 @@ public class GameUI extends Stage{
                             for (int[] point : chemin) {
                                 fileChemin.offer(point);
                             }
-
                         }
                         if (oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]) {
                             bouger[0] = false;
                             orient.remove(choice);
-                        }else bouger[0] = true;
-
+                        } else bouger[0] = true;
                     }
-                    else {
-                        int[] oldPos = lab.getPosition(m);
+                    if(m.isEnFuite()) {
                         if (!fileChemin.isEmpty()) {
-                            System.out.println(Arrays.toString(fileChemin.toArray()));
                             m.fuit(fileChemin.poll() ,oldPos);
                             caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
                             bouger[0] = true;
+
+
                         }
                         else {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -298,7 +295,6 @@ public class GameUI extends Stage{
                             alert.show();
                             boucle.stop();
                         }
-
                     }
                 }
                 if(!lab.getLesAnimaux().contains(m)){
