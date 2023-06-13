@@ -28,10 +28,10 @@ import java.util.*;
 public class GameUI extends Stage{
 
     private EventGameUI eventGameUI;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private boolean edition;
-    private Labyrinthe lab;
+    private final Labyrinthe lab;
     private CaseFX[][] caseFX;
     private Group gpLab;
     private Group gpLeft;
@@ -50,6 +50,7 @@ public class GameUI extends Stage{
     private Text herbeManger;
     private Text cactusManger;
     private Text margueriteManger;
+    private List<int[]> chemin;
     public GameUI(Labyrinthe lab) {
         this.lab    = lab;
         this.x = this.lab.getX();
@@ -217,7 +218,8 @@ public class GameUI extends Stage{
         List<String> orient = new ArrayList<>();
         orient.add("N");orient.add("S");orient.add("O");orient.add("E");
         final boolean[] bouger = {false};
-        final Queue<int[]>[] chemin = new Queue[]{new ArrayDeque<>()};
+        Queue<int[]> fileChemin = new ArrayDeque<>();
+
 
         this.boucle = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
             @Override
@@ -232,72 +234,78 @@ public class GameUI extends Stage{
                 cactusManger.setText("Cactus mangé " + m.getNbCactus());
 
 
-
                 String choice = orient.get(random.nextInt(orient.size()));
                 if (lab.getNb_tour() % 2 == 0) {
                     int[] oldPos = lab.getPosition(l);
-                    if ((l.reperer() != ""||l.getEnChasse())) {
+                    if ((l.reperer() != "" || l.getEnChasse())) {
                         l.seDeplacer(l.getMouvementPossible(), l.reperer());
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
-                    } else {
+                    }
+
+                   else {
+
                         l.seDeplacer(l.getMouvementPossible(), choice);
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
-                        if(oldPos[0] == lab.getPosition(l)[0] && oldPos[1] == lab.getPosition(l)[1]){
+                        if (oldPos[0] == lab.getPosition(l)[0] && oldPos[1] == lab.getPosition(l)[1]) {
                             bouger[0] = false;
-                            orient.remove(orient.indexOf(choice));
-                        }
-                        else bouger[0] = true;
+                            orient.remove(choice);
+                        } else bouger[0] = true;
                     }
                 } else {
-                    if(m.reperer() != null){
+                    if (!m.isEnFuite()) {
                         int[] oldPos = lab.getPosition(m);
-                        m.seDeplacer(m.getMouvementPossible(),choice);
+                        m.seDeplacer(m.getMouvementPossible(), choice);
                         m.manger();
 
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                         caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
-                        if(oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]){
+                        if (oldPos[0] == lab.getPosition(m)[0] && oldPos[1] == lab.getPosition(m)[1]) {
                             bouger[0] = false;
-                            orient.remove(orient.indexOf(choice));
-                        }
-                        else bouger[0] = true;
+                            orient.remove(choice);
+                        } else bouger[0] = true;
+
+
                     }
                     int[] oldPos = lab.getPosition(m);
-                    if(!m.isEnFuite()){
-                        m.fuit(lab.getPosition(m),oldPos);
-                        Astar astar = new Astar(lab, lab.getPosition(m));
-                        int[][] dj = astar.initPoids();
-                        int[][] poids = astar.setWeight(lab.getSortie(), dj);
-                        chemin[0] = (Queue<int[]>) astar.retrouverChemin(poids, lab.getPosition(m), lab.getSortie());
+                    if (!m.isEnFuite()){
+                        if (m.reperer() != null) {
+                            m.setEnFuite(true);
+                            m.fuit(lab.getPosition(m), oldPos);
+                            Astar astar = new Astar(lab, lab.getPosition(m));
+                            int[][] dj = astar.initPoids();
+                            int[][] poids = astar.setWeight(lab.getSortie(), dj);
+                            chemin = astar.retrouverChemin(poids, lab.getPosition(m), lab.getSortie());
 
-                        for(int i = 0; i < lab.getX(); i++) {
-                            for (int j = 0; j < lab.getY(); j++) {
-                                System.out.print(poids[i][j] +"\t");
+                            for (int i = 0; i < lab.getX(); i++) {
+                                for (int j = 0; j < lab.getY(); j++) {
+                                    System.out.print(poids[i][j] + "\t");
+                                }
+                                System.out.println();
                             }
-                            System.out.println();
-                        }
 
-                        for (int[] point : chemin[0]) {
-                            System.out.println(Arrays.toString(point));
+                            for (int[] point : chemin) {
+                                fileChemin.offer(point);
+                            }
                         }
                     }
-                    else {
-                        if(chemin[0] != null){
-                            //m.fuit(,oldPos);
+                    else if(m.isEnFuite()){
+                        if (!fileChemin.isEmpty()) {
+                            m.fuit(fileChemin.poll() ,oldPos);
                             caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].afficherAnimal();
                             caseFX[lab.getPosition(m)[0]][lab.getPosition(m)[1]].mettreAjour();
-                            System.out.println(Arrays.toString(chemin[0].poll()));
                         }
-
-
+                        else {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Le Mouton à gagner en  ".concat(String.valueOf(lab.getNb_tour())).concat(lab.getNb_tour() > 1 ?  " tours" : "tour").concat(" !"));
+                            alert.setHeaderText("Victoire !!");
+                            alert.show();
+                            boucle.stop();
                         }
                     }
-
-
                 }
                 if(!lab.getLesAnimaux().contains(m)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -320,10 +328,11 @@ public class GameUI extends Stage{
 
 
             }
-        }, new javafx.animation.KeyValue[]{}));
+        }));
         this.boucle.setCycleCount(Timeline.INDEFINITE);
         this.boucle.play();
     }
+
 
     public void pause(){
         this.boucle.pause();

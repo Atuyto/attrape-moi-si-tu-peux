@@ -115,9 +115,12 @@ public class Mouton extends Animal {
     }
 
     public void fuit(int[] nextCase, int[] oldCase){
-        this.enFuite = true;
         getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
         getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+    }
+
+    public void setEnFuite(boolean enFuite) {
+        this.enFuite = enFuite;
     }
 }
 
