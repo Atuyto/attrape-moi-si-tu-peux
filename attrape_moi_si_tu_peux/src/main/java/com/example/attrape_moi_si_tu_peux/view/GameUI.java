@@ -279,13 +279,6 @@ public class GameUI extends Stage{
                             int[][] poids = astar.setWeight(lab.getSortie(), dj);
                             chemin = astar.retrouverChemin(poids, lab.getPosition(m), lab.getSortie());
 
-                            for (int i = 0; i < lab.getX(); i++) {
-                                for (int j = 0; j < lab.getY(); j++) {
-                                    System.out.print(poids[i][j] + "\t");
-                                }
-                                System.out.println();
-                            }
-
                             for (int[] point : chemin) {
                                 fileChemin.offer(point);
                             }
