@@ -152,6 +152,18 @@ public class GameUI extends Stage{
         BorderPane.setMargin(gpLeft, new Insets(25));
         messageSetSortie();
 
+        for(int i = 0; i<lab.getX();i++){
+            for(int j = 0; j<lab.getY(); j++){
+                if(lab.getLesCases()[i][j].getSortie()){
+                    this.nbsorti ++;
+                    break;
+                }
+            }
+        }
+        if(nbsorti==1){
+            afficherTitle();
+        }
+
 
         this.setScene(sc);
 
@@ -256,7 +268,6 @@ public class GameUI extends Stage{
                 } else {
                     int[] oldPos = lab.getPosition(m);
                     if (!m.isEnFuite()) {
-
                         if (m.reperer()){
                             m.setEnFuite(true);
                             Astar astar = new Astar(lab, lab.getPosition(m));

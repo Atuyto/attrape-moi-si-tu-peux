@@ -111,9 +111,6 @@ public class Astar {
                 break;
             }
         }
-
-
         return chemin;
     }
-
 }

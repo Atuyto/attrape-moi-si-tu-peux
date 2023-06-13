@@ -125,9 +125,13 @@ public class Labyrinthe {
                         char cellValue = line.charAt(col);
                         switch (cellValue){
                             case 'x' -> this.lesCases[ligne][col] = new Case(this, new Rocher());
-                            case 'h', 's' -> this.lesCases[ligne][col] = new Case(this, new Herbe());
+                            case 'h' -> this.lesCases[ligne][col] = new Case(this, new Herbe());
                             case 'f' -> this.lesCases[ligne][col] = new Case(this, new Marguerite());
                             case 'c' -> this.lesCases[ligne][col] = new Case(this, new Cactus());
+                            case 's' -> {
+                                this.lesCases[ligne][col] = new Case(this, new Herbe());
+                                this.lesCases[ligne][col].setSortie(true);
+                            }
                             case 'm' -> {
                                 Mouton m = new Mouton(this);
                                 this.lesCases[ligne][col] = new Case(this, new Herbe());
