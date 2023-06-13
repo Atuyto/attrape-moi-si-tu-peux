@@ -111,7 +111,7 @@ public class Mouton extends Animal {
                 }
             }
         }
-        return null;
+        return "";
     }
 
     public void fuit(int[] nextCase, int[] oldCase){
