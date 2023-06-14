@@ -1,20 +1,26 @@
 package com.example.attrape_moi_si_tu_peux.Model;
 
-import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
-
 import java.util.*;
 
 public class Astar {
     private Labyrinthe lab;
     private int[] depart;
-    private int[] arrivee;
-    private int[][] poids;
+    private int[] arriver;
+    private int[][] as;
 
-    public Astar(Labyrinthe labyrinthe, int[] depart) {
+    public Astar(Labyrinthe labyrinthe, int[] depart, int[] arriver) {
         this.lab = labyrinthe;
         this.depart = depart;
-        this.arrivee = lab.getSortie();
-        this.poids = initPoids();
+        this.arriver = arriver;
+        this.as = initPoids();
+
+
+
+    }
+
+    public List<int[]> astarRes(){
+        int[][] poids = setWeight(arriver, as);
+        return retrouverChemin(poids, depart, arriver);
     }
 
     public int[][] initPoids() {
@@ -22,15 +28,15 @@ public class Astar {
 
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || lab.getLesCases()[i][j].getAnimal() != null && lab.getLesCases()[i][j].getAnimal() instanceof Loup ) {
-                    poidsLab[i][j] = lab.getX() * lab.getY();
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || (lab.getLesCases()[i][j].getAnimal() instanceof Loup && i != depart[0] && j!= depart[1]) ) {
+                    poidsLab[i][j] = Integer.MAX_VALUE;
                 } else {
                     poidsLab[i][j] = -1;
                 }
             }
         }
 
-        poidsLab[arrivee[0]][arrivee[1]] = 0;
+        poidsLab[arriver[0]][arriver[1]] = 0;
         return poidsLab;
     }
 
@@ -92,7 +98,6 @@ public class Astar {
 
                     if (poidsVoisin == poidsCourant - 1) {
                         int distanceEstimee = Math.abs(nextX - coordArrivee[0]) + Math.abs(nextY - coordArrivee[1]);
-
                         if (distanceEstimee < distanceMin) {
                             distanceMin = distanceEstimee;
                             prochaineCase = new int[]{nextX, nextY};
@@ -108,6 +113,18 @@ public class Astar {
                 break;
             }
         }
+
         return chemin;
+    }
+
+    public static void main(String[] args) {
+        Labyrinthe lab = new Labyrinthe();
+        lab.genererGrilleAleatoire();
+        lab.getLesCases()[0][5].setSortie(true);
+        Astar astar = new Astar(lab,new int[]{8,2}, lab.getSortie() );
+        List<int[]> chemin = astar.astarRes();
+
+
+
     }
 }

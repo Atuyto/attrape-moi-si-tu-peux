@@ -14,114 +14,78 @@ public abstract class Animal {
     }
 
 
-    public int[] seDeplacer(int nbdep, String orientation){
-        int x               = this.leLabyrinthe.getPosition(this)[0];
-        int y               = this.leLabyrinthe.getPosition(this)[1];
-        int i               = 0;
-        while(i != nbdep){
-            if (x + 1 > 0 || this.getLeLabyrinthe().getX()-1 < x + 1 || y + 1 > 0 || this.getLeLabyrinthe().getY()-1 < y + 1 ) {
-                if (orientation.equals("O")) {
-                   int tmpy = y-1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup)) {
-                        this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                        this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                        y = tmpy;
+    public int[] seDeplacer(int nbdep, String orientation) {
+        int x = this.leLabyrinthe.getPosition(this)[0];
+        int y = this.leLabyrinthe.getPosition(this)[1];
+        int i = 0;
+        int deplacementsRestants = nbdep;
 
-                    }
-                    if(this instanceof Loup && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !this.getLeLabyrinthe().getLesCases()[x][tmpy].getSortie()){
-                        if (this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Mouton){
-                            this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            this.manger();
-                        }
-                        else {
-                            this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            y = tmpy;
-                        }
-                    }
+        while (i != nbdep) {
+            int deplacement = Math.min(5, deplacementsRestants);  // Déplacement maximal possible
 
-
+            if (orientation.equals("O")) {
+                int tmpy = y - deplacement;
+                if (isAccessibleAndNoLoup(x, tmpy)) {
+                    moveAnimal(x, y, x, tmpy);
+                    y = tmpy;
+                    deplacementsRestants -= deplacement;
                 }
-                if (orientation.equals(("S"))) {
-                   int tmpx = x+1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup)) {
-                        this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                        this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                        x = tmpx;
-                    }
-                    if (this instanceof Loup && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible()  && !this.getLeLabyrinthe().getLesCases()[tmpx][y].getSortie() ){
-
-                        if(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Mouton){
-                            this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            this.manger();
-                        }
-                        else {
-                            this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            x = tmpx;
-                        }
-
-
-                    }
-
-
-
+            }
+            else if (orientation.equals("S")) {
+                int tmpx = x + deplacement;
+                if (isAccessibleAndNoLoup(tmpx, y)) {
+                    moveAnimal(x, y, tmpx, y);
+                    x = tmpx;
+                    deplacementsRestants -= deplacement;
                 }
-                if (orientation.equals("E")) {
-                    int tmpy = y+1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup)) {
-                        this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                        this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                        y= tmpy;
-                    }
-
-                    if (this instanceof Loup && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible()  && !this.getLeLabyrinthe().getLesCases()[x][tmpy].getSortie() ){
-                        if(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Mouton) {
-                            this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            this.manger();
-                        }
-                        else {
-                            this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            y= tmpy;
-                        }
-                    }
-
-
+            }
+            else if (orientation.equals("E")) {
+                int tmpy = y + deplacement;
+                if (isAccessibleAndNoLoup(x, tmpy)) {
+                    moveAnimal(x, y, x, tmpy);
+                    y = tmpy;
+                    deplacementsRestants -= deplacement;
                 }
-                if (orientation.equals("N")) {
-                    int tmpx = x-1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup)) {
-                        this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                        this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                        x= tmpx;
-                    }
-
-                    if (this instanceof Loup && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible()  && !this.getLeLabyrinthe().getLesCases()[tmpx][y].getSortie()){
-
-                        if( this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Mouton) {
-                            this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            this.manger();
-                        }
-                        else {
-                            this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
-                            this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
-                            x= tmpx;
-                        }
-                    }
-
-
+            }
+            else if (orientation.equals("N")) {
+                int tmpx = x - deplacement;
+                if (isAccessibleAndNoLoup(tmpx, y)) {
+                    moveAnimal(x, y, tmpx, y);
+                    x = tmpx;
+                    deplacementsRestants -= deplacement;
                 }
-                this.laCase = this.getLeLabyrinthe().getLesCases()[x][y];
-                i++;
+            }
+
+            i += deplacement;
+        }
+
+        return new int[]{x, y};
+    }
+
+
+    private boolean isWithinManhattanDistance(int x, int y, int distance) {
+        int animalX = this.leLabyrinthe.getPosition(this)[0];
+        int animalY = this.leLabyrinthe.getPosition(this)[1];
+
+        int manhattanDistance = Math.abs(x - animalX) + Math.abs(y - animalY);
+        return manhattanDistance <= distance;
+    }
+
+    private boolean isAccessibleAndNoLoup(int x, int y) {
+        if (x >= 0 && x < this.leLabyrinthe.getX() && y >= 0 && y < this.leLabyrinthe.getY()) {
+            if (this.getLeLabyrinthe().getLesCases()[x][y].isAccessible()) {
+                Animal animal = this.getLeLabyrinthe().getLesCases()[x][y].getAnimal();
+                return !(animal instanceof Loup);
             }
         }
-        return new int[]{x , y};
-        }
+        return false;
+    }
+
+    private void moveAnimal(int currentX, int currentY, int newX, int newY) {
+        this.getLeLabyrinthe().getLesCases()[newX][newY].setAnimal(this);
+        this.getLeLabyrinthe().getLesCases()[currentX][currentY].setAnimal(null);
+        this.laCase = this.getLeLabyrinthe().getLesCases()[newX][newY];
+    }
 
     public int getMouvementPossible() {
         return mouvementPossible;

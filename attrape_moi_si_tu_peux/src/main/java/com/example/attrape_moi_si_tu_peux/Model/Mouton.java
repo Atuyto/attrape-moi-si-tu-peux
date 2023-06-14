@@ -1,6 +1,7 @@
 package com.example.attrape_moi_si_tu_peux.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Mouton extends Animal {
     private boolean enFuite;
@@ -56,57 +57,19 @@ public class Mouton extends Animal {
     public int getNbCactus() {
         return nbCactus;
     }
-    public boolean reperer() {
-        Case[][] C      = this.getLeLabyrinthe().getLesCases(); /* Les cases du labyrinthe */
-        boolean a       = false;
-        boolean b       = false;
-        ArrayList<Case> c = new ArrayList<Case>(); /* Regroupe les cases éloignées de maximum 5 et/ou avant rocher */
-        int position[] = this.getLeLabyrinthe().getPosition(this); /* On récupère la position du mouton */
-        for (int i = 0; i < 6; i++) {
-            if (position[1] + i < (this.getLeLabyrinthe().getY()) - 1) /*Condition d'accession aux tests sur tableau */ {
-                if (!(C[position[0]][position[1] + i].getContenu() instanceof Rocher) && !a) {
-                    c.add(C[position[0]][position[1] + i]);
-                } else {
-                    a = true;/* permettra de bloquer la vue après avoir vu le rocher*/
-                }
-            }
-            if (position[0] + i < (this.getLeLabyrinthe().getX()) - 1) /*Condition d'accession aux tests sur tableau */ {
-                if (!(C[position[0] + i][position[1]].getContenu() instanceof Rocher) && !b) {
-                    c.add(C[position[0] + i][position[1]]);
-                } else {
-                    b = true;
-                }
-            }
-        }
-        a = false;
-        b = false; /*réinitialisation des compteurs*/
-        for (int j = 0; j < 6; j++) {
-            if (position[1] - j > 0) /*Condition d'accession aux tests sur tableau */ {
-                if (!(C[position[0]][position[1] - j].getContenu() instanceof Rocher) && !a) {
-                    c.add(C[position[0]][position[1] - j]);
-                } else {
-                    a = true;/* permettra de bloquer la vue après avoir vu le rocher */
-                }
-            }
-            if (position[0] - j > 0) /*Condition d'accession aux tests sur tableau */ {
-                if (!(C[position[0] - j][position[1]].getContenu() instanceof Rocher) && !b) {
-                    c.add(C[position[0] - j][position[1]]);
-                } else {
-                    b = true;
-                }
-            }
-        }
-        for (Case k : c) {
-            if (k.getAnimal() instanceof Loup) { /* Contrôle des cases éloignées maximum de 5 */
-                return true ;
-            }
-        }
-        return false;
+    public boolean reperer(int[] positionLoup, int[] positionMouton) {
+        Astar astar = new Astar(getLeLabyrinthe(), positionMouton, positionLoup);
+        int[][] dj = astar.initPoids();
+        int[][] poids = astar.setWeight(positionLoup, dj);
+        List<int[]> chemin = astar.retrouverChemin(poids, positionMouton, positionLoup);
+
+        return chemin.size() <= 5;
+
     }
 
     public void fuit(int[] nextCase, int[] oldCase){
-        getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
-        getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+        this.getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
+        this.getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
     }
 
     public void setEnFuite(boolean enFuite) {
