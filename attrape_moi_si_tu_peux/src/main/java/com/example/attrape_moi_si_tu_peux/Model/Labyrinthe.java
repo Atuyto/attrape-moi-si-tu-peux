@@ -144,6 +144,7 @@ public class Labyrinthe {
                                 this.setLesAnimaux(l);
                                 this.ajouterAnimal(l, ligne,col);
                             }
+                            default -> this.lesCases[ligne][col] = new Case(this, new Rocher());
                         }
                     }
                     ligne++;

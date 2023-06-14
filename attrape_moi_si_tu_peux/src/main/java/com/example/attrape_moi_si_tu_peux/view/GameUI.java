@@ -231,7 +231,7 @@ public class GameUI extends Stage{
         orient.add("N");orient.add("S");orient.add("O");orient.add("E");
         final boolean[] bouger = {false};
         Queue<int[]> fileChemin = new ArrayDeque<>();
-
+        Queue<int[]> fileCheminL = new ArrayDeque<>();
 
         this.boucle = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
             @Override
@@ -255,7 +255,7 @@ public class GameUI extends Stage{
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
                         bouger[0] = true;
                     }
-                   else {
+                    else {
                         l.seDeplacer(l.getMouvementPossible(), choice);
                         caseFX[oldPos[0]][oldPos[1]].deleteAnimal();
                         caseFX[lab.getPosition(l)[0]][lab.getPosition(l)[1]].afficherAnimal();
@@ -268,7 +268,7 @@ public class GameUI extends Stage{
                 } else {
                     int[] oldPos = lab.getPosition(m);
                     if (!m.isEnFuite()) {
-                        if (m.reperer()){
+                        if (m.reperer(lab.getPosition(l), lab.getPosition(m))){
                             m.setEnFuite(true);
                             Astar astar = new Astar(lab, lab.getPosition(m));
                             int[][] dj = astar.initPoids();

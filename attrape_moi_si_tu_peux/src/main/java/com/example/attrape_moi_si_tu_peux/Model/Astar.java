@@ -65,10 +65,6 @@ public class Astar {
         return poids;
     }
 
-    private int estimerDistance(int[] coord) {
-        return Math.abs(coord[0] - arrivee[0]) + Math.abs(coord[1] - arrivee[1]);
-    }
-
 
     public List<int[]> retrouverChemin(int[][] poids, int[] coordDepart, int[] coordArrivee) {
         List<int[]> chemin = new ArrayList<>();
