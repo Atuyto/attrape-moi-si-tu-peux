@@ -14,15 +14,22 @@ public class Loup extends Animal {
 
     public boolean reperer(int[] positionLoup, int[] positionMouton) {
         Astar astar = new Astar(getLeLabyrinthe(), positionLoup, positionMouton );
-        int[][] dj = astar.initPoids();
-        int[][] poids = astar.setWeight(positionMouton, dj);
-        List<int[]> chemin = astar.retrouverChemin(poids, positionLoup, positionMouton);
+
+        List<int[]> chemin = astar.astarRes();
         return chemin.size() <= 5;
 
     }
     public void chasser(int[] nextCase, int[] oldCase){
-        getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
-        getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+        if(getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].getAnimal() instanceof  Mouton){
+            getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
+            getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+            this.manger();
+
+        }
+        else {
+            getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
+            getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+        }
     }
 
     public void setEnChasse(boolean enChasse) {

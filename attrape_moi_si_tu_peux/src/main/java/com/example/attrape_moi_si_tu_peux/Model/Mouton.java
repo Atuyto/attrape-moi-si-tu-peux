@@ -58,11 +58,8 @@ public class Mouton extends Animal {
         return nbCactus;
     }
     public boolean reperer(int[] positionLoup, int[] positionMouton) {
-        Astar astar = new Astar(getLeLabyrinthe(), positionMouton, positionLoup);
-        int[][] dj = astar.initPoids();
-        int[][] poids = astar.setWeight(positionLoup, dj);
-        List<int[]> chemin = astar.retrouverChemin(poids, positionMouton, positionLoup);
-
+        Astar astar = new Astar(getLeLabyrinthe(), positionLoup, positionMouton);
+        List<int[]> chemin = astar.astarRes();
         return chemin.size() <= 5;
 
     }

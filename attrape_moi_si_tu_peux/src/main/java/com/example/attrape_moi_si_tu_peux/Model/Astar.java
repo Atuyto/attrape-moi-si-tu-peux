@@ -25,16 +25,33 @@ public class Astar {
 
     public int[][] initPoids() {
         int[][] poidsLab = new int[lab.getX()][lab.getY()];
-
+        int[] pointL = new int[2];
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || (lab.getLesCases()[i][j].getAnimal() instanceof Loup && i != depart[0] && j!= depart[1]) ) {
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || (lab.getLesCases()[i][j].getAnimal() instanceof Loup && lab.getLesCases()[depart[0]][depart[1]].getAnimal() instanceof Mouton) ) {
                     poidsLab[i][j] = Integer.MAX_VALUE;
+                    if(lab.getLesCases()[i][j].getAnimal() instanceof Loup){
+                        pointL = new int[]{i,j};
+                    }
+
+
                 } else {
                     poidsLab[i][j] = -1;
                 }
             }
         }
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+        int x = pointL[0];
+        int y = pointL[1];
+        for(int i = 0 ; i<4 ; i++){
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
+            if(nextX >= 0 && nextX < lab.getX() && nextY >=0 && nextY < lab.getY()) {
+                poidsLab[nextX][nextY] = Integer.MAX_VALUE;
+            }
+        }
+
 
         poidsLab[arriver[0]][arriver[1]] = 0;
         return poidsLab;
@@ -113,7 +130,7 @@ public class Astar {
                 break;
             }
         }
-
+        chemin.remove(0);
         return chemin;
     }
 
