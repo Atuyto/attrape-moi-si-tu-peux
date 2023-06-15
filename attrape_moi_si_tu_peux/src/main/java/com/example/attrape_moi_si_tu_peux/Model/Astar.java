@@ -1,36 +1,59 @@
 package com.example.attrape_moi_si_tu_peux.Model;
 
-import com.example.attrape_moi_si_tu_peux.Model.Labyrinthe;
-
 import java.util.*;
 
 public class Astar {
     private Labyrinthe lab;
     private int[] depart;
-    private int[] arrivee;
-    private int[][] poids;
+    private int[] arriver;
+    private int[][] as;
 
-    public Astar(Labyrinthe labyrinthe, int[] depart) {
+    public Astar(Labyrinthe labyrinthe, int[] depart, int[] arriver) {
         this.lab = labyrinthe;
         this.depart = depart;
-        this.arrivee = lab.getSortie();
-        this.poids = initPoids();
+        this.arriver = arriver;
+        this.as = initPoids();
+
+
+
+    }
+
+    public List<int[]> astarRes(){
+        int[][] poids = setWeight(arriver, as);
+        return retrouverChemin(poids, depart, arriver);
     }
 
     public int[][] initPoids() {
         int[][] poidsLab = new int[lab.getX()][lab.getY()];
-
+        int[] pointL = new int[2];
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher) {
-                    poidsLab[i][j] = lab.getX() * lab.getY();
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || (lab.getLesCases()[i][j].getAnimal() instanceof Loup && lab.getLesCases()[depart[0]][depart[1]].getAnimal() instanceof Mouton) ) {
+                    poidsLab[i][j] = Integer.MAX_VALUE;
+                    if(lab.getLesCases()[i][j].getAnimal() instanceof Loup){
+                        pointL = new int[]{i,j};
+                    }
+
+
                 } else {
                     poidsLab[i][j] = -1;
                 }
             }
         }
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+        int x = pointL[0];
+        int y = pointL[1];
+        for(int i = 0 ; i<4 ; i++){
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
+            if(nextX >= 0 && nextX < lab.getX() && nextY >=0 && nextY < lab.getY()) {
+                poidsLab[nextX][nextY] = Integer.MAX_VALUE;
+            }
+        }
 
-        poidsLab[arrivee[0]][arrivee[1]] = 0;
+
+        poidsLab[arriver[0]][arriver[1]] = 0;
         return poidsLab;
     }
 
@@ -64,6 +87,7 @@ public class Astar {
         }
         return poids;
     }
+
 
 
     public List<int[]> retrouverChemin(int[][] poids, int[] coordDepart, int[] coordArrivee) {
@@ -107,6 +131,18 @@ public class Astar {
                 break;
             }
         }
+        chemin.remove(0);
         return chemin;
+    }
+
+    public static void main(String[] args) {
+        Labyrinthe lab = new Labyrinthe();
+        lab.genererGrilleAleatoire();
+        lab.getLesCases()[0][5].setSortie(true);
+        Astar astar = new Astar(lab,new int[]{8,2}, lab.getSortie() );
+        List<int[]> chemin = astar.astarRes();
+
+
+
     }
 }

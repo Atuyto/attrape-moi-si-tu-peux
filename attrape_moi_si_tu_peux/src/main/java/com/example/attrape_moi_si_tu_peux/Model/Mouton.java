@@ -1,6 +1,7 @@
 package com.example.attrape_moi_si_tu_peux.Model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mouton extends Animal {
     private boolean enFuite;
@@ -57,20 +58,15 @@ public class Mouton extends Animal {
         return nbCactus;
     }
     public boolean reperer(int[] positionLoup, int[] positionMouton) {
-        Astar astar = new Astar(getLeLabyrinthe(), positionMouton);
-        int[][] dj = astar.initPoids();
-        int[][] poids = astar.setWeight(positionLoup, dj);
-        List<int[]> chemin = astar.retrouverChemin(poids, positionMouton, positionLoup);
-
-        System.out.println(chemin.size());
+        Astar astar = new Astar(getLeLabyrinthe(), positionLoup, positionMouton);
+        List<int[]> chemin = astar.astarRes();
         return chemin.size() <= 5;
 
     }
 
-
     public void fuit(int[] nextCase, int[] oldCase){
-        getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
-        getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
+        this.getLeLabyrinthe().getLesCases()[oldCase[0]][oldCase[1]].setAnimal(null);
+        this.getLeLabyrinthe().getLesCases()[nextCase[0]][nextCase[1]].setAnimal(this);
     }
 
     public void setEnFuite(boolean enFuite) {
