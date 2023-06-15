@@ -56,11 +56,9 @@ public class CaseFX {
         this.lesAnimaux[2]  = new Image(getClass().getResource("/com.example.attrape_moi_si_tu_peux/Loup_enChasse.png").toExternalForm());
         this.imageViewAnim  = new ImageView();
         this.imageView      = new ImageView();
-        this.sortie         = false;
         this.scale          = 45;
+        this.sortie         = false;
         Rectangle leCarre   = new Rectangle(this.scale, this.scale);
-
-
 
         imageView.setFitHeight(this.scale);
         imageView.setFitWidth(this.scale);
@@ -82,6 +80,7 @@ public class CaseFX {
 
 
     }
+
 
     public void mettreAjour(){
         if(this.getLaCase().getAnimal() != null){

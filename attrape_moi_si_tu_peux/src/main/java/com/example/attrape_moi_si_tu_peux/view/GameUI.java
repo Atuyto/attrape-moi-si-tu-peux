@@ -82,7 +82,8 @@ public class GameUI extends Stage{
         this.nbsorti                = 0;
         this.nbAnimaux              = this.lab.getLesAnimaux().size();
         this.vBox                   = new VBox();
-        this.sc                     = new Scene(pane, 1300,900);
+        this.sc                     = new Scene(pane);
+        this.setFullScreen(true);
 
         VBox vboxtext               = new VBox();
         VBox vboxButton             = new VBox();
@@ -112,6 +113,7 @@ public class GameUI extends Stage{
         buttonSave.setFont(Font.font("Verdana", 20 ));
         buttonRetour.setFont(Font.font("Verdana", 20 ));
 
+        buttonRetour.setPadding(new Insets(10, 10, 10 ,10));
         buttonEditer.setId("bEdition");
         buttonAddAnimauw.setId("bEditionAnimal");
         buttonSave.setId("bSauvegarder");
@@ -182,16 +184,25 @@ public class GameUI extends Stage{
         for (int i = 0; i < this.x; i++) {
             HBox hBox = new HBox();
             for (int j = 0; j < this.y; j++) {
+                //int scale = this.caseFX[i][j].getScale();
+
                 if(i == 0 || j == 0 || i == this.x -1 || j == this.y -1){
-                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j],20,20, true);
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j],40,40, true);
                 }
                 else {
-                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], 20,20);
+                    this.caseFX[i][j] = new CaseFX(this, this.lab.getLesCases()[i][j], 40,40);
                     }
                 hBox.getChildren().add(this.caseFX[i][j].getGp());
                 }
             vBox.getChildren().add(hBox);
             }
+
+        double scalePlateaux = ((double) Math.max(this.lab.getX(), this.lab.getY()) / Math.min(this.lab.getX(), this.lab.getY()));
+        double v = scalePlateaux > 1 ? (1 -(scalePlateaux-1))*1.4 :  scalePlateaux;
+
+        vBox.setScaleX(v);
+        vBox.setScaleY(v);
+
         }
 
 

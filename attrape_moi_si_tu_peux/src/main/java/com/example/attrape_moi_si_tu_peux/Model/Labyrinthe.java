@@ -104,6 +104,8 @@ public class Labyrinthe {
                     return null;
                 }
             }
+            System.out.println(Arrays.toString(new int[]{nbLigne, nbcolonne}));
+
             return new int[]{nbLigne, nbcolonne};
         } catch (FileNotFoundException e) {
             System.out.println("Le fichier spécifié est introuvable : " + e.getMessage());
@@ -117,6 +119,7 @@ public class Labyrinthe {
                 this.x = tailleLab[0]; this.y = tailleLab[1];
                 this.lesCases = new Case[this.x][this.y];
                 this.lesAnimaux = new ArrayList<>();
+                Animal[] a = new Animal[2];
 
                 int ligne = 0;
                 while (scanner.hasNextLine() && ligne < this.x) {
@@ -125,7 +128,6 @@ public class Labyrinthe {
                         char cellValue = line.charAt(col);
                         switch (cellValue){
                             case 'x' -> this.lesCases[ligne][col] = new Case(this, new Rocher());
-                            case 'h' -> this.lesCases[ligne][col] = new Case(this, new Herbe());
                             case 'f' -> this.lesCases[ligne][col] = new Case(this, new Marguerite());
                             case 'c' -> this.lesCases[ligne][col] = new Case(this, new Cactus());
                             case 's' -> {
@@ -135,20 +137,21 @@ public class Labyrinthe {
                             case 'm' -> {
                                 Mouton m = new Mouton(this);
                                 this.lesCases[ligne][col] = new Case(this, new Herbe());
-                                this.setLesAnimaux(m);
+                                a[0] = m;
                                 this.ajouterAnimal(m, ligne,col);
                             }
                             case 'l' -> {
                                 Loup l = new Loup(this);
                                 this.lesCases[ligne][col] = new Case(this, new Herbe());
-                                this.setLesAnimaux(l);
+                                a[1] = l;
                                 this.ajouterAnimal(l, ligne,col);
                             }
-                            default -> this.lesCases[ligne][col] = new Case(this, new Rocher());
+                            default -> this.lesCases[ligne][col] = new Case(this, new Herbe());
                         }
                     }
                     ligne++;
                 }
+                this.setLesAnimaux(a[0]);  this.setLesAnimaux(a[1]);
                 if (ligne < this.x ) {
                     System.out.println("Le fichier ne contient pas suffisamment de lignes pour le labyrinthe.");
                 } else {
@@ -213,7 +216,7 @@ public class Labyrinthe {
         if (this.lesAnimaux.size() == 2) return false;
         else {
             this.lesAnimaux.add(animal);
-            };
+            }
         if (this.lesAnimaux.get(0) instanceof Loup) {
             ArrayList<Animal> list = new ArrayList<>();
             list.add(this.lesAnimaux.get(1));

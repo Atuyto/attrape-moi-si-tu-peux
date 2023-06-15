@@ -51,6 +51,7 @@ public class Option extends Stage {
         saveOption.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
         buttonRetour.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
         buttonImport.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.REGULAR,20));
+        buttonRetour.setPadding(new Insets(10, 10, 10 ,10));
 
         buttonRetour.setId("bRetour");
         buttonImport.setId("bImport");
