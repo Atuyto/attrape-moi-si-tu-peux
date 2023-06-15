@@ -5,41 +5,56 @@ import java.util.*;
 public class Dijkstra {
 
     private Labyrinthe lab;
-    public Dijkstra(Labyrinthe labyrinthe) {
+    private int[] depart;
+    private int[] arriver;
+    private int[][] as;
+
+    public Dijkstra(Labyrinthe labyrinthe, int[] depart, int[] arriver) {
         this.lab = labyrinthe;
+        this.depart = depart;
+        this.arriver = arriver;
+        this.as = initPoids();
+
+
+
     }
-    public int[] getSortie(){
-        int x = 0;
-        int y = 0;
-        for(int i = 0 ; i< lab.getX() ; i++){
-            for (int j = 0; j<lab.getY(); j++){
-                if(this.lab.getLesCases()[i][j].getSortie()){
-                    x= i;
-                    y =j;
-                    break;
-                }
-            }
-        }
-        return new int[]{x,y};
+
+    public List<int[]> dijRes(){
+        int[][] poids = setWeight(arriver, as);
+        return retrouverChemin(poids, depart, arriver);
     }
 
     public int[][] initPoids() {
         int[][] poidsLab = new int[lab.getX()][lab.getY()];
-        int maxPoids = lab.getX() * lab.getY(); // Maximum poids pour les cases inaccessibles
-
+        int[] pointL = new int[2];
         for (int i = 0; i < lab.getX(); i++) {
             for (int j = 0; j < lab.getY(); j++) {
-                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || lab.getLesCases()[i][j].getAnimal() != null && lab.getLesCases()[i][j].getAnimal() instanceof Loup ) {
-                    poidsLab[i][j] = lab.getX() * lab.getY();
+                if (lab.getLesCases()[i][j].getContenu() instanceof Rocher || (lab.getLesCases()[i][j].getAnimal() instanceof Loup && lab.getLesCases()[depart[0]][depart[1]].getAnimal() instanceof Mouton) ) {
+                    poidsLab[i][j] = Integer.MAX_VALUE;
+                    if(lab.getLesCases()[i][j].getAnimal() instanceof Loup){
+                        pointL = new int[]{i,j};
+                    }
+
+
                 } else {
                     poidsLab[i][j] = -1;
                 }
             }
         }
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+        int x = pointL[0];
+        int y = pointL[1];
+        for(int i = 0 ; i<4 ; i++){
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
+            if(nextX >= 0 && nextX < lab.getX() && nextY >=0 && nextY < lab.getY()) {
+                poidsLab[nextX][nextY] = Integer.MAX_VALUE;
+            }
+        }
 
-        int[] sortie = getSortie();
-        poidsLab[sortie[0]][sortie[1]] = 0;
 
+        poidsLab[arriver[0]][arriver[1]] = 0;
         return poidsLab;
     }
 
@@ -109,35 +124,11 @@ public class Dijkstra {
                 break;
             }
         }
-        chemin.add(getSortie());
+        chemin.remove(0);
+        chemin.add(arriver);
         return chemin;
     }
 
 
-
-
-
-
-    public static void main(String[] args) {
-        Labyrinthe lab = new Labyrinthe();
-        lab.genererGrilleAleatoire();
-        lab.getLesCases()[0][5].setSortie(true);
-        Dijkstra dijkstra = new Dijkstra(lab);
-        int[][] dj = dijkstra.initPoids();
-        int[][] poids = dijkstra.setWeight(dijkstra.getSortie(), dj );
-
-        for(int i = 0; i < lab.getX(); i++) {
-            for (int j = 0; j < lab.getY(); j++) {
-                System.out.print(poids[i][j] +"\t");
-            }
-            System.out.println();
-        }
-        List<int[]> chemin = dijkstra.retrouverChemin(poids, new int[]{8, 8}, dijkstra.getSortie());
-
-        for (int[] point : chemin) {
-            System.out.println(Arrays.toString(point));
-        }
-
-    }
 
 }

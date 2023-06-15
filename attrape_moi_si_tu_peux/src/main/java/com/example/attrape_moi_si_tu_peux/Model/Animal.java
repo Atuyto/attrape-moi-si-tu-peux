@@ -22,7 +22,8 @@ public abstract class Animal {
             if (x + 1 > 0 || this.getLeLabyrinthe().getX()-1 < x + 1 || y + 1 > 0 || this.getLeLabyrinthe().getY()-1 < y + 1 ) {
                 if (orientation.equals("O")) {
                     int tmpy = y-1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup)) {
+                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() &&
+                            !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup)&& !this.getLeLabyrinthe().getLesCases()[x][tmpy].getSortie()) {
                         this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
                         this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
                         y = tmpy;
@@ -45,7 +46,8 @@ public abstract class Animal {
                 }
                 if (orientation.equals(("S"))) {
                     int tmpx = x+1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup)) {
+                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() &&
+                            !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup) && !this.getLeLabyrinthe().getLesCases()[tmpx][y].getSortie() ) {
                         this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
                         this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
                         x = tmpx;
@@ -71,7 +73,8 @@ public abstract class Animal {
                 }
                 if (orientation.equals("E")) {
                     int tmpy = y+1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup)) {
+                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[x][tmpy].isAccessible() &&
+                            !(this.getLeLabyrinthe().getLesCases()[x][tmpy].getAnimal() instanceof Loup) && !this.getLeLabyrinthe().getLesCases()[x][tmpy].getSortie()  ) {
                         this.getLeLabyrinthe().getLesCases()[x][tmpy].setAnimal(this);
                         this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
                         y= tmpy;
@@ -94,7 +97,8 @@ public abstract class Animal {
                 }
                 if (orientation.equals("N")) {
                     int tmpx = x-1;
-                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() && !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup)) {
+                    if (this instanceof Mouton && this.getLeLabyrinthe().getLesCases()[tmpx][y].isAccessible() &&
+                            !(this.getLeLabyrinthe().getLesCases()[tmpx][y].getAnimal() instanceof Loup) && !this.getLeLabyrinthe().getLesCases()[tmpx][y].getSortie()) {
                         this.getLeLabyrinthe().getLesCases()[tmpx][y].setAnimal(this);
                         this.getLeLabyrinthe().getLesCases()[x][y].setAnimal(null);
                         x= tmpx;
