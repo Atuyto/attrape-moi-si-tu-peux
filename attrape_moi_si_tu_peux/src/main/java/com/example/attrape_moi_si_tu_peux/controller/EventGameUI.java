@@ -69,6 +69,7 @@ public class EventGameUI implements EventHandler {
             if(Objects.equals(((Button) event.getSource()).getId(), "bOption")){
                 option.show();
                 menu.close();
+                //Test
             }
 
 
